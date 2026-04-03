@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Верхняя М (Тёмная) -->
+  <path d="M 30 43 L 30 25 L 50 39 L 70 25 L 70 43" fill="none" stroke="#2F3E46" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
+  <!-- Нижняя М (Оранжевая) -->
+  <path d="M 30 57 L 30 75 L 50 61 L 70 75 L 70 57" fill="none" stroke="#B65F46" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/>
+</svg>
