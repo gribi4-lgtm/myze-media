@@ -743,7 +743,7 @@ export default function App() {
                             className="modal-video"
                             allow="autoplay; fullscreen; picture-in-picture"
                             allowFullScreen
-                            title={PORTFOLIO.find(p => p.vimeoId === activeVideo)?.title || 'Video'}
+                            title={PORTFOLIO_REAL.find(p => p.vimeoId === activeVideo)?.title || 'Video'}
                         />
                     </div>
                 </div>

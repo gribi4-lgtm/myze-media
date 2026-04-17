@@ -36,6 +36,50 @@
     }
 }
 
+/* ── Accordion mobile ─────────────────────────── */
+@media (max-width: 768px) {
+    .accordion-portfolio {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        height: auto;
+        padding: 1rem;
+        gap: 10px;
+    }
+
+    .accordion-panel {
+        flex: none;
+        height: 220px;
+        width: auto;
+        border-radius: 12px;
+    }
+
+    .accordion-panel.active {
+        flex: none;
+        height: 220px;
+    }
+
+    .accordion-title-vertical {
+        writing-mode: horizontal-tb;
+        transform: none;
+        left: 1rem;
+        right: 1rem;
+        bottom: 1rem;
+        font-size: 0.65rem;
+    }
+
+    .accordion-info {
+        left: 1rem;
+        right: 1rem;
+        bottom: 1rem;
+    }
+
+    .accordion-play {
+        opacity: 1;
+        width: 40px;
+        height: 40px;
+    }
+}
+
 /* ── Phone (≤ 480px) ──────────────────────────── */
 @media (max-width: 480px) {
 
