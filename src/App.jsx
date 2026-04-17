@@ -82,7 +82,7 @@ const PORTFOLIO_REAL = [
     {
         vimeoId: '1179772810',
         tag: 'AI Video',
-        title: 'Bridal Design Ad',
+        title: 'Bridal Designer Ad',
     },
     {
         vimeoId: '1180499080',
