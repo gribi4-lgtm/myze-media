@@ -38,45 +38,70 @@
 
 /* ── Accordion mobile ─────────────────────────── */
 @media (max-width: 768px) {
+    /* Вертикальный аккордеон */
     .accordion-portfolio {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
+        flex-direction: column;
         height: auto;
-        padding: 1rem;
-        gap: 10px;
+        padding: 0 1rem;
+        gap: 8px;
     }
 
+    /* Закрытая панель — тонкая полоска с названием */
     .accordion-panel {
         flex: none;
-        height: 220px;
-        width: auto;
-        border-radius: 12px;
+        height: 64px;
+        width: 100%;
+        border-radius: 10px;
+        transition: height 0.45s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
+    /* Открытая панель — раскрывается */
     .accordion-panel.active {
         flex: none;
-        height: 220px;
+        height: 260px;
     }
 
+    /* Скрываем вертикальный текст — на мобиле не нужен */
     .accordion-title-vertical {
-        writing-mode: horizontal-tb;
-        transform: none;
-        left: 1rem;
-        right: 1rem;
-        bottom: 1rem;
-        font-size: 0.65rem;
+        display: none;
     }
 
+    /* Название всегда видно внизу */
     .accordion-info {
+        opacity: 1;
+        transform: translateY(0);
         left: 1rem;
         right: 1rem;
-        bottom: 1rem;
+        bottom: 0.85rem;
     }
 
+    /* На закрытых панелях прячем тег, оставляем только название */
+    .accordion-panel:not(.active) .accordion-tag {
+        display: none;
+    }
+
+    /* Кнопка play — только на активной панели */
     .accordion-play {
+        opacity: 0;
+        width: 44px;
+        height: 44px;
+    }
+
+    .accordion-panel.active .accordion-play {
         opacity: 1;
-        width: 40px;
-        height: 40px;
+    }
+
+    /* Затемнение везде одинаковое */
+    .accordion-overlay {
+        background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 70%);
+    }
+}
+
+/* ── How It Works mobile ──────────────────────── */
+@media (max-width: 768px) {
+    .process-steps {
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
     }
 }
 
@@ -147,5 +172,9 @@
 
     .result-num {
         font-size: clamp(3rem, 15vw, 5rem);
+    }
+
+    .process-steps {
+        grid-template-columns: 1fr;
     }
 }

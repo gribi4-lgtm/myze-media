@@ -538,7 +538,7 @@ export default function App() {
                             key={p.vimeoId}
                             className={`accordion-panel${accordionActive === index ? ' active' : ''}`}
                             onMouseEnter={() => setAccordionActive(index)}
-                            onClick={() => setActiveVideo(p.vimeoId)}
+                            onClick={() => accordionActive === index ? setActiveVideo(p.vimeoId) : setAccordionActive(index)}
                             role="button"
                             tabIndex={0}
                             aria-label={`Play ${p.title}`}
