@@ -14,16 +14,6 @@ const SERVICES = [
         num: '01',
         icon: (
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: '28px', height: '28px' }}>
-                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-            </svg>
-        ),
-        title: 'Fashion',
-        desc: 'Fashion shows, backstage coverage, and model portfolios — captured with cinematic precision. With 8 years in the fashion industry, we know how to tell your story in promo or documentary format.',
-    },
-    {
-        num: '02',
-        icon: (
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: '28px', height: '28px' }}>
                 <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
                 <line x1="8" y1="21" x2="16" y2="21" />
                 <line x1="12" y1="17" x2="12" y2="21" />
@@ -35,7 +25,7 @@ const SERVICES = [
         desc: 'We skillfully craft commercials tailored precisely to your core audience. Our industry knowledge combined with a strong creative vision ensures maximum impact — content that captivates and connects.',
     },
     {
-        num: '03',
+        num: '02',
         icon: (
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: '28px', height: '28px' }}>
                 <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
@@ -44,6 +34,16 @@ const SERVICES = [
         ),
         title: 'Promo Videos',
         desc: 'Promo content must immediately grab attention or it gets lost. We create promos with a clear, direct call to action — content that not only captivates your audience but inspires them to engage.',
+    },
+    {
+        num: '03',
+        icon: (
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: '28px', height: '28px' }}>
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+            </svg>
+        ),
+        title: 'Fashion',
+        desc: 'Fashion shows, backstage coverage, and model portfolios — captured with cinematic precision. With 8 years in the fashion industry, we know how to tell your story in promo or documentary format.',
     },
     {
         num: '04',
