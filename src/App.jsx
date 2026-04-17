@@ -626,45 +626,6 @@ export default function App() {
                         </div>
                     </div>
 
-                    <div className="how-we-work will-animate">
-                        <div className="hww-card" data-num="01">
-                            <CardBorder />
-                            <div className="hww-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: '28px', height: '28px' }}>
-                                    <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z" />
-                                    <line x1="16" y1="8" x2="2" y2="22" />
-                                    <line x1="17.5" y1="15" x2="9" y2="6.5" />
-                                </svg>
-                            </div>
-                            <h4 className="hww-title">We Show Up</h4>
-                            <p className="hww-desc">Real crew, real cameras. We come to you and handle everything in-house — from concept to final cut. No handoffs, no middlemen.</p>
-                        </div>
-                        <div className="hww-card" data-num="02">
-                            <CardBorder />
-                            <div className="hww-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: '28px', height: '28px' }}>
-                                    <rect x="3" y="11" width="18" height="10" rx="2" />
-                                    <circle cx="12" cy="5" r="2" />
-                                    <path d="M12 7v4" />
-                                </svg>
-                            </div>
-                            <h4 className="hww-title">AI When It Matters</h4>
-                            <p className="hww-desc">When a vision demands more than a camera can capture, we bring in AI — expanding what's possible without touching the quality.</p>
-                        </div>
-                        <div className="hww-card" data-num="03">
-                            <CardBorder />
-                            <div className="hww-icon">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: '28px', height: '28px' }}>
-                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                                    <circle cx="9" cy="7" r="4" />
-                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                                </svg>
-                            </div>
-                            <h4 className="hww-title">Built for Results</h4>
-                            <p className="hww-desc">We don't just shoot beautiful video. We ask what it needs to do for your business — then build content that actually works.</p>
-                        </div>
-                    </div>
                 </div>
             </section>
 
