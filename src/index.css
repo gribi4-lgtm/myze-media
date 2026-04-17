@@ -1320,6 +1320,39 @@ section { padding: 7rem 0; position: relative; z-index: 1; }
   z-index: 1;
 }
 
+/* Social icons */
+.footer-social {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 3rem;
+}
+
+.footer-social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 10px;
+  color: rgba(255,255,255,0.55);
+  transition: color 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.footer-social-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.footer-social-icon:hover {
+  color: #fff;
+  border-color: rgba(255,255,255,0.5);
+  transform: translateY(-3px);
+}
+
 .footer-contact {
   display: grid;
   grid-template-columns: 1fr 1fr;

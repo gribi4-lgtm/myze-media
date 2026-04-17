@@ -122,14 +122,17 @@ const SKILLS = [
             <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
         </svg>
     ), desc: 'Crafting visually stunning sequences that capture the essence of your brand' },
-    { name: 'Color Grading', icon: (
+    { name: 'AI Integration', icon: (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: '28px', height: '28px' }}>
-            <circle cx="12" cy="12" r="10" />
-            <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
-            <path d="M2 12h20" />
+            <path d="M12 2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2 2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" />
+            <path d="M12 16a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2z" />
+            <path d="M4.93 4.93a2 2 0 0 1 2.83 0l1.41 1.41a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0L4.93 7.76a2 2 0 0 1 0-2.83z" />
+            <path d="M14.83 14.83a2 2 0 0 1 2.83 0l1.41 1.41a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-1.41-1.41a2 2 0 0 1 0-2.83z" />
+            <path d="M2 12a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2 2 2 0 0 1-2 2H4a2 2 0 0 1-2-2z" />
+            <path d="M16 12a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2z" />
         </svg>
-    ), desc: 'Setting the perfect cinematic mood with industry-standard grading' },
-    { name: 'Video Editing', icon: (
+    ), desc: 'We integrate AI into production when the project calls for it — smart tools, real results' },
+    { name: 'Editing & Color', icon: (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: '28px', height: '28px' }}>
             <circle cx="6" cy="6" r="3" />
             <circle cx="6" cy="18" r="3" />
@@ -137,7 +140,7 @@ const SKILLS = [
             <line x1="14.47" y1="14.48" x2="20" y2="20" />
             <line x1="8.12" y1="8.12" x2="12" y2="12" />
         </svg>
-    ), desc: 'Precision pacing that keeps audiences engaged from start to finish' },
+    ), desc: 'Precision cuts and cinematic color grading — paced to hold attention, graded to set the mood' },
     { name: 'Motion Design', icon: (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: '28px', height: '28px' }}>
             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
@@ -426,7 +429,7 @@ export default function App() {
 
                 {/* Text on top */}
                 <div className="container hero-content">
-                    <div className="hero-tag">CREATIVE VIDEO HOUSE</div>
+                    <div className="hero-tag">CREATIVE VIDEO PRODUCTION HOUSE</div>
                     <h1 className="hero-headline">
                         We build<br /><em>brands</em><br />on screen.
                     </h1>
@@ -605,7 +608,7 @@ export default function App() {
                         {/* Text side */}
                         <div className="about-text">
                             <span className="eyebrow">Our DNA</span>
-                            <h2 className="section-heading">Not Your<br />Average<br />Production</h2>
+                            <h2 className="section-heading">Not Your<br />Average<br />Production<br />Company</h2>
                             <p className="section-subtext">
                                 MYZE Media is a full-cycle video production house operating across NJ and NY. We shoot, direct, and edit everything in-house — no outsourcing, no middlemen, full creative control from concept to final delivery.
                             </p>
@@ -639,6 +642,21 @@ export default function App() {
             {/* ── Contact / Footer ──────────────────── */}
             <footer className="footer" id="contact">
                 <div className="container">
+                    {/* Social icons */}
+                    <div className="footer-social">
+                        {[
+                            { name: 'Instagram', href: '#', svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg> },
+                            { name: 'LinkedIn', href: '#', svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="4"/><line x1="8" y1="11" x2="8" y2="16"/><line x1="8" y1="8" x2="8" y2="8.5"/><path d="M12 16v-5"/><path d="M16 16v-3a2 2 0 0 0-4 0"/></svg> },
+                            { name: 'Vimeo', href: '#', svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 7.4c-.1 2.8-2 6.6-5.8 11.4C12.3 24 9.1 24 7.5 21c-.9-1.7-3.7-12.4-4.4-13.1-.5-.5-1.9.7-1.9.7L0 6.7C1.9 5 6.4.9 9 .7c2.8-.2 4.5 1.6 5.1 5.4.7 4 1.1 6.5 1.4 7.3.8 3.3 1.7 5 2.7 5 .8 0 2-1.3 3.6-3.8.8-1.3 1.2-2.3 1.2-3C23 10 22.2 9 21 9c-.5 0-1.1.2-1.7.6 1.1-3.7 3.3-5.5 2.7-2.2z"/></svg> },
+                            { name: 'YouTube', href: '#', svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22.5 6.4a2.8 2.8 0 0 0-2-2C18.9 4 12 4 12 4s-6.9 0-8.5.4a2.8 2.8 0 0 0-2 2C1 8 1 12 1 12s0 4 .5 5.6a2.8 2.8 0 0 0 2 2C5.1 20 12 20 12 20s6.9 0 8.5-.4a2.8 2.8 0 0 0 2-2C23 16 23 12 23 12s0-4-.5-5.6z"/><polygon points="10 15.5 16 12 10 8.5 10 15.5" fill="currentColor" stroke="none"/></svg> },
+                            { name: 'Facebook', href: '#', svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg> },
+                        ].map(({ name, href, svg }) => (
+                            <a key={name} href={href} className="footer-social-icon" aria-label={name} target="_blank" rel="noopener noreferrer">
+                                {svg}
+                            </a>
+                        ))}
+                    </div>
+
                     <div className="footer-contact">
                         <div className="footer-contact-left">
                             <span className="eyebrow">Contact Us</span>
