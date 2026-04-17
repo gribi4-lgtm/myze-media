@@ -452,7 +452,7 @@ export default function App() {
                             <h2 className="section-heading">Our<br />Arsenal</h2>
                         </div>
                         <p className="section-subtext">
-                            Full-stack production capabilities tailored for brands that want to dominate their market.
+                            Full-stack production capabilities tailored for brands that want to dominate their market.<br /><br />When a vision demands more than a camera can capture, we bring in AI — expanding what's possible without touching the quality.
                         </p>
                     </div>
                     <div className="services-grid">
