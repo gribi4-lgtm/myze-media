@@ -65,6 +65,11 @@ const PORTFOLIO_REAL = [
         title: 'Valkyrie',
     },
     {
+        vimeoId: '1181225815',
+        tag: 'AI Video',
+        title: 'Trish Peng Bridal Concept',
+    },
+    {
         vimeoId: '1183969203',
         tag: 'Fashion Film',
         title: 'ISMAELINA',
