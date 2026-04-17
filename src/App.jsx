@@ -2,7 +2,9 @@ import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-import ThreeBackground from './ThreeBackground';
+import AnimatedBackground from './AnimatedBackground';
+import CardBorder from './CardBorder';
+import Entropy from './Entropy';
 import './index.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -12,12 +14,11 @@ const SERVICES = [
         num: '01',
         icon: (
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: '28px', height: '28px' }}>
-                <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" />
-                <circle cx="12" cy="12" r="4" />
+                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
             </svg>
         ),
-        title: 'Concept Development',
-        desc: 'We start with strategy. What\'s your goal? Who\'s your audience? We architect the story, define the message, and build the production plan before we ever pick up a camera.',
+        title: 'Fashion',
+        desc: 'Fashion shows, backstage coverage, and model portfolios — captured with cinematic precision. With 8 years in the fashion industry, we know how to tell your story in promo or documentary format.',
     },
     {
         num: '02',
@@ -30,8 +31,8 @@ const SERVICES = [
                 <path d="M12 3v5" />
             </svg>
         ),
-        title: 'Brand & Commercial Films',
-        desc: 'TV commercials, corporate videos, and long-form brand films delivered at a cinematic level. Content that commands attention and communicates your premium positioning instantly.',
+        title: 'Commercials',
+        desc: 'We skillfully craft commercials tailored precisely to your core audience. Our industry knowledge combined with a strong creative vision ensures maximum impact — content that captivates and connects.',
     },
     {
         num: '03',
@@ -41,8 +42,8 @@ const SERVICES = [
                 <line x1="12" y1="18" x2="12.01" y2="18" />
             </svg>
         ),
-        title: 'Promo & Social Content',
-        desc: 'High-impact promotional videos and social-first content for Instagram, TikTok, and YouTube — engineered to stop the scroll and drive measurable business results.',
+        title: 'Promo Videos',
+        desc: 'Promo content must immediately grab attention or it gets lost. We create promos with a clear, direct call to action — content that not only captivates your audience but inspires them to engage.',
     },
     {
         num: '04',
@@ -52,33 +53,61 @@ const SERVICES = [
                 <rect x="1" y="5" width="15" height="14" rx="2" ry="2" />
             </svg>
         ),
-        title: 'Documentary Production',
-        desc: 'Thought-provoking documentary-style storytelling that builds deep trust with your audience. We find the human truth in your brand and put it on screen.',
+        title: 'Documentary',
+        desc: 'We have executed documentary projects across the United States and Europe. Whether capturing compelling stories or significant events, we bring the expertise to take your narrative anywhere in the world.',
     },
 ];
 
-const PORTFOLIO = [
+const PORTFOLIO_REAL = [
+    {
+        vimeoId: '1183970428',
+        tag: 'Music Video',
+        title: 'Valkyrie',
+    },
+    {
+        vimeoId: '1183969203',
+        tag: 'Fashion Film',
+        title: 'ISMAELINA',
+    },
     {
         vimeoId: '1179769681',
         tag: 'Brand Documentary',
-        title: 'Judaica Creations by Aliza Blizinski',
+        title: 'Judaica Creations',
     },
     {
         vimeoId: '1179772667',
-        tag: 'Commercial / Storytelling',
-        title: 'BOOTS Director Cut',
+        tag: 'Commercial / Product',
+        title: 'Under Armour',
     },
     {
         vimeoId: '1179772810',
-        tag: 'Narrative Film',
-        title: 'Narrative Test',
+        tag: 'AI Video',
+        title: 'Bridal Design Ad',
+    },
+    {
+        vimeoId: '1180499080',
+        tag: 'Bridal / Fashion',
+        title: 'Joseph Sayadi Bridal',
     },
 ];
 
+const PORTFOLIO_AI = [
+    // AI-generated videos will be added here
+];
+
 const RESULTS = [
-    { num: '250%', label: 'Increase in Conversions' },
-    { num: '4.2x', label: 'Return on Investment' },
-    { num: '180%', label: 'Increase in Brand Awareness' },
+    { num: '91%', label: 'of businesses now use video as a marketing tool' },
+    { num: '80%', label: 'higher conversions on landing pages with video' },
+    { num: '49%', label: 'faster revenue growth for brands with video strategy' },
+];
+
+const CLIENTS = [
+    { name: 'Judaica Creations' },
+    { name: 'Under Armor' },
+    { name: 'Complete Care' },
+    { name: 'Jemme Huang Bridal' },
+    { name: 'Momentum Capital' },
+    { name: 'BB NYC' },
 ];
 
 const SKILLS = [
@@ -142,12 +171,12 @@ const playHoverSound = () => {
 
 export default function App() {
     const navRef = useRef(null);
-    const trackRef = useRef(null);
-    const counterRef = useRef(null);
+
     const [menuOpen, setMenuOpen] = useState(false);
     const [activeVideo, setActiveVideo] = useState(null);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [accordionActive, setAccordionActive] = useState(0);
     const [thumbnails, setThumbnails] = useState({});
     const preloaderNumRef = useRef(null);
 
@@ -162,7 +191,7 @@ export default function App() {
 
     useEffect(() => {
         Promise.all(
-            PORTFOLIO.map((item) =>
+            PORTFOLIO_REAL.map((item) =>
                 fetch(`https://vimeo.com/api/oembed.json?url=https://vimeo.com/${item.vimeoId}&width=1280`)
                     .then(r => r.json())
                     .then(data => data.thumbnail_url ? [item.vimeoId, data.thumbnail_url] : null)
@@ -309,43 +338,11 @@ export default function App() {
 
             const mm = gsap.matchMedia();
 
-            // ── Desktop: pin + horizontal scroll ──────────────
-            mm.add('(min-width: 768px)', () => {
-              const track = trackRef.current;
-              if (!track) return;
-
-              gsap.to(track, {
-                x: () => -(track.scrollWidth - window.innerWidth),
-                ease: 'none',
-                scrollTrigger: {
-                  trigger: '#work',
-                  start: 'top top',
-                  end: () => `+=${track.scrollWidth - window.innerWidth}`,
-                  pin: true,
-                  scrub: 1,
-                  invalidateOnRefresh: true,
-                  anticipatePin: 1,
-                  onUpdate: (self) => {
-                    const index = Math.min(
-                      PORTFOLIO.length - 1,
-                      Math.round(self.progress * (PORTFOLIO.length - 1))
-                    );
-                    if (counterRef.current) {
-                      const activeSpan = counterRef.current.querySelector('.active-num');
-                      if (activeSpan) {
-                        activeSpan.textContent = String(index + 1).padStart(2, '0');
-                      }
-                    }
-                  },
-                },
-              });
-            });
-
-            // ── Mobile: vertical fade-in ──────────────────────
+            // ── Mobile: accordion fade-in ──────────────────────
             mm.add('(max-width: 767px)', () => {
-              gsap.from('.portfolio-slide', {
+              gsap.from('.accordion-panel', {
                 scrollTrigger: {
-                  trigger: '.portfolio-track',
+                  trigger: '.accordion-portfolio',
                   start: 'top 85%',
                 },
                 opacity: 0,
@@ -373,9 +370,9 @@ export default function App() {
                 </div>
             )}
 
-            {/* ── Fixed Full-Page 3D Background ──────── */}
+            {/* ── Fixed 3D Background ────────────────── */}
             <div className="bg-canvas-wrap">
-                <ThreeBackground />
+                <AnimatedBackground />
             </div>
 
             {/* ── Navigation ────────────────────────── */}
@@ -395,14 +392,12 @@ export default function App() {
                         onClick={() => setMenuOpen(o => !o)}
                         aria-label="Toggle menu"
                     >
-                        <span />
-                        <span />
-                        <span />
+                        <span /><span /><span />
                     </button>
                 </div>
             </nav>
 
-            {/* ── Fullscreen Menu Overlay ───────────── */}
+            {/* ── Mobile Menu Overlay ────────────────── */}
             <div className={`menu-overlay${menuOpen ? ' is-open' : ''}`}>
                 <nav className="menu-overlay-nav">
                     <a href="#services" onClick={closeMenu}>Services</a>
@@ -418,21 +413,27 @@ export default function App() {
 
             {/* ── Hero ──────────────────────────────── */}
             <section className="hero" id="hero">
+
+                {/* Entropy canvas animation — replaces hero model */}
+                <Entropy style={{ opacity: 0.6, zIndex: 1 }} />
+
                 <div className="hero-vignette" />
 
+                {/* Text on top */}
                 <div className="container hero-content">
-                    <div className="hero-tag">
-                        Creative Video House
-                    </div>
+                    <div className="hero-tag">CREATIVE VIDEO HOUSE</div>
                     <h1 className="hero-headline">
-                        Your brand doesn't need another video. It needs a <em>story worth watching.</em>
+                        We build<br /><em>brands</em><br />on screen.
                     </h1>
                     <p className="hero-subtext">
-                        MYZE Media is a full-service video production studio helping brands, businesses, and agencies inspire audiences — through cinematic storytelling that drives real results.
+                        Real production meets AI innovation.<br />Commercial-grade results, every time.
                     </p>
                     <div className="hero-ctas">
-                        <a href="#work" className="btn btn-primary">View Our Work →</a>
+                        <a href="#work" className="btn btn-primary">View Our Work</a>
                         <a href="#contact" className="btn btn-outline">Get In Touch</a>
+                    </div>
+                    <div className="hero-stat">
+                        <span className="hero-stat-label">We blend creative direction with AI-accelerated production to deliver premium video faster</span>
                     </div>
                 </div>
 
@@ -445,19 +446,19 @@ export default function App() {
             {/* ── Services ──────────────────────────── */}
             <section id="services">
                 <div className="container">
-                    <div className="will-animate">
-                        <span className="eyebrow">What We Do</span>
-                        <h2 className="section-heading">
-                            Strategy. Creative. Production.<br /><em>Tailor-made for you.</em>
-                        </h2>
+                    <div className="services-header will-animate">
+                        <div>
+                            <span className="eyebrow">What We Do</span>
+                            <h2 className="section-heading">Our<br />Arsenal</h2>
+                        </div>
                         <p className="section-subtext">
-                            Every engagement begins with your goals. We develop the concept, craft the narrative, and execute at a level that commands attention — with no wasted time or budget.
+                            Full-stack production capabilities tailored for brands that want to dominate their market.
                         </p>
                     </div>
-
                     <div className="services-grid">
                         {SERVICES.map((s) => (
                             <div className="service-card" key={s.num}>
+                                <CardBorder />
                                 <div className="service-num">{s.num}</div>
                                 <div className="service-icon">{s.icon}</div>
                                 <h3 className="service-title">{s.title}</h3>
@@ -470,74 +471,117 @@ export default function App() {
 
             <div className="hairline" />
 
-            {/* ── Portfolio Film Reel ─────────────────── */}
-            <section id="work">
-              <div className="container">
-                <div className="will-animate portfolio-header">
-                  <div>
-                    <span className="eyebrow">Our Work</span>
-                    <h2 className="section-heading">Selected Projects</h2>
-                  </div>
-                  <span className="portfolio-counter" ref={counterRef}>
-                    <span className="active-num">01</span> / {String(PORTFOLIO.length).padStart(2, '0')}
-                  </span>
-                </div>
-              </div>
-
-              <div className="portfolio-reel">
-                <div className="portfolio-track" ref={trackRef}>
-                  {PORTFOLIO.map((p) => (
-                    <div
-                      className="portfolio-slide"
-                      key={p.vimeoId}
-                      role="button"
-                      tabIndex={0}
-                      aria-label={`Play ${p.title}`}
-                      onClick={() => setActiveVideo(p.vimeoId)}
-                      onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActiveVideo(p.vimeoId); } }}
-                    >
-                      <div className="portfolio-slide-inner">
-                        {thumbnails[p.vimeoId] ? (
-                          <img
-                            src={thumbnails[p.vimeoId]}
-                            alt={p.title}
-                            className="portfolio-video"
-                            loading="lazy"
-                          />
-                        ) : (
-                          <div className="portfolio-thumb-placeholder" />
-                        )}
-                        <div className="portfolio-overlay">
-                          <div className="portfolio-play">▶</div>
-                          <div className="portfolio-tag">{p.tag}</div>
-                          <div className="portfolio-title">{p.title}</div>
-                        </div>
-                      </div>
-                      <div className="portfolio-slide-meta">
-                        <div className="portfolio-tag">{p.tag}</div>
-                        <div className="portfolio-title">{p.title}</div>
-                      </div>
+            {/* ── How It Works ──────────────────────── */}
+            <section id="process">
+                <div className="container">
+                    <div className="will-animate process-header">
+                        <span className="eyebrow">Our Process</span>
+                        <h2 className="section-heading">How It<br />Works</h2>
                     </div>
-                  ))}
+                    <div className="process-steps">
+                        {[
+                            {
+                                num: '01', title: 'Discovery', desc: 'We start by understanding your goals, budget, and target audience. This is where we ask the right questions so nothing gets lost in production.',
+                                icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="26" height="26"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                            },
+                            {
+                                num: '02', title: 'Proposal', desc: 'Based on the discovery, we build a tailored proposal with clear options. You know exactly what you\'re getting and what it costs — no surprises.',
+                                icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="26" height="26"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                            },
+                            {
+                                num: '03', title: 'Creative Concepts', desc: 'Our team develops creative ideas that align with your brand strategy. We present concepts before we ever touch a camera.',
+                                icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="26" height="26"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/><circle cx="12" cy="12" r="4"/></svg>
+                            },
+                            {
+                                num: '04', title: 'Production', desc: 'We handle everything — locations, crew, shooting, editing, and final delivery. Full-cycle production, start to finish, in-house.',
+                                icon: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" width="26" height="26"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+                            },
+                        ].map((step) => (
+                            <div className="process-card will-animate" key={step.num}>
+                                <CardBorder />
+                                <div className="process-step-num">{step.num}</div>
+                                <div className="process-step-icon">{step.icon}</div>
+                                <h3 className="process-step-title">{step.title}</h3>
+                                <p className="process-step-desc">{step.desc}</p>
+                            </div>
+                        ))}
+                    </div>
                 </div>
-              </div>
             </section>
 
             <div className="hairline" />
 
-            {/* ── Built For Results ─────────────────── */}
+            {/* ── Portfolio ──────────────────────────── */}
+            <section id="work">
+                <div className="container">
+                    <div className="will-animate portfolio-header">
+                        <div>
+                            <h2 className="section-heading">Portfolio</h2>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="work-marquee-wrap">
+                    <div className="work-marquee-track">
+                        {['Social Media Videos', 'Brand Videos', 'Promo Videos', 'Commercials', 'Documentaries', 'Product Videos', 'Testimonial Videos', 'Corporate Videos', 'Music Videos', 'Cinematic Storytelling', 'AI-Enhanced Production', 'Color Grading', 'Motion Graphics'].map((item, i) => (
+                            <span key={i} className="work-marquee-item">{item} <span className="work-marquee-dot">·</span></span>
+                        ))}
+                        {['Social Media Videos', 'Brand Videos', 'Promo Videos', 'Commercials', 'Documentaries', 'Product Videos', 'Testimonial Videos', 'Corporate Videos', 'Music Videos', 'Cinematic Storytelling', 'AI-Enhanced Production', 'Color Grading', 'Motion Graphics'].map((item, i) => (
+                            <span key={`dup-${i}`} className="work-marquee-item">{item} <span className="work-marquee-dot">·</span></span>
+                        ))}
+                    </div>
+                </div>
+
+                <div className="accordion-portfolio">
+                    {PORTFOLIO_REAL.map((p, index) => (
+                        <div
+                            key={p.vimeoId}
+                            className={`accordion-panel${accordionActive === index ? ' active' : ''}`}
+                            onMouseEnter={() => setAccordionActive(index)}
+                            onClick={() => setActiveVideo(p.vimeoId)}
+                            role="button"
+                            tabIndex={0}
+                            aria-label={`Play ${p.title}`}
+                            onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setActiveVideo(p.vimeoId); } }}
+                        >
+                            {thumbnails[p.vimeoId] ? (
+                                <img src={thumbnails[p.vimeoId]} alt={p.title} className="accordion-bg" loading="lazy" />
+                            ) : (
+                                <div className="accordion-bg-placeholder" />
+                            )}
+                            <div className="accordion-overlay" />
+                            <div className="accordion-play">
+                                <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
+                                    <polygon points="5,3 19,12 5,21" />
+                                </svg>
+                            </div>
+                            <div className="accordion-info">
+                                <span className="accordion-tag">{p.tag}</span>
+                                <span className="accordion-title-text">{p.title}</span>
+                            </div>
+                            <span className="accordion-title-vertical">{p.title}</span>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            <div className="hairline" />
+
+            {/* ── Results ────────────────────────────── */}
             <section id="results" className="results-section">
                 <div className="container">
-                    <div className="results-eyebrow will-animate">Built For Results</div>
+                    <div className="results-eyebrow will-animate">Industry Data, 2024</div>
+                    <h2 className="results-heading will-animate">Video Is The<br />New Standard</h2>
                     <div className="results-grid">
                         {RESULTS.map((r) => (
                             <div className="result-stat" key={r.label}>
+                                <CardBorder />
                                 <div className="result-num">{r.num}</div>
                                 <div className="result-label">{r.label}</div>
                             </div>
                         ))}
                     </div>
-                    <p className="results-note">Based on average client data, 2023–2025</p>
+                    <p className="results-note">Source: Wyzowl State of Video Marketing 2024 — wyzowl.com/video-marketing-statistics</p>
                 </div>
             </section>
 
@@ -546,36 +590,45 @@ export default function App() {
             {/* ── About ──────────────────────────────── */}
             <section id="about">
                 <div className="container">
-                    <div className="about-text will-animate">
-                        <span className="eyebrow">About MYZE Media</span>
-                        <h2 className="section-heading">
-                            We're not just a production company.
-                        </h2>
-                        <p className="section-subtext">
-                            MYZE Media is a full-cycle video production studio operating across NJ and NY — specializing in brand films, TV commercials, and documentary content. We shoot, direct, and edit everything in-house: no outsourcing, no middlemen, full creative control from concept to final delivery.
-                        </p>
-                        <p className="section-subtext">
-                            When it gives us an edge, we integrate AI into our workflow — for smarter scripting, faster iteration, and sharper storytelling. We're not replacing creativity; we're amplifying it.
-                        </p>
-                        <p className="section-subtext">
-                            Your brand is unique — and so should its story. We partner with businesses to uncover their voice and connect with audiences through innovative, passionate filmmaking. Our work has earned recognition at PROMAX BDA and the Cannes Blue Dolphin, reflecting the caliber of craft we bring to every project.
-                        </p>
-                    </div>
+                    <div className="about-grid will-animate">
+                        {/* Image side */}
+                        <div className="about-image-wrapper">
+                            <div className="about-image-placeholder">Behind the lens</div>
+                            <div className="about-badge">Est. 2026 — NJ & NY</div>
+                        </div>
 
-                    <div className="skills-grid will-animate">
-                        {SKILLS.map((skill) => (
-                            <div className="skill-card" key={skill.name}>
-                                <div className="skill-icon">{skill.icon}</div>
-                                <div className="skill-info">
-                                    <h4 className="skill-name">{skill.name}</h4>
-                                    <p className="skill-desc">{skill.desc}</p>
-                                </div>
+                        {/* Text side */}
+                        <div className="about-text">
+                            <span className="eyebrow">Our DNA</span>
+                            <h2 className="section-heading">Not Your<br />Average<br />Production</h2>
+                            <p className="section-subtext">
+                                MYZE Media is a full-cycle video production house operating across NJ and NY. We shoot, direct, and edit everything in-house — no outsourcing, no middlemen, full creative control from concept to final delivery.
+                            </p>
+                            <p className="section-subtext" style={{ marginTop: '1.2rem' }}>
+                                AI-powered workflows — 2x faster delivery, same cinematic quality. We're not replacing creativity; we're amplifying it.
+                            </p>
+                            <p className="section-subtext" style={{ marginTop: '1.2rem' }}>
+                                Our work has earned recognition at PROMAX BDA and the Cannes Blue Dolphin — reflecting the caliber of craft we bring to every project.
+                            </p>
+
+                            <div className="skills-grid">
+                                {SKILLS.map((skill) => (
+                                    <div className="skill-card" key={skill.name}>
+                                        <CardBorder />
+                                        <div className="skill-icon">{skill.icon}</div>
+                                        <div className="skill-info">
+                                            <h4 className="skill-name">{skill.name}</h4>
+                                            <p className="skill-desc">{skill.desc}</p>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
-                        ))}
+                        </div>
                     </div>
 
                     <div className="how-we-work will-animate">
-                        <div className="hww-card">
+                        <div className="hww-card" data-num="01">
+                            <CardBorder />
                             <div className="hww-icon">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: '28px', height: '28px' }}>
                                     <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z" />
@@ -583,23 +636,23 @@ export default function App() {
                                     <line x1="17.5" y1="15" x2="9" y2="6.5" />
                                 </svg>
                             </div>
-                            <h4 className="hww-title">We Do It Ourselves</h4>
-                            <p className="hww-desc">Every project shot and edited in-house — by the same team, start to finish.</p>
+                            <h4 className="hww-title">We Show Up</h4>
+                            <p className="hww-desc">Real crew, real cameras. We come to you and handle everything in-house — from concept to final cut. No handoffs, no middlemen.</p>
                         </div>
-                        <div className="hww-card">
+                        <div className="hww-card" data-num="02">
+                            <CardBorder />
                             <div className="hww-icon">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: '28px', height: '28px' }}>
                                     <rect x="3" y="11" width="18" height="10" rx="2" />
                                     <circle cx="12" cy="5" r="2" />
                                     <path d="M12 7v4" />
-                                    <line x1="8" y1="16" x2="8" y2="16" />
-                                    <line x1="16" y1="16" x2="16" y2="16" />
                                 </svg>
                             </div>
-                            <h4 className="hww-title">AI-Enhanced</h4>
-                            <p className="hww-desc">We use AI to work smarter, not harder — faster turnarounds, sharper results.</p>
+                            <h4 className="hww-title">AI When It Matters</h4>
+                            <p className="hww-desc">When a vision demands more than a camera can capture, we bring in AI — expanding what's possible without touching the quality.</p>
                         </div>
-                        <div className="hww-card">
+                        <div className="hww-card" data-num="03">
+                            <CardBorder />
                             <div className="hww-icon">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ width: '28px', height: '28px' }}>
                                     <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
@@ -608,8 +661,8 @@ export default function App() {
                                     <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                                 </svg>
                             </div>
-                            <h4 className="hww-title">Scalable Team</h4>
-                            <p className="hww-desc">We scale up with trusted collaborators for bigger productions when needed.</p>
+                            <h4 className="hww-title">Built for Results</h4>
+                            <p className="hww-desc">We don't just shoot beautiful video. We ask what it needs to do for your business — then build content that actually works.</p>
                         </div>
                     </div>
                 </div>
@@ -617,27 +670,24 @@ export default function App() {
 
             <div className="hairline" />
 
-            {/* ── Footer with Contact ───────────────── */}
+            {/* ── Contact / Footer ──────────────────── */}
             <footer className="footer" id="contact">
                 <div className="container">
-
                     <div className="footer-contact">
                         <div className="footer-contact-left">
                             <span className="eyebrow">Contact Us</span>
-                            <h2 className="section-heading footer-heading">
-                                Ready to make<br />something amazing?
+                            <h2 className="footer-heading">
+                                Let's Make<br />Something<br />Great.
                             </h2>
-                            <p className="footer-tagline">
-                                We typically respond within 24 hours.
-                            </p>
+                            <p className="footer-tagline">We typically respond within 24 hours.</p>
                             <div className="footer-contact-details">
-                                <a href="mailto:mikes@heet.nyc" className="contact-detail-row">
+                                <a href="mailto:mike@myzemedia.com" className="contact-detail-row">
                                     <span className="contact-detail-label">Email</span>
-                                    <span className="contact-detail-value">mikes@heet.nyc</span>
+                                    <span className="contact-detail-value">mike@myzemedia.com</span>
                                 </a>
-                                <a href="tel:+13472542324" className="contact-detail-row">
+                                <a href="tel:+19733705432" className="contact-detail-row">
                                     <span className="contact-detail-label">Phone</span>
-                                    <span className="contact-detail-value">(347) 254-2324</span>
+                                    <span className="contact-detail-value">(973) 370-5432</span>
                                 </a>
                             </div>
                         </div>
@@ -660,10 +710,10 @@ export default function App() {
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="f-msg">Message</label>
-                                        <textarea id="f-msg" rows="3" placeholder="Tell us about your project..." required />
+                                        <textarea id="f-msg" rows="4" placeholder="Tell us about your project..." required />
                                     </div>
                                     <button type="submit" className="btn btn-primary btn-full">
-                                        Send Message →
+                                        Send Brief →
                                     </button>
                                 </>
                             )}
@@ -680,7 +730,6 @@ export default function App() {
                             <a href="#about">About</a>
                         </div>
                     </div>
-
                 </div>
             </footer>
 
