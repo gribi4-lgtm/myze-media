@@ -80,9 +80,9 @@ const PORTFOLIO_REAL = [
         title: 'Under Armour',
     },
     {
-        vimeoId: '1179772810',
+        vimeoId: '1181245077',
         tag: 'AI Video',
-        title: 'Bridal Designer Ad',
+        title: 'Bridal Designer Concept',
     },
     {
         vimeoId: '1180499080',
@@ -700,7 +700,7 @@ export default function App() {
                     <button className="video-modal-close" onClick={() => setActiveVideo(null)}>✕</button>
                     <div className="video-modal-content" onClick={e => e.stopPropagation()}>
                         <iframe
-                            src={`https://player.vimeo.com/video/${activeVideo}?autoplay=1&title=0&byline=0&portrait=0&color=B65F46`}
+                            src={`https://player.vimeo.com/video/${activeVideo}?autoplay=1&loop=1&title=0&byline=0&portrait=0&color=B65F46`}
                             className="modal-video"
                             allow="autoplay; fullscreen; picture-in-picture"
                             allowFullScreen

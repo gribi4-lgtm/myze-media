@@ -66,7 +66,7 @@
         display: none;
     }
 
-    /* Название всегда видно внизу */
+    /* Название + категория всегда видны */
     .accordion-info {
         opacity: 1;
         transform: translateY(0);
@@ -75,9 +75,24 @@
         bottom: 0.85rem;
     }
 
-    /* На закрытых панелях прячем тег, оставляем только название */
+    /* Закрытая карточка: название слева, категория справа — в одну строку */
+    .accordion-panel:not(.active) .accordion-info {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+    }
+
     .accordion-panel:not(.active) .accordion-tag {
-        display: none;
+        font-size: 0.6rem;
+        opacity: 0.7;
+        text-align: right;
+        flex-shrink: 0;
+    }
+
+    .accordion-panel:not(.active) .accordion-title-text {
+        font-size: 0.85rem;
     }
 
     /* Кнопка play — только на активной панели */
