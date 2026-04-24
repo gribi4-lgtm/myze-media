@@ -915,6 +915,9 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
   display: flex;
   width: max-content;
   animation: ticker-scroll 38s linear infinite;
+  -webkit-animation: ticker-scroll 38s linear infinite;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .ticker:hover .ticker-track {
@@ -1113,11 +1116,15 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
       linear-gradient(to bottom, rgba(8,8,6,0.55) 0%, rgba(0,0,0,0) 35%);
   }
 
-  /* Контент начинается с середины экрана */
+  /* Контент — прижат снизу, низ кнопки = уровень красной точки */
   .hero-content {
-    padding: 40vh 40px 120px 40px;
+    position: absolute;
+    bottom: 146px;
+    left: 40px;
+    right: 40px;
+    padding: 0;
     max-width: 100%;
-    text-align: left;
+    text-align: center;
   }
 
   /* Зеленовато-белый текст, жирный, каждое слово с новой строки */
@@ -1127,8 +1134,12 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
     color: #DCE4D2;
     word-spacing: 9999px;
     line-height: 1.05;
+    margin-bottom: 32px;
   }
-  .hero-sub { color: rgba(220,228,210,0.7); }
+  .hero-sub {
+    color: rgba(220,228,210,0.7);
+    margin: 0 auto 48px;
+  }
 
   /* Лейбл — точка (низ) на y=698 (низ кнопки CONTACT) */
   .hero-side-label {
