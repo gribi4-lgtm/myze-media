@@ -918,8 +918,6 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
   overflow: hidden;
   border-top:    1px solid rgba(230,235,221,0.08);
   border-bottom: 1px solid rgba(230,235,221,0.08);
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
 }
 
 @keyframes ticker-scroll {
@@ -937,6 +935,8 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
   animation: ticker-scroll 38s linear infinite;
   -webkit-animation: ticker-scroll 38s linear infinite;
   will-change: transform;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .ticker:hover .ticker-track {
