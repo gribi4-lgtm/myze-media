@@ -1,10 +1,23 @@
 import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import AnimatedBackground from './AnimatedBackground';
 import './index.css';
 
-gsap.registerPlugin(ScrollTrigger);
+/* ── FRAMER MOTION VARIANTS ──────────────────── */
+const rv = {
+  hidden:  { opacity: 0, y: 18, filter: 'blur(5px)' },
+  visible: { opacity: 1, y: 0,  filter: 'blur(0px)' },
+};
+const rt = { duration: 1.2, ease: [0.22, 1, 0.36, 1] };
+
+const ri = {
+  hidden:  { opacity: 0, scale: 1.04, filter: 'blur(8px)' },
+  visible: { opacity: 1, scale: 1,    filter: 'blur(0px)' },
+};
+const rit = { duration: 1.8, ease: [0.22, 1, 0.36, 1] };
+
+const vp = { once: true, amount: 0.2 };
 
 const PROJECTS = [
   { id: '1186076334', tag: 'COMMERCIAL / PRODUCT', title: 'ELECTRONIKA WATCH' },
@@ -51,14 +64,12 @@ export default function App() {
     });
   }, []);
 
-  /* scroll reveal */
+  /* hero headline — line by line (GSAP, stays) */
   useEffect(() => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const ease = 'cubic-bezier(0.22, 1, 0.36, 1)';
 
     const ctx = gsap.context(() => {
-
-      /* hero headline — line by line */
       if (!prefersReduced) {
         gsap.utils.toArray('.hero-line').forEach((line, i) => {
           gsap.fromTo(line,
@@ -69,61 +80,8 @@ export default function App() {
       } else {
         gsap.set('.hero-line', { opacity: 1, y: 0 });
       }
-
-      /* .reveal — text elements: soft upward fade + blur */
-      gsap.utils.toArray('.reveal').forEach(el => {
-        const isHero = el.closest('.hero');
-        if (prefersReduced) {
-          gsap.set(el, { opacity: 1, y: 0, filter: 'blur(0px)' });
-          return;
-        }
-        gsap.fromTo(el,
-          { opacity: 0, y: 18, filter: 'blur(5px)' },
-          {
-            opacity: 1, y: 0, filter: 'blur(0px)',
-            duration: 1.2,
-            ease,
-            delay: isHero ? 0.3 : 0,
-            scrollTrigger: isHero ? null : { trigger: el, start: 'top 80%', once: true },
-          }
-        );
-      });
-
-      /* .reveal-stagger — stagger children */
-      gsap.utils.toArray('.reveal-stagger').forEach(container => {
-        if (prefersReduced) {
-          gsap.set(container.children, { opacity: 1, y: 0 });
-          return;
-        }
-        gsap.fromTo(Array.from(container.children),
-          { opacity: 0, y: 16 },
-          {
-            opacity: 1, y: 0,
-            duration: 1.0,
-            ease,
-            stagger: 0.1,
-            scrollTrigger: { trigger: container, start: 'top 80%', once: true },
-          }
-        );
-      });
-
-      /* .reveal-image — images: fade + scale + blur (медленнее) */
-      gsap.utils.toArray('.reveal-image').forEach(el => {
-        if (prefersReduced) {
-          gsap.set(el, { opacity: 1, scale: 1, filter: 'blur(0px)' });
-          return;
-        }
-        gsap.fromTo(el,
-          { opacity: 0, scale: 1.04, filter: 'blur(8px)' },
-          {
-            opacity: 1, scale: 1, filter: 'blur(0px)',
-            duration: 1.8,
-            ease,
-            scrollTrigger: { trigger: el, start: 'top 85%', once: true },
-          }
-        );
-      });
     });
+
     return () => ctx.revert();
   }, []);
 
@@ -176,7 +134,6 @@ export default function App() {
       'filter 600ms cubic-bezier(0.22, 1, 0.36, 1)',
     ].join(', ');
 
-    /* Начальное состояние */
     cards.forEach(card => {
       card.style.opacity = '0';
       card.style.transform = 'translateY(40px)';
@@ -248,16 +205,28 @@ export default function App() {
             <span className="hero-line">IS</span>
             <span className="hero-line">EVERYTHING</span>
           </h2>
-          <p className="hero-sub reveal">
+          <motion.p
+            className="hero-sub"
+            variants={rv}
+            initial="hidden"
+            animate="visible"
+            transition={{ ...rt, delay: 0.75 }}
+          >
             Most brands don't lose to competitors.<br />
             They lose to how they look.<br />
             <br />
             We fix that.
-          </p>
-          <div className="hero-btns reveal">
+          </motion.p>
+          <motion.div
+            className="hero-btns"
+            variants={rv}
+            initial="hidden"
+            animate="visible"
+            transition={{ ...rt, delay: 0.95 }}
+          >
             <a href="#work" className="btn-primary">VIEW SELECTED WORK</a>
             <button className="btn-outline" onClick={() => { setFormOpen(true); setFormSent(false); }}>START A PROJECT</button>
-          </div>
+          </motion.div>
         </div>
         <div className="hero-side-label">
           <div className="hero-side-line" />
@@ -272,7 +241,11 @@ export default function App() {
 
       {/* ── TICKER ─────────────────────────────── */}
       <div className="ticker" aria-hidden="true">
-        <div className="ticker-track">
+        <motion.div
+          className="ticker-track"
+          animate={{ x: ['0%', '-50%'] }}
+          transition={{ duration: 38, ease: 'linear', repeat: Infinity, repeatType: 'loop' }}
+        >
           {[0, 1].map(n => (
             <span key={n} className="ticker-set">
               {['BRAND FILMS','COMMERCIAL VIDEOS','SOCIAL CONTENT','TESTIMONIAL VIDEOS','CORPORATE VIDEOS','MUSIC VIDEOS','CINEMATIC STORYTELLING','AI-ENHANCED PRODUCTION'].map(item => (
@@ -282,20 +255,27 @@ export default function App() {
               ))}
             </span>
           ))}
-        </div>
+        </motion.div>
       </div>
 
       {/* ── WORK ───────────────────────────────── */}
       <section className="work-section" id="work">
-        <div className="work-left reveal">
+        <motion.div
+          className="work-left"
+          variants={rv}
+          initial="hidden"
+          whileInView="visible"
+          viewport={vp}
+          transition={rt}
+        >
           <h2 className="work-headline">
             VISUALS THAT<br />POSITION.<br />NOT JUST IMPRESS.
           </h2>
           <a href="https://vimeo.com/myzemedia" target="_blank" rel="noopener noreferrer" className="text-link work-view-all">VIEW ALL WORK <span style={{color:'var(--red)'}}>→</span></a>
-        </div>
+        </motion.div>
         <div className="work-scroll-wrap">
 
-          {/* ── MOBILE: горизонтальный скролл карточек ── */}
+          {/* ── MOBILE: вертикальный аккордеон ── */}
           <div className="work-mobile">
             <div className="wm-acc">
               {PROJECTS.map((p, i) => (
@@ -360,57 +340,137 @@ export default function App() {
       {/* ── BUILT ON CONTROL ───────────────────── */}
       <section className="about-blurb">
         <div className="split-text">
-          <h2 className="about-blurb-headline reveal">BUILT ON <span style={{color:'var(--red)'}}>CONTROL.</span></h2>
-          <p className="about-blurb-body reveal">
+          <motion.h2
+            className="about-blurb-headline"
+            variants={rv}
+            initial="hidden"
+            whileInView="visible"
+            viewport={vp}
+            transition={rt}
+          >
+            BUILT ON <span style={{color:'var(--red)'}}>CONTROL.</span>
+          </motion.h2>
+          <motion.p
+            className="about-blurb-body"
+            variants={rv}
+            initial="hidden"
+            whileInView="visible"
+            viewport={vp}
+            transition={{ ...rt, delay: 0.1 }}
+          >
             Direction first.<br />
             Production follows.<br />
             Execution stays controlled.
-          </p>
+          </motion.p>
         </div>
         <div className="split-image">
-          <img src="/fasion.png" alt="" className="split-img reveal-image" />
+          <motion.img
+            src="/fasion.png"
+            alt=""
+            className="split-img"
+            variants={ri}
+            initial="hidden"
+            whileInView="visible"
+            viewport={vp}
+            transition={rit}
+          />
         </div>
       </section>
 
       {/* ── OUR APPROACH ───────────────────────── */}
       <section className="approach-section" id="about">
         <div className="split-image">
-          <img src="/business.png" alt="" className="split-img reveal-image" />
+          <motion.img
+            src="/business.png"
+            alt=""
+            className="split-img"
+            variants={ri}
+            initial="hidden"
+            whileInView="visible"
+            viewport={vp}
+            transition={rit}
+          />
         </div>
         <div className="approach-text">
-          <h2 className="about-blurb-headline reveal">
+          <motion.h2
+            className="about-blurb-headline"
+            variants={rv}
+            initial="hidden"
+            whileInView="visible"
+            viewport={vp}
+            transition={rt}
+          >
             OUR <span style={{color:'var(--red)'}}>APPROACH</span>
-          </h2>
-          <div className="approach-statement reveal">
+          </motion.h2>
+          <motion.div
+            className="approach-statement"
+            variants={rv}
+            initial="hidden"
+            whileInView="visible"
+            viewport={vp}
+            transition={{ ...rt, delay: 0.1 }}
+          >
             <p>We don't start with cameras.<br />We start with perception.</p>
             <p>Direction defines everything.<br />Production follows.<br />Execution stays controlled.</p>
             <p>From first idea to final frame.</p>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* ── WHAT WE DO ─────────────────────────── */}
       <section className="services-section" id="services">
         <div className="split-text">
-          <h2 className="about-blurb-headline reveal">WHAT <span style={{color:'var(--red)'}}>WE DO</span></h2>
+          <motion.h2
+            className="about-blurb-headline"
+            variants={rv}
+            initial="hidden"
+            whileInView="visible"
+            viewport={vp}
+            transition={rt}
+          >
+            WHAT <span style={{color:'var(--red)'}}>WE DO</span>
+          </motion.h2>
           <div className="services-simple">
-            <p className="services-list reveal">
+            <motion.p
+              className="services-list"
+              variants={rv}
+              initial="hidden"
+              whileInView="visible"
+              viewport={vp}
+              transition={{ ...rt, delay: 0.1 }}
+            >
               We create cinematic systems.<br />
               We direct how brands are perceived.<br />
               We build controlled visual outcomes.
-            </p>
-            </div>
+            </motion.p>
+          </div>
         </div>
         <div className="split-image">
-          <img src="/whatwedo.png" alt="" className="split-img reveal-image" />
+          <motion.img
+            src="/whatwedo.png"
+            alt=""
+            className="split-img"
+            variants={ri}
+            initial="hidden"
+            whileInView="visible"
+            viewport={vp}
+            transition={rit}
+          />
         </div>
       </section>
 
       {/* ── HOW IT WORKS ───────────────────────── */}
       <section className="process-section">
-        <h2 className="about-blurb-headline reveal">
+        <motion.h2
+          className="about-blurb-headline"
+          variants={rv}
+          initial="hidden"
+          whileInView="visible"
+          viewport={vp}
+          transition={rt}
+        >
           HOW IT <span style={{color:'var(--red)'}}>WORKS</span>
-        </h2>
+        </motion.h2>
         <div className="process-steps">
           {STEPS.map(s => (
             <div className="process-card" key={s.num}>
@@ -425,7 +485,14 @@ export default function App() {
       {/* ── CONTACT ────────────────────────────── */}
       <section className="contact-section" id="contact">
         <div className="contact-side-label">LET'S TALK</div>
-        <div className="contact-text reveal">
+        <motion.div
+          className="contact-text"
+          variants={rv}
+          initial="hidden"
+          whileInView="visible"
+          viewport={vp}
+          transition={rt}
+        >
           <div className="contact-social">
             <a href="https://www.instagram.com/myze.media" target="_blank" rel="noopener noreferrer">INSTAGRAM</a>
             <a href="https://vimeo.com/myzemedia" target="_blank" rel="noopener noreferrer">VIMEO</a>
@@ -441,7 +508,7 @@ export default function App() {
             Prefer email for all inquiries<br />
             New Jersey / New York
           </p>
-        </div>
+        </motion.div>
       </section>
 
       {/* ── FOOTER ─────────────────────────────── */}

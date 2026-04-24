@@ -894,19 +894,6 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
   border: 0;
 }
 
-/* ── REVEAL (GSAP starter state) ─────────── */
-.reveal        { opacity: 0; filter: blur(5px); }
-.reveal-image  { opacity: 0; transform: scale(1.04); filter: blur(8px); }
-
-@media (prefers-reduced-motion: reduce) {
-  .reveal, .reveal-image, .reveal-stagger > * {
-    opacity: 1 !important;
-    transform: none !important;
-    filter: none !important;
-    transition: none !important;
-  }
-}
-
 /* ── TICKER ──────────────────────────────── */
 .ticker {
   position: relative;
@@ -920,27 +907,12 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
   border-bottom: 1px solid rgba(230,235,221,0.08);
 }
 
-@keyframes ticker-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-@-webkit-keyframes ticker-scroll {
-  from { -webkit-transform: translateX(0); }
-  to   { -webkit-transform: translateX(-50%); }
-}
-
 .ticker-track {
   display: flex;
   width: max-content;
-  animation: ticker-scroll 38s linear infinite;
-  -webkit-animation: ticker-scroll 38s linear infinite;
   will-change: transform;
-  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-}
-
-.ticker:hover .ticker-track {
-  animation-play-state: paused;
+  -webkit-backface-visibility: hidden;
 }
 
 .ticker-set {
