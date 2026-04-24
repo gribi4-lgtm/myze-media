@@ -918,6 +918,8 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
   overflow: hidden;
   border-top:    1px solid rgba(230,235,221,0.08);
   border-bottom: 1px solid rgba(230,235,221,0.08);
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 @keyframes ticker-scroll {
@@ -1144,14 +1146,16 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
     text-align: center;
   }
 
-  /* Зеленовато-белый текст, жирный, каждое слово с новой строки */
+  /* Заголовок — блок по центру, текст внутри по левому краю */
   .hero-headline {
     font-size: clamp(44px, 12vw, 64px);
     font-weight: 600;
     color: #DCE4D2;
     word-spacing: 9999px;
     line-height: 1.05;
-    margin-bottom: 32px;
+    margin: 0 auto 32px;
+    width: fit-content;
+    text-align: left;
   }
   .hero-sub {
     color: rgba(220,228,210,0.7);

@@ -84,7 +84,7 @@ export default function App() {
             duration: 1.2,
             ease,
             delay: isHero ? 0.3 : 0,
-            scrollTrigger: isHero ? null : { trigger: el, start: 'top 90%' },
+            scrollTrigger: isHero ? null : { trigger: el, start: 'top 80%', once: true },
           }
         );
       });
@@ -102,7 +102,7 @@ export default function App() {
             duration: 1.0,
             ease,
             stagger: 0.1,
-            scrollTrigger: { trigger: container, start: 'top 90%' },
+            scrollTrigger: { trigger: container, start: 'top 80%', once: true },
           }
         );
       });
@@ -119,7 +119,7 @@ export default function App() {
             opacity: 1, scale: 1, filter: 'blur(0px)',
             duration: 1.8,
             ease,
-            scrollTrigger: { trigger: el, start: 'top 92%' },
+            scrollTrigger: { trigger: el, start: 'top 85%', once: true },
           }
         );
       });
