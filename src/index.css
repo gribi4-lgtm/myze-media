@@ -1115,23 +1115,23 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
     right: 40px;
     padding: 0;
     max-width: 100%;
-    text-align: center;
+    text-align: left;
   }
 
-  /* Заголовок — блок по центру, текст внутри по левому краю */
+  /* Заголовок — выровнен по левому краю */
   .hero-headline {
     font-size: clamp(44px, 12vw, 64px);
     font-weight: 600;
     color: #DCE4D2;
     word-spacing: 9999px;
     line-height: 1.05;
-    margin: 0 auto 32px;
-    width: fit-content;
+    margin: 0 0 32px;
+    width: auto;
     text-align: left;
   }
   .hero-sub {
     color: rgba(220,228,210,0.7);
-    margin: 0 auto 48px;
+    margin: 0 0 48px;
   }
 
   /* Лейбл — точка (низ) на y=698 (низ кнопки CONTACT) */
