@@ -881,14 +881,28 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
 }
 
 
+/* ── SCREEN READER / SEO ONLY ────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* ── REVEAL (GSAP starter state) ─────────── */
-.reveal        { opacity: 0; }
-.reveal-image  { opacity: 0; transform: scale(1.03); }
+.reveal        { opacity: 0; filter: blur(5px); }
+.reveal-image  { opacity: 0; transform: scale(1.04); filter: blur(8px); }
 
 @media (prefers-reduced-motion: reduce) {
   .reveal, .reveal-image, .reveal-stagger > * {
     opacity: 1 !important;
     transform: none !important;
+    filter: none !important;
     transition: none !important;
   }
 }
@@ -910,6 +924,10 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
+@-webkit-keyframes ticker-scroll {
+  from { -webkit-transform: translateX(0); }
+  to   { -webkit-transform: translateX(-50%); }
+}
 
 .ticker-track {
   display: flex;
@@ -917,7 +935,6 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
   animation: ticker-scroll 38s linear infinite;
   -webkit-animation: ticker-scroll 38s linear infinite;
   will-change: transform;
-  transform: translateZ(0);
 }
 
 .ticker:hover .ticker-track {
@@ -1195,7 +1212,7 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
   .nav-hamburger { display: flex; }
   .nav-logo-img  { height: 32px; }
 
-  /* ── WORK (вертикальный стек) ── */
+  /* ── WORK (мобильный аккордеон) ── */
   .work-section { display: block; }
   .work-left {
     padding: 60px 24px 32px;
@@ -1212,15 +1229,100 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
   .work-view-all { align-self: flex-end; margin-left: auto; }
   .work-scroll-wrap {
     overflow: visible;
-    padding: 32px 24px 60px;
+    padding: 0 16px 60px;
   }
-  .work-cards {
+
+  /* Аккордеон */
+  .wm-acc {
+    display: flex;
     flex-direction: column;
-    gap: 32px;
-    height: auto;
+    gap: 8px;
   }
-  .work-card { width: 100%; }
-  .work-card-img { height: 220px; }
+
+  .wm-panel {
+    position: relative;
+    width: 100%;
+    height: 88px;
+    border-radius: 14px;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    background-color: #2A2E24;
+    transition: height 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    text-align: left;
+    flex-shrink: 0;
+    border: none;
+  }
+  .wm-panel.active { height: 380px; }
+
+  .wm-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0) 100%);
+  }
+  .wm-panel.active .wm-overlay {
+    background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.08) 55%, rgba(0,0,0,0) 100%);
+  }
+
+  /* Play кнопка — только на активной */
+  .wm-play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.14);
+    border: 1px solid rgba(255,255,255,0.32);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+
+  /* Тег + название */
+  .wm-info {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .wm-panel.active .wm-info {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 4px;
+  }
+
+  .wm-tag {
+    font-size: 0.55rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--red);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .wm-title {
+    font-family: var(--f-head);
+    font-size: 0.95rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .wm-panel.active .wm-title {
+    font-size: 1.25rem;
+  }
 
   /* ── SPLIT SECTIONS (mobile stack) ── */
   .about-blurb,

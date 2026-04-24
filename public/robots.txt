@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://myze.media/sitemap.xml
+Sitemap: https://myzemedia.com/sitemap.xml

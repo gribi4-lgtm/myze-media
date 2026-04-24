@@ -70,21 +70,21 @@ export default function App() {
         gsap.set('.hero-line', { opacity: 1, y: 0 });
       }
 
-      /* .reveal — text elements: soft upward fade */
+      /* .reveal — text elements: soft upward fade + blur */
       gsap.utils.toArray('.reveal').forEach(el => {
         const isHero = el.closest('.hero');
         if (prefersReduced) {
-          gsap.set(el, { opacity: 1, y: 0 });
+          gsap.set(el, { opacity: 1, y: 0, filter: 'blur(0px)' });
           return;
         }
         gsap.fromTo(el,
-          { opacity: 0, y: prefersReduced ? 0 : 18 },
+          { opacity: 0, y: 18, filter: 'blur(5px)' },
           {
-            opacity: 1, y: 0,
-            duration: 1.1,
+            opacity: 1, y: 0, filter: 'blur(0px)',
+            duration: 1.2,
             ease,
             delay: isHero ? 0.3 : 0,
-            scrollTrigger: isHero ? null : { trigger: el, start: 'top 92%' },
+            scrollTrigger: isHero ? null : { trigger: el, start: 'top 90%' },
           }
         );
       });
@@ -107,38 +107,22 @@ export default function App() {
         );
       });
 
-      /* .reveal-image — images: fade + subtle scale */
+      /* .reveal-image — images: fade + scale + blur (медленнее) */
       gsap.utils.toArray('.reveal-image').forEach(el => {
         if (prefersReduced) {
-          gsap.set(el, { opacity: 1, scale: 1 });
+          gsap.set(el, { opacity: 1, scale: 1, filter: 'blur(0px)' });
           return;
         }
         gsap.fromTo(el,
-          { opacity: 0, scale: 1.03 },
+          { opacity: 0, scale: 1.04, filter: 'blur(8px)' },
           {
-            opacity: 1, scale: 1,
-            duration: 1.3,
+            opacity: 1, scale: 1, filter: 'blur(0px)',
+            duration: 1.8,
             ease,
             scrollTrigger: { trigger: el, start: 'top 92%' },
           }
         );
       });
-
-      /* about-blurb: заголовок → текст */
-      const blurbH = document.querySelector('.about-blurb-headline');
-      const blurbB = document.querySelector('.about-blurb-body');
-      if (blurbH && !prefersReduced) {
-        gsap.fromTo(blurbH,
-          { opacity: 0, y: 16 },
-          { opacity: 1, y: 0, duration: 1.0, ease,
-            scrollTrigger: { trigger: blurbH, start: 'top 90%' } }
-        );
-        gsap.fromTo(blurbB,
-          { opacity: 0, y: 12 },
-          { opacity: 1, y: 0, duration: 1.0, ease, delay: 0.22,
-            scrollTrigger: { trigger: blurbH, start: 'top 90%' } }
-        );
-      }
     });
     return () => ctx.revert();
   }, []);
@@ -258,11 +242,12 @@ export default function App() {
       <section className="hero">
         <div className="hero-overlay" />
         <div className="hero-content">
-          <h1 className="hero-headline">
+          <h1 className="sr-only">Cinematic Brand Films &amp; Commercial Production — NJ &amp; NY</h1>
+          <h2 className="hero-headline">
             <span className="hero-line">PERCEPTION</span>
             <span className="hero-line">IS</span>
             <span className="hero-line">EVERYTHING</span>
-          </h1>
+          </h2>
           <p className="hero-sub reveal">
             Most brands don't lose to competitors.<br />
             They lose to how they look.<br />
@@ -312,20 +297,26 @@ export default function App() {
 
           {/* ── MOBILE: горизонтальный скролл карточек ── */}
           <div className="work-mobile">
-            <div className="work-cards reveal-stagger">
-              {PROJECTS.map(p => (
+            <div className="wm-acc">
+              {PROJECTS.map((p, i) => (
                 <button
                   key={p.id}
-                  className="work-card reveal"
-                  onClick={() => setLightbox(p.id)}
+                  className={`wm-panel${activeWork === i ? ' active' : ''}`}
+                  style={thumbnails[p.id] ? { backgroundImage: `url(${thumbnails[p.id]})` } : {}}
+                  onClick={() => activeWork === i ? setLightbox(p.id) : setActiveWork(i)}
+                  aria-label={activeWork === i ? `Play ${p.title}` : `Open ${p.title}`}
                 >
-                  <div
-                    className="work-card-img"
-                    style={thumbnails[p.id] ? { backgroundImage: `url(${thumbnails[p.id]})` } : {}}
-                  />
-                  <div className="work-card-info">
-                    <span className="work-card-title">{p.title}</span>
-                    <span className="work-card-tag">{p.tag}</span>
+                  <div className="wm-overlay" />
+                  {activeWork === i && (
+                    <div className="wm-play">
+                      <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
+                        <polygon points="5,3 19,12 5,21" />
+                      </svg>
+                    </div>
+                  )}
+                  <div className="wm-info">
+                    <span className="wm-tag">{p.tag}</span>
+                    <span className="wm-title">{p.title}</span>
                   </div>
                 </button>
               ))}
@@ -369,28 +360,28 @@ export default function App() {
       {/* ── BUILT ON CONTROL ───────────────────── */}
       <section className="about-blurb">
         <div className="split-text">
-          <h2 className="about-blurb-headline">BUILT ON <span style={{color:'var(--red)'}}>CONTROL.</span></h2>
-          <p className="about-blurb-body">
+          <h2 className="about-blurb-headline reveal">BUILT ON <span style={{color:'var(--red)'}}>CONTROL.</span></h2>
+          <p className="about-blurb-body reveal">
             Direction first.<br />
             Production follows.<br />
             Execution stays controlled.
           </p>
         </div>
         <div className="split-image">
-          <img src="/fasion.png" alt="" className="split-img" />
+          <img src="/fasion.png" alt="" className="split-img reveal-image" />
         </div>
       </section>
 
       {/* ── OUR APPROACH ───────────────────────── */}
       <section className="approach-section" id="about">
         <div className="split-image">
-          <img src="/business.png" alt="" className="split-img" />
+          <img src="/business.png" alt="" className="split-img reveal-image" />
         </div>
         <div className="approach-text">
-          <h2 className="about-blurb-headline">
+          <h2 className="about-blurb-headline reveal">
             OUR <span style={{color:'var(--red)'}}>APPROACH</span>
           </h2>
-          <div className="approach-statement">
+          <div className="approach-statement reveal">
             <p>We don't start with cameras.<br />We start with perception.</p>
             <p>Direction defines everything.<br />Production follows.<br />Execution stays controlled.</p>
             <p>From first idea to final frame.</p>
@@ -401,9 +392,9 @@ export default function App() {
       {/* ── WHAT WE DO ─────────────────────────── */}
       <section className="services-section" id="services">
         <div className="split-text">
-          <h2 className="about-blurb-headline">WHAT <span style={{color:'var(--red)'}}>WE DO</span></h2>
+          <h2 className="about-blurb-headline reveal">WHAT <span style={{color:'var(--red)'}}>WE DO</span></h2>
           <div className="services-simple">
-            <p className="services-list">
+            <p className="services-list reveal">
               We create cinematic systems.<br />
               We direct how brands are perceived.<br />
               We build controlled visual outcomes.
@@ -411,7 +402,7 @@ export default function App() {
             </div>
         </div>
         <div className="split-image">
-          <img src="/whatwedo.png" alt="" className="split-img" />
+          <img src="/whatwedo.png" alt="" className="split-img reveal-image" />
         </div>
       </section>
 
@@ -436,8 +427,8 @@ export default function App() {
         <div className="contact-side-label">LET'S TALK</div>
         <div className="contact-text reveal">
           <div className="contact-social">
-            <a href="https://www.instagram.com/myzem_edia" target="_blank" rel="noopener noreferrer">INSTAGRAM</a>
-            <a href="https://vimeo.com" target="_blank" rel="noopener noreferrer">VIMEO</a>
+            <a href="https://www.instagram.com/myze.media" target="_blank" rel="noopener noreferrer">INSTAGRAM</a>
+            <a href="https://vimeo.com/myzemedia" target="_blank" rel="noopener noreferrer">VIMEO</a>
             <a href="mailto:mike@myzemedia.com">EMAIL</a>
           </div>
           <h2 className="contact-headline">
@@ -464,7 +455,7 @@ export default function App() {
           <div className="lightbox-inner" onClick={e => e.stopPropagation()}>
             <button className="lightbox-close" onClick={() => setLightbox(null)}>✕</button>
             <iframe
-              src={`https://player.vimeo.com/video/${lightbox}?autoplay=1&color=8B2D2D&title=0&byline=0&portrait=0`}
+              src={`https://player.vimeo.com/video/${lightbox}?autoplay=1&loop=1&color=8B2D2D&title=0&byline=0&portrait=0`}
               allow="autoplay; fullscreen; picture-in-picture"
               allowFullScreen
               title="MYZE Media"
