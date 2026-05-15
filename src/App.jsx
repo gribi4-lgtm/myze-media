@@ -1,23 +1,23 @@
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion, useAnimationControls } from 'framer-motion';
 import { gsap } from 'gsap';
 import AnimatedBackground from './AnimatedBackground';
 import './index.css';
 
 /* ── FRAMER MOTION VARIANTS ──────────────────── */
-const rv = {
+const revealVariants = {
   hidden:  { opacity: 0, y: 18, filter: 'blur(5px)' },
-  visible: { opacity: 1, y: 0,  filter: 'blur(0px)' },
+  visible: { opacity: 1, y: 0,  filter: 'none' },
 };
-const rt = { duration: 1.2, ease: [0.22, 1, 0.36, 1] };
+const revealTransition = { duration: 1.2, ease: [0.22, 1, 0.36, 1] };
 
-const ri = {
+const imageVariants = {
   hidden:  { opacity: 0, scale: 1.04, filter: 'blur(8px)' },
-  visible: { opacity: 1, scale: 1,    filter: 'blur(0px)' },
+  visible: { opacity: 1, scale: 1,    filter: 'none' },
 };
-const rit = { duration: 1.8, ease: [0.22, 1, 0.36, 1] };
+const imageTransition = { duration: 1.8, ease: [0.22, 1, 0.36, 1] };
 
-const vp = { once: true, amount: 0.2 };
+const viewportOnce = { once: true, amount: 0.2 };
 
 const PROJECTS = [
   { id: '1186076334', tag: 'COMMERCIAL / PRODUCT', title: 'ELECTRONIKA WATCH' },
@@ -40,6 +40,13 @@ const STEPS = [
 
 
 export default function App() {
+  const shouldReduceMotion = useReducedMotion();
+  const tickerControls     = useAnimationControls();
+
+  /* active variants — no animation when user prefers reduced motion */
+  const activeRv  = shouldReduceMotion ? { hidden: { opacity: 1 }, visible: { opacity: 1 } } : revealVariants;
+  const activeRi  = shouldReduceMotion ? { hidden: { opacity: 1 }, visible: { opacity: 1 } } : imageVariants;
+
   const [lightbox, setLightbox]     = useState(null);
   const [thumbnails, setThumbnails] = useState({});
   const [menuOpen, setMenuOpen]     = useState(false);
@@ -47,6 +54,16 @@ export default function App() {
   const [formSent, setFormSent]     = useState(false);
   const [formData, setFormData]     = useState({ name: '', email: '', details: '' });
   const [activeWork, setActiveWork] = useState(0);
+
+  /* ticker animation — start on mount, pause on hover */
+  useEffect(() => {
+    if (!shouldReduceMotion) {
+      tickerControls.start({
+        x: ['0%', '-50%'],
+        transition: { duration: 38, ease: 'linear', repeat: Infinity, repeatType: 'loop' },
+      });
+    }
+  }, [shouldReduceMotion]);
 
   /* fetch Vimeo thumbnails */
   useEffect(() => {
@@ -207,10 +224,10 @@ export default function App() {
           </h2>
           <motion.p
             className="hero-sub"
-            variants={rv}
+            variants={activeRv}
             initial="hidden"
             animate="visible"
-            transition={{ ...rt, delay: 0.75 }}
+            transition={{ ...revealTransition, delay: 0.75 }}
           >
             Most brands don't lose to competitors.<br />
             They lose to how they look.<br />
@@ -219,10 +236,10 @@ export default function App() {
           </motion.p>
           <motion.div
             className="hero-btns"
-            variants={rv}
+            variants={activeRv}
             initial="hidden"
             animate="visible"
-            transition={{ ...rt, delay: 0.95 }}
+            transition={{ ...revealTransition, delay: 0.95 }}
           >
             <a href="#work" className="btn-primary">VIEW SELECTED WORK</a>
             <button className="btn-outline" onClick={() => { setFormOpen(true); setFormSent(false); }}>START A PROJECT</button>
@@ -240,11 +257,15 @@ export default function App() {
       </section>
 
       {/* ── TICKER ─────────────────────────────── */}
-      <div className="ticker" aria-hidden="true">
+      <div
+        className="ticker"
+        aria-hidden="true"
+        onMouseEnter={() => tickerControls.stop()}
+        onMouseLeave={() => { if (!shouldReduceMotion) tickerControls.start({ x: ['0%', '-50%'], transition: { duration: 38, ease: 'linear', repeat: Infinity, repeatType: 'loop' } }); }}
+      >
         <motion.div
           className="ticker-track"
-          animate={{ x: ['0%', '-50%'] }}
-          transition={{ duration: 38, ease: 'linear', repeat: Infinity, repeatType: 'loop' }}
+          animate={tickerControls}
         >
           {[0, 1].map(n => (
             <span key={n} className="ticker-set">
@@ -262,11 +283,11 @@ export default function App() {
       <section className="work-section" id="work">
         <motion.div
           className="work-left"
-          variants={rv}
+          variants={activeRv}
           initial="hidden"
           whileInView="visible"
-          viewport={vp}
-          transition={rt}
+          viewport={viewportOnce}
+          transition={revealTransition}
         >
           <h2 className="work-headline">
             VISUALS THAT<br />POSITION.<br />NOT JUST IMPRESS.
@@ -342,21 +363,21 @@ export default function App() {
         <div className="split-text">
           <motion.h2
             className="about-blurb-headline"
-            variants={rv}
+            variants={activeRv}
             initial="hidden"
             whileInView="visible"
-            viewport={vp}
-            transition={rt}
+            viewport={viewportOnce}
+            transition={revealTransition}
           >
             BUILT ON <span style={{color:'var(--red)'}}>CONTROL.</span>
           </motion.h2>
           <motion.p
             className="about-blurb-body"
-            variants={rv}
+            variants={activeRv}
             initial="hidden"
             whileInView="visible"
-            viewport={vp}
-            transition={{ ...rt, delay: 0.1 }}
+            viewport={viewportOnce}
+            transition={{ ...revealTransition, delay: 0.1 }}
           >
             Direction first.<br />
             Production follows.<br />
@@ -365,14 +386,14 @@ export default function App() {
         </div>
         <div className="split-image">
           <motion.img
-            src="/fasion.png"
+            src="/fashion.png"
             alt=""
             className="split-img"
-            variants={ri}
+            variants={activeRi}
             initial="hidden"
             whileInView="visible"
-            viewport={vp}
-            transition={rit}
+            viewport={viewportOnce}
+            transition={imageTransition}
           />
         </div>
       </section>
@@ -384,31 +405,31 @@ export default function App() {
             src="/business.png"
             alt=""
             className="split-img"
-            variants={ri}
+            variants={activeRi}
             initial="hidden"
             whileInView="visible"
-            viewport={vp}
-            transition={rit}
+            viewport={viewportOnce}
+            transition={imageTransition}
           />
         </div>
         <div className="approach-text">
           <motion.h2
             className="about-blurb-headline"
-            variants={rv}
+            variants={activeRv}
             initial="hidden"
             whileInView="visible"
-            viewport={vp}
-            transition={rt}
+            viewport={viewportOnce}
+            transition={revealTransition}
           >
             OUR <span style={{color:'var(--red)'}}>APPROACH</span>
           </motion.h2>
           <motion.div
             className="approach-statement"
-            variants={rv}
+            variants={activeRv}
             initial="hidden"
             whileInView="visible"
-            viewport={vp}
-            transition={{ ...rt, delay: 0.1 }}
+            viewport={viewportOnce}
+            transition={{ ...revealTransition, delay: 0.1 }}
           >
             <p>We don't start with cameras.<br />We start with perception.</p>
             <p>Direction defines everything.<br />Production follows.<br />Execution stays controlled.</p>
@@ -422,22 +443,22 @@ export default function App() {
         <div className="split-text">
           <motion.h2
             className="about-blurb-headline"
-            variants={rv}
+            variants={activeRv}
             initial="hidden"
             whileInView="visible"
-            viewport={vp}
-            transition={rt}
+            viewport={viewportOnce}
+            transition={revealTransition}
           >
             WHAT <span style={{color:'var(--red)'}}>WE DO</span>
           </motion.h2>
           <div className="services-simple">
             <motion.p
               className="services-list"
-              variants={rv}
+              variants={activeRv}
               initial="hidden"
               whileInView="visible"
-              viewport={vp}
-              transition={{ ...rt, delay: 0.1 }}
+              viewport={viewportOnce}
+              transition={{ ...revealTransition, delay: 0.1 }}
             >
               We create cinematic systems.<br />
               We direct how brands are perceived.<br />
@@ -450,11 +471,11 @@ export default function App() {
             src="/whatwedo.png"
             alt=""
             className="split-img"
-            variants={ri}
+            variants={activeRi}
             initial="hidden"
             whileInView="visible"
-            viewport={vp}
-            transition={rit}
+            viewport={viewportOnce}
+            transition={imageTransition}
           />
         </div>
       </section>
@@ -463,11 +484,11 @@ export default function App() {
       <section className="process-section">
         <motion.h2
           className="about-blurb-headline"
-          variants={rv}
+          variants={activeRv}
           initial="hidden"
           whileInView="visible"
-          viewport={vp}
-          transition={rt}
+          viewport={viewportOnce}
+          transition={revealTransition}
         >
           HOW IT <span style={{color:'var(--red)'}}>WORKS</span>
         </motion.h2>
@@ -487,11 +508,11 @@ export default function App() {
         <div className="contact-side-label">LET'S TALK</div>
         <motion.div
           className="contact-text"
-          variants={rv}
+          variants={activeRv}
           initial="hidden"
           whileInView="visible"
-          viewport={vp}
-          transition={rt}
+          viewport={viewportOnce}
+          transition={revealTransition}
         >
           <div className="contact-social">
             <a href="https://www.instagram.com/myze.media" target="_blank" rel="noopener noreferrer">INSTAGRAM</a>
