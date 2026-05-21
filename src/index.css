@@ -1419,3 +1419,78 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
   .footer-copy { opacity: 0.35; color: #DCE4D2; font-size: 9px; }
   .footer-links { flex-wrap: wrap; justify-content: center; }
 }
+
+/* ── HERO VIDEO (overrides background-image when video loads) ── */
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
+  /* tiny zoom so the slow push-in feels intentional, not a crop */
+  transform: scale(1.02);
+}
+
+/* ── SERVICES (3-row layout, num + title + desc) ─────────────── */
+.services-list .service-row {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 20px;
+  align-items: start;
+  padding: 28px 0;
+  border-top: 1px solid rgba(220, 228, 210, 0.12);
+}
+.services-list .service-row:last-child {
+  border-bottom: 1px solid rgba(220, 228, 210, 0.12);
+}
+.services-list .service-num {
+  font-family: 'Oswald', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.16em;
+  color: var(--red);
+  padding-top: 8px;
+}
+.services-list .service-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+  letter-spacing: 0.04em;
+  color: var(--white);
+  margin: 0 0 8px;
+  font-weight: 500;
+}
+.services-list .service-desc {
+  font-size: clamp(0.92rem, 1.1vw, 1rem);
+  font-weight: 300;
+  line-height: 1.65;
+  color: rgba(220, 228, 210, 0.78);
+  margin: 0;
+  max-width: 56ch;
+}
+
+.contact-tagline {
+  font-size: clamp(0.85rem, 1vw, 0.95rem);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(220, 228, 210, 0.55);
+  margin: 18px 0 8px;
+  font-weight: 300;
+}
+
+/* ── MOBILE TWEAKS ────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .services-list .service-row {
+    grid-template-columns: 44px 1fr;
+    gap: 14px;
+    padding: 22px 0;
+  }
+  .services-list .service-num {
+    font-size: 12px;
+    padding-top: 6px;
+  }
+  .hero-video {
+    /* keep the silhouette centered on portrait screens */
+    object-position: center;
+  }
+}

@@ -32,9 +32,9 @@ const PROJECTS = [
 ];
 
 const STEPS = [
-  { num: '01', title: 'DISCOVERY',   desc: 'We start with your goals, audience, and brand position. The right questions asked early save weeks of revision later.' },
-  { num: '02', title: 'CONCEPT',     desc: 'We develop a creative direction before touching a camera. Every visual decision starts with intent.' },
-  { num: '03', title: 'PRODUCTION',  desc: 'Full-cycle execution — locations, crew, direction, and editing. Controlled from first frame to final cut.' },
+  { num: '01', title: 'DISCOVERY',   desc: 'Goals, audience, brand position. The right questions early save weeks of revision later.' },
+  { num: '02', title: 'DIRECTION',   desc: 'A creative system before a single asset is built. Every decision starts with intent.' },
+  { num: '03', title: 'BUILD',       desc: 'Web, film, social — produced under one roof, one direction, one timeline.' },
   { num: '04', title: 'DELIVERY',    desc: 'Optimised assets delivered on time. Ready for any platform, without compromise.' },
 ];
 
@@ -111,22 +111,37 @@ export default function App() {
     return () => window.removeEventListener('keydown', fn);
   }, []);
 
-  /* form submit → Formspree */
+  /* form submit → mailto fallback (reliable, no third-party).
+     Swap to Formspree by setting FORM_ENDPOINT to your form id. */
+  const FORM_ENDPOINT = ''; // e.g. 'https://formspree.io/f/abcd1234'
   const handleSubmit = async e => {
     e.preventDefault();
-    const res = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({
-        name:    formData.name,
-        email:   formData.email,
-        message: formData.details,
-      }),
-    });
-    if (res.ok) {
-      setFormSent(true);
-      setFormData({ name: '', email: '', details: '' });
+    if (FORM_ENDPOINT) {
+      try {
+        const res = await fetch(FORM_ENDPOINT, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({
+            name:    formData.name,
+            email:   formData.email,
+            message: formData.details,
+          }),
+        });
+        if (res.ok) {
+          setFormSent(true);
+          setFormData({ name: '', email: '', details: '' });
+          return;
+        }
+      } catch (_) { /* fall through to mailto */ }
     }
+    /* fallback — open user's mail client with a prefilled message */
+    const subject = encodeURIComponent(`New project inquiry — ${formData.name || 'MYZE Media'}`);
+    const body = encodeURIComponent(
+      `Name: ${formData.name}\nEmail: ${formData.email}\n\n${formData.details}`
+    );
+    window.location.href = `mailto:mike@myzemedia.com?subject=${subject}&body=${body}`;
+    setFormSent(true);
+    setFormData({ name: '', email: '', details: '' });
   };
 
   /* glass nav on scroll */
@@ -214,6 +229,19 @@ export default function App() {
 
       {/* ── HERO ───────────────────────────────── */}
       <section className="hero">
+        <video
+          className="hero-video"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          poster="/hero-bg.jpg"
+          aria-hidden="true"
+        >
+          <source src="/myze-hero-loop-mobile.mp4" type="video/mp4" media="(max-width: 900px)" />
+          <source src="/myze-hero-loop.mp4" type="video/mp4" />
+        </video>
         <div className="hero-overlay" />
         <div className="hero-content">
           <h1 className="sr-only">Cinematic Brand Films &amp; Commercial Production — NJ &amp; NY</h1>
@@ -229,10 +257,10 @@ export default function App() {
             animate="visible"
             transition={{ ...revealTransition, delay: 0.75 }}
           >
-            Most brands don't lose to competitors.<br />
-            They lose to how they look.<br />
+            A brand studio for web, film and social.<br />
+            Built for brands that can't afford to look ordinary.<br />
             <br />
-            We fix that.
+            One direction. One studio. One outcome.
           </motion.p>
           <motion.div
             className="hero-btns"
@@ -247,7 +275,7 @@ export default function App() {
         </div>
         <div className="hero-side-label">
           <div className="hero-side-line" />
-          <span className="hero-side-text">CINEMATIC BRAND STUDIO</span>
+          <span className="hero-side-text">BRAND STUDIO — WEB · FILM · SOCIAL</span>
           <div className="hero-side-dot" />
         </div>
         <div className="hero-scroll">
@@ -269,7 +297,8 @@ export default function App() {
         >
           {[0, 1].map(n => (
             <span key={n} className="ticker-set">
-              {['BRAND FILMS','COMMERCIAL VIDEOS','SOCIAL CONTENT','TESTIMONIAL VIDEOS','CORPORATE VIDEOS','MUSIC VIDEOS','CINEMATIC STORYTELLING','AI-ENHANCED PRODUCTION'].map(item => (
+              {['BRAND IDENTITY','WEB DESIGN & BUILD','BRAND FILMS','SOCIAL CONTENT','ART DIRECTION','EDITORIAL CAMPAIGNS','E-COMMERCE','AI-ENHANCED PRODUCTION'].map(item => (
+
                 <span key={item} className="ticker-item">
                   {item}<span className="ticker-dot">·</span>
                 </span>
@@ -290,7 +319,7 @@ export default function App() {
           transition={revealTransition}
         >
           <h2 className="work-headline">
-            VISUALS THAT<br />POSITION.<br />NOT JUST IMPRESS.
+            WE BUILD<br />THE WHOLE<br />BRAND SURFACE.
           </h2>
           <a href="https://vimeo.com/myzemedia" target="_blank" rel="noopener noreferrer" className="text-link work-view-all">VIEW ALL WORK <span style={{color:'var(--red)'}}>→</span></a>
         </motion.div>
@@ -431,9 +460,9 @@ export default function App() {
             viewport={viewportOnce}
             transition={{ ...revealTransition, delay: 0.1 }}
           >
-            <p>We don't start with cameras.<br />We start with perception.</p>
-            <p>Direction defines everything.<br />Production follows.<br />Execution stays controlled.</p>
-            <p>From first idea to final frame.</p>
+            <p>We don't start with deliverables.<br />We start with perception.</p>
+            <p>Direction defines everything.<br />Web, film and social follow.<br />Execution stays controlled.</p>
+            <p>One studio. One coherent brand surface.</p>
           </motion.div>
         </div>
       </section>
@@ -452,7 +481,7 @@ export default function App() {
             WHAT <span style={{color:'var(--red)'}}>WE DO</span>
           </motion.h2>
           <div className="services-simple">
-            <motion.p
+            <motion.div
               className="services-list"
               variants={activeRv}
               initial="hidden"
@@ -460,10 +489,28 @@ export default function App() {
               viewport={viewportOnce}
               transition={{ ...revealTransition, delay: 0.1 }}
             >
-              We create cinematic systems.<br />
-              We direct how brands are perceived.<br />
-              We build controlled visual outcomes.
-            </motion.p>
+              <div className="service-row">
+                <span className="service-num">01</span>
+                <div>
+                  <h3 className="service-title">WEB DESIGN &amp; BUILD</h3>
+                  <p className="service-desc">Editorial websites and storefronts. Next.js, Shopify, custom builds — fast, calm, considered.</p>
+                </div>
+              </div>
+              <div className="service-row">
+                <span className="service-num">02</span>
+                <div>
+                  <h3 className="service-title">BRAND FILMS &amp; CONTENT</h3>
+                  <p className="service-desc">Cinematic brand films, product films, founder portraits. Full-cycle direction and production.</p>
+                </div>
+              </div>
+              <div className="service-row">
+                <span className="service-num">03</span>
+                <div>
+                  <h3 className="service-title">SOCIAL &amp; ART DIRECTION</h3>
+                  <p className="service-desc">Editorial Instagram systems, campaign visuals, grid design. One coherent surface across every channel.</p>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
         <div className="split-image">
@@ -522,6 +569,7 @@ export default function App() {
           <h2 className="contact-headline">
             Ready to look like<br />a brand people trust?
           </h2>
+          <p className="contact-tagline">Web · Film · Social — one studio, one direction.</p>
           <button className="btn-cta" onClick={() => { setFormOpen(true); setFormSent(false); }}>
             START A PROJECT
           </button>
