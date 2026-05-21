@@ -1584,6 +1584,17 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
   aspect-ratio: 16 / 10;
 }
 
+/* Landscape variant — for cases whose source images are 16:9 site mockups.
+   BEFORE + AFTER stack vertically and use landscape aspect ratio so
+   the full editorial composition is visible, not vertically cropped. */
+.transformations .case--landscape .case-compare {
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+.transformations .case--landscape .case-frame {
+  aspect-ratio: 16 / 10;
+}
+
 .transformations .case-frame img {
   width: 100%;
   height: 100%;

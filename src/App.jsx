@@ -43,22 +43,15 @@ const CASES = [
     moves: ['Hero macro: real product detail (gold thread, ivory linen)', 'Quiet ivory canvas, generous negative space, calmer typography', 'Editorial product grid — one item per frame, no badges or noise'],
   },
   {
-    id: 'medspa-spec',
-    tag: 'BRAND DIRECTION · SPEC STUDY',
-    client: 'MEDSPA · CATEGORY STUDY',
-    title: 'A medspa that finally looks\nas refined as its work.',
-    after: '/work/aesthetica_after_hero.jpg',
-    summary: 'Most medspas show up online like a Yelp listing — even the ones with serious editorial press behind them. This spec study replaces the usual stack of badges, banners and stock smiles with a single editorial system: one headline, one portrait, one promise.',
-    moves: ['Single editorial hero: portrait + serif headline + breath', 'Coherent warm bronze monochrome across web and social', 'Removed every line of copy that screamed ‘marketing’'],
-  },
-  {
-    id: 'dental-spec',
-    tag: 'BRAND DIRECTION · SPEC STUDY',
-    client: 'DENTAL · CATEGORY STUDY',
-    title: 'A dental practice that\nfeels like a hotel.',
-    after: '/work/dental_after_hero.jpg',
-    summary: 'Premium dentistry sells calm, control and craft — but most practice websites still look like a clinic intake form. This spec study reimagines a high-end dental brand as a quiet hospitality experience: architectural space, considered typography, zero clinical noise.',
-    moves: ['Architectural interior hero — no equipment, no stock smiles', 'Serif headline does the talking; nav stays whisper-quiet', 'Warm neutrals replace medical blues and bright whites'],
+    id: 'defabio-spec',
+    tag: 'WEBSITE UPGRADE · SPEC PROPOSAL',
+    client: 'DEFABIO DENTAL DESIGN',
+    title: 'A father-and-daughter practice\nthat finally looks the part.',
+    before: '/work/defabio_before.jpg',
+    after:  '/work/defabio_after.jpg',
+    landscape: true,
+    summary: 'A two-generation cosmetic dental practice in Colts Neck, NJ — the kind of quiet, design-led dentistry that deserves a website on the same level. The current site buries that story under a clinical blue overlay and a generic appointment-funnel layout. We proposed the opposite: their real people, their real space, and one editorial idea per scroll.',
+    moves: ['Editorial hero portrait of the doctors — no stock smiles, no clinical blue', 'Serif typography and warm neutrals replace medical UI', 'One promise per scroll instead of a checklist of services'],
   },
 ];
 
@@ -362,7 +355,7 @@ export default function App() {
           {CASES.map((c, idx) => (
             <motion.article
               key={c.id}
-              className="case"
+              className={`case${c.landscape ? ' case--landscape' : ''}`}
               variants={activeRv}
               initial="hidden"
               whileInView="visible"
