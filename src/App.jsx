@@ -32,10 +32,10 @@ const PROJECTS = [
 ];
 
 const STEPS = [
-  { num: '01', title: 'DISCOVERY',   desc: 'Goals, audience, brand position. The right questions early save weeks of revision later.' },
-  { num: '02', title: 'DIRECTION',   desc: 'A creative system before a single asset is built. Every decision starts with intent.' },
-  { num: '03', title: 'BUILD',       desc: 'Web, film, social — produced under one roof, one direction, one timeline.' },
-  { num: '04', title: 'DELIVERY',    desc: 'Optimised assets delivered on time. Ready for any platform, without compromise.' },
+  { num: '01', title: 'AUDIT',      desc: 'We look at your website, social and brand surface the way a first-time customer does. We map what reads premium and what undersells you.' },
+  { num: '02', title: 'DIRECTION', desc: 'We set the visual language — typography, palette, imagery, tone. One clear direction, not ten ideas.' },
+  { num: '03', title: 'UPGRADE',   desc: 'We rebuild what holds you back — website, social, key brand assets. Cleaner, calmer, more expensive.' },
+  { num: '04', title: 'HANDOFF',   desc: 'You get a brand that holds together — on every page, every post, every touchpoint. Templates so it stays that way.' },
 ];
 
 
@@ -257,10 +257,9 @@ export default function App() {
             animate="visible"
             transition={{ ...revealTransition, delay: 0.75 }}
           >
-            A brand studio for web, film and social.<br />
-            Built for brands that can't afford to look ordinary.<br />
-            <br />
-            One direction. One studio. One outcome.
+            We make brands look more expensive,<br />
+            cleaner, and easier to buy from —<br />
+            on their website and across social.
           </motion.p>
           <motion.div
             className="hero-btns"
@@ -275,7 +274,7 @@ export default function App() {
         </div>
         <div className="hero-side-label">
           <div className="hero-side-line" />
-          <span className="hero-side-text">BRAND STUDIO — WEB · FILM · SOCIAL</span>
+          <span className="hero-side-text">VISUAL UPGRADE STUDIO — WEB · SOCIAL</span>
           <div className="hero-side-dot" />
         </div>
         <div className="hero-scroll">
@@ -297,7 +296,7 @@ export default function App() {
         >
           {[0, 1].map(n => (
             <span key={n} className="ticker-set">
-              {['BRAND IDENTITY','WEB DESIGN & BUILD','BRAND FILMS','SOCIAL CONTENT','ART DIRECTION','EDITORIAL CAMPAIGNS','E-COMMERCE','AI-ENHANCED PRODUCTION'].map(item => (
+              {['LOOK MORE EXPENSIVE','WEBSITE UPGRADE','SOCIAL DIRECTION','VISUAL SYSTEMS','EDITORIAL ART DIRECTION','E-COMMERCE POLISH','PREMIUM POSITIONING','BRAND CLARITY'].map(item => (
 
                 <span key={item} className="ticker-item">
                   {item}<span className="ticker-dot">·</span>
@@ -319,7 +318,7 @@ export default function App() {
           transition={revealTransition}
         >
           <h2 className="work-headline">
-            WE BUILD<br />THE WHOLE<br />BRAND SURFACE.
+            SAME BRAND.<br />HIGHER<br />SHELF.
           </h2>
           <a href="https://vimeo.com/myzemedia" target="_blank" rel="noopener noreferrer" className="text-link work-view-all">VIEW ALL WORK <span style={{color:'var(--red)'}}>→</span></a>
         </motion.div>
@@ -398,7 +397,7 @@ export default function App() {
             viewport={viewportOnce}
             transition={revealTransition}
           >
-            BUILT ON <span style={{color:'var(--red)'}}>CONTROL.</span>
+            LOOK <span style={{color:'var(--red)'}}>EXPENSIVE.</span>
           </motion.h2>
           <motion.p
             className="about-blurb-body"
@@ -408,9 +407,9 @@ export default function App() {
             viewport={viewportOnce}
             transition={{ ...revealTransition, delay: 0.1 }}
           >
-            Direction first.<br />
-            Production follows.<br />
-            Execution stays controlled.
+            Most brands aren't broken.<br />
+            They're just packaged below their value.<br />
+            We fix the packaging.
           </motion.p>
         </div>
         <div className="split-image">
@@ -460,9 +459,9 @@ export default function App() {
             viewport={viewportOnce}
             transition={{ ...revealTransition, delay: 0.1 }}
           >
-            <p>We don't start with deliverables.<br />We start with perception.</p>
-            <p>Direction defines everything.<br />Web, film and social follow.<br />Execution stays controlled.</p>
-            <p>One studio. One coherent brand surface.</p>
+            <p>You probably already have a website.<br />You probably already post on social.</p>
+            <p>We don't replace what works.<br />We raise the floor on how it looks,<br />reads, and converts.</p>
+            <p>The same brand — just on a higher shelf.</p>
           </motion.div>
         </div>
       </section>
@@ -492,22 +491,22 @@ export default function App() {
               <div className="service-row">
                 <span className="service-num">01</span>
                 <div>
-                  <h3 className="service-title">WEB DESIGN &amp; BUILD</h3>
-                  <p className="service-desc">Editorial websites and storefronts. Next.js, Shopify, custom builds — fast, calm, considered.</p>
+                  <h3 className="service-title">WEBSITE UPGRADE</h3>
+                  <p className="service-desc">We rebuild your website to read premium — typography, layout, imagery, flow. Faster, calmer, easier to buy from. Works with what you already have.</p>
                 </div>
               </div>
               <div className="service-row">
                 <span className="service-num">02</span>
                 <div>
-                  <h3 className="service-title">BRAND FILMS &amp; CONTENT</h3>
-                  <p className="service-desc">Cinematic brand films, product films, founder portraits. Full-cycle direction and production.</p>
+                  <h3 className="service-title">SOCIAL DIRECTION</h3>
+                  <p className="service-desc">We rebuild your Instagram surface — grid, post system, art direction. Less noise. More signal. So your feed actually matches the brand you sell.</p>
                 </div>
               </div>
               <div className="service-row">
                 <span className="service-num">03</span>
                 <div>
-                  <h3 className="service-title">SOCIAL &amp; ART DIRECTION</h3>
-                  <p className="service-desc">Editorial Instagram systems, campaign visuals, grid design. One coherent surface across every channel.</p>
+                  <h3 className="service-title">VISUAL SYSTEM</h3>
+                  <p className="service-desc">One coherent look across every touchpoint — type, palette, photography, tone. So nothing about your brand says 'cheap' when you mean 'premium'.</p>
                 </div>
               </div>
             </motion.div>
@@ -567,9 +566,9 @@ export default function App() {
             <a href="mailto:mike@myzemedia.com">EMAIL</a>
           </div>
           <h2 className="contact-headline">
-            Ready to look like<br />a brand people trust?
+            Ready to look like<br />the brand you actually are?
           </h2>
-          <p className="contact-tagline">Web · Film · Social — one studio, one direction.</p>
+          <p className="contact-tagline">Visual upgrade for web · social · brand surface.</p>
           <button className="btn-cta" onClick={() => { setFormOpen(true); setFormSent(false); }}>
             START A PROJECT
           </button>
