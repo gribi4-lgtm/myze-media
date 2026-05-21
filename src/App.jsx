@@ -552,6 +552,67 @@ export default function App() {
         </div>
       </section>
 
+      {/* ── FILM WORK ──────────────────────────── */}
+      <section className="film-section" id="film">
+        <motion.div
+          className="film-intro"
+          variants={activeRv}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+          transition={revealTransition}
+        >
+          <span className="film-eyebrow">FILM &amp; MOTION</span>
+          <h2 className="film-headline">
+            WE ALSO MAKE<br /><span style={{color:'var(--red)'}}>FILMS.</span>
+          </h2>
+          <p className="film-lede">
+            Brand films, product motion, music videos, fashion film. Shot, edited and graded in-house —
+            same editorial restraint we bring to a website, applied to moving image.
+          </p>
+        </motion.div>
+
+        <div className="film-grid">
+          {PROJECTS.map((p, i) => (
+            <motion.button
+              key={p.id}
+              type="button"
+              className="film-tile"
+              onClick={() => setLightbox(p.id)}
+              variants={activeRi}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportOnce}
+              transition={{ ...imageTransition, delay: (i % 3) * 0.05 }}
+            >
+              <div className="film-tile-media">
+                {thumbnails[p.id] ? (
+                  <img src={thumbnails[p.id]} alt={p.title} loading="lazy" />
+                ) : (
+                  <div className="film-tile-placeholder" />
+                )}
+                <span className="film-tile-play" aria-hidden="true">▶</span>
+              </div>
+              <div className="film-tile-text">
+                <span className="film-tile-tag">{p.tag}</span>
+                <span className="film-tile-title">{p.title}</span>
+              </div>
+            </motion.button>
+          ))}
+        </div>
+
+        <div className="film-cta">
+          <a
+            href="https://vimeo.com/myzemedia"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-link film-reel-link"
+          >
+            VIEW THE FULL REEL ON VIMEO <span style={{color:'var(--red)'}}>→</span>
+          </a>
+        </div>
+      </section>
+
       {/* ── HOW IT WORKS ───────────────────────── */}
       <section className="process-section">
         <motion.h2

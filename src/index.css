@@ -1751,3 +1751,175 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
   .transformations .case-text { gap: 14px; padding: 4px 0 0; }
   .transformations .case-title { font-size: 26px; max-width: none; }
 }
+
+/* ─────────────────────────────────────────────────────────────
+   FILM WORK  ·  Showreel section (our own video credit)
+───────────────────────────────────────────────────────────── */
+.film-section {
+  padding: clamp(80px, 9vw, 140px) clamp(28px, 6vw, 96px) clamp(90px, 9vw, 140px);
+  background: var(--bg);
+  color: var(--white);
+  border-top: 1px solid rgba(220, 228, 210, 0.08);
+}
+
+.film-intro {
+  max-width: 880px;
+  margin: 0 auto clamp(48px, 5vw, 80px);
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.film-eyebrow {
+  font-family: 'Oswald', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(220, 228, 210, 0.55);
+  font-weight: 400;
+}
+
+.film-headline {
+  font-family: var(--f-head);
+  font-weight: 400;
+  font-size: clamp(36px, 5vw, 72px);
+  letter-spacing: 0.02em;
+  line-height: 1;
+  margin: 0;
+}
+
+.film-lede {
+  font-size: clamp(0.98rem, 1.2vw, 1.12rem);
+  line-height: 1.65;
+  font-weight: 300;
+  color: rgba(220, 228, 210, 0.72);
+  max-width: 60ch;
+  margin: 0;
+}
+
+/* ── film tile grid ─────────────────── */
+.film-grid {
+  max-width: 1380px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.film-tile {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.film-tile-media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #0c0c0c;
+  border: 1px solid rgba(220, 228, 210, 0.08);
+}
+
+.film-tile-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.8s ease, opacity 0.4s ease;
+  opacity: 0.92;
+}
+
+.film-tile:hover .film-tile-media img {
+  transform: scale(1.03);
+  opacity: 1;
+}
+
+.film-tile-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #141414 0%, #1d1d1d 100%);
+}
+
+.film-tile-play {
+  position: absolute;
+  right: 14px;
+  bottom: 12px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: rgba(245, 240, 230, 0.95);
+  background: rgba(20, 20, 20, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 50%;
+  padding-left: 2px;
+  transition: background 0.3s ease;
+}
+
+.film-tile:hover .film-tile-play {
+  background: var(--red);
+}
+
+.film-tile-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 2px;
+}
+
+.film-tile-tag {
+  font-family: 'Oswald', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(220, 228, 210, 0.5);
+  font-weight: 400;
+}
+
+.film-tile-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--white);
+  font-weight: 400;
+}
+
+.film-cta {
+  max-width: 1380px;
+  margin: clamp(28px, 3vw, 44px) auto 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.film-reel-link {
+  font-family: 'Oswald', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(220, 228, 210, 0.85);
+  font-weight: 400;
+}
+
+@media (max-width: 900px) {
+  .film-section {
+    padding: 72px 20px 80px;
+  }
+  .film-intro { gap: 18px; margin-bottom: 36px; }
+  .film-headline { font-size: 36px; letter-spacing: 0.01em; }
+  .film-grid { grid-template-columns: 1fr; gap: 28px; }
+  .film-tile-media { aspect-ratio: 16 / 10; }
+  .film-cta { justify-content: flex-start; }
+}
