@@ -33,6 +33,39 @@ const PROJECTS = [
 
 const CASES = [
   {
+    id: 'medspa-spec',
+    tag: 'WEBSITE UPGRADE · SPEC STUDY',
+    client: 'MEDSPA · NEW YORK',
+    title: 'From discount flyer\nto editorial skin studio.',
+    before: '/work/medspa_before.jpg',
+    after:  '/work/medspa_after.jpg',
+    landscape: true,
+    summary: 'A typical medspa storefront — strong treatments and real results, buried under a discount-flyer website: neon CTAs, starburst promos, stock smiles, ten things screaming for attention at once. We rebuilt it around one editorial idea per scroll: real skin, calmer language, a quieter palette. The kind of site that signals price by what it removes, not what it adds.',
+    moves: ['Hero macro of real skin — no stock smiles, no before/after thumbnails', 'Warm bone palette and refined serif replace pink-and-teal template', 'One promise per scroll instead of a wall of badges and discounts'],
+  },
+  {
+    id: 'lawyer-spec',
+    tag: 'WEBSITE UPGRADE · SPEC STUDY',
+    client: 'TRIAL LAW FIRM · NEW YORK',
+    title: 'From billboard lawyer\nto serious counsel.',
+    before: '/work/lawyer_before.jpg',
+    after:  '/work/lawyer_after.jpg',
+    landscape: true,
+    summary: 'A successful personal-injury and trial practice — strong record, serious lawyers — sold as a billboard: yellow CTAs, red banners, a money counter, three shield badges fighting for the same corner. We proposed the opposite. The site for a firm clients actually call before something serious: deep ink, a single editorial photograph, one quiet line that does the work of a ten-item homepage.',
+    moves: ['Single editorial courtroom photograph replaces stock attorney portrait and flag', 'Ink-and-brass palette, refined serif, generous whitespace', 'One line of confident copy in place of trust badges and dollar counters'],
+  },
+  {
+    id: 'dental-spec',
+    tag: 'WEBSITE UPGRADE · SPEC STUDY',
+    client: 'COSMETIC DENTISTRY · NEW YORK',
+    title: 'From clinical template\nto considered practice.',
+    before: '/work/dental_before.jpg',
+    after:  '/work/dental_after.jpg',
+    landscape: true,
+    summary: 'A boutique cosmetic dental practice doing premium work — and a website that looks like every other family-dentistry template: blue overlay, tooth icons, six services in a row, a $99 special. We rebuilt the homepage around one real photograph of the actual treatment room and one quiet line of copy. Calm, considered, unmistakably a dental practice — not a spa, not a clinic stock site.',
+    moves: ['Real photograph of the treatment room replaces blue overlay and tooth icons', 'Editorial serif and warm neutrals replace medical-blue UI', 'One promise per scroll instead of a six-service icon row and discount banner'],
+  },
+  {
     id: 'judaica',
     tag: 'WEBSITE UPGRADE · E-COMMERCE',
     client: 'JUDAICA CREATIONS',
@@ -41,17 +74,6 @@ const CASES = [
     after:  '/work/judaica_after_collection.jpg',
     summary: 'A bespoke Judaica brand with extraordinary craft — undersold by a generic catalog grid and off-brand placeholder photography. We rebuilt the storefront around a single editorial idea: every page should feel like a museum gift shop, not a Shopify theme.',
     moves: ['Hero macro: real product detail (gold thread, ivory linen)', 'Quiet ivory canvas, generous negative space, calmer typography', 'Editorial product grid — one item per frame, no badges or noise'],
-  },
-  {
-    id: 'defabio-spec',
-    tag: 'WEBSITE UPGRADE · SPEC PROPOSAL',
-    client: 'DEFABIO DENTAL DESIGN',
-    title: 'A father-and-daughter practice\nthat finally looks the part.',
-    before: '/work/defabio_before.jpg',
-    after:  '/work/defabio_after.jpg',
-    landscape: true,
-    summary: 'A two-generation cosmetic dental practice in Colts Neck, NJ — the kind of quiet, design-led dentistry that deserves a website on the same level. The current site buries that story under a clinical blue overlay and a generic appointment-funnel layout. We proposed the opposite: their real people, their real space, and one editorial idea per scroll.',
-    moves: ['Editorial hero portrait of the doctors — no stock smiles, no clinical blue', 'Serif typography and warm neutrals replace medical UI', 'One promise per scroll instead of a checklist of services'],
   },
 ];
 
