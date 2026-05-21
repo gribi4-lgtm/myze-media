@@ -31,6 +31,37 @@ const PROJECTS = [
   { id: '1180499080', tag: 'BRIDAL / FASHION',     title: 'JOSEPH SAYADI BRIDAL' },
 ];
 
+const CASES = [
+  {
+    id: 'judaica',
+    tag: 'WEBSITE UPGRADE · E-COMMERCE',
+    client: 'JUDAICA CREATIONS',
+    title: 'From craft-shop catalog\nto editorial atelier.',
+    before: '/work/judaica_before_collection.jpg',
+    after:  '/work/judaica_after_collection.jpg',
+    summary: 'A bespoke Judaica brand with extraordinary craft — undersold by a generic catalog grid and off-brand placeholder photography. We rebuilt the storefront around a single editorial idea: every page should feel like a museum gift shop, not a Shopify theme.',
+    moves: ['Hero macro: real product detail (gold thread, ivory linen)', 'Quiet ivory canvas, generous negative space, calmer typography', 'Editorial product grid — one item per frame, no badges or noise'],
+  },
+  {
+    id: 'aesthetica',
+    tag: 'BRAND DIRECTION · SPEC PROPOSAL',
+    client: 'AESTHETICA MEDSPA',
+    title: 'A medspa that finally looks\nas refined as its work.',
+    after: '/work/aesthetica_after_hero.jpg',
+    summary: 'Featured in Vogue, Allure and Elle — but the website read like a Yelp listing. We proposed a single editorial system: one headline, one portrait, one promise. Refined by design.',
+    moves: ['Single editorial hero: portrait + serif headline + breath', 'Coherent warm bronze monochrome across web and social', 'Removed every line of copy that screamed ‘marketing’'],
+  },
+  {
+    id: 'aesthetica-ig',
+    tag: 'SOCIAL DIRECTION · SPEC PROPOSAL',
+    client: 'AESTHETICA — INSTAGRAM',
+    title: 'Nine posts. One brand.\nZero noise.',
+    after: '/work/aesthetica_after_ig.jpg',
+    summary: 'Most medspa feeds compete on volume. We proposed the opposite: a quieter grid, one visual language across nine tiles, the same restraint clients see on their face. The feed becomes the proof.',
+    moves: ['One palette, one light direction, one tone of voice', 'Macro detail → editorial portrait → typographic post → rhythm', 'Less, but every tile earns its place'],
+  },
+];
+
 const STEPS = [
   { num: '01', title: 'AUDIT',      desc: 'We look at your website, social and brand surface the way a first-time customer does. We map what reads premium and what undersells you.' },
   { num: '02', title: 'DIRECTION', desc: 'We set the visual language — typography, palette, imagery, tone. One clear direction, not ten ideas.' },
@@ -307,82 +338,77 @@ export default function App() {
         </motion.div>
       </div>
 
-      {/* ── WORK ───────────────────────────────── */}
-      <section className="work-section" id="work">
+      {/* ── WORK / TRANSFORMATIONS ────────────────── */}
+      <section className="work-section transformations" id="work">
         <motion.div
-          className="work-left"
+          className="work-intro"
           variants={activeRv}
           initial="hidden"
           whileInView="visible"
           viewport={viewportOnce}
           transition={revealTransition}
         >
+          <span className="work-eyebrow">SELECTED TRANSFORMATIONS</span>
           <h2 className="work-headline">
-            SAME BRAND.<br />HIGHER<br />SHELF.
+            SAME BRAND.<br />HIGHER <span style={{color:'var(--red)'}}>SHELF.</span>
           </h2>
-          <a href="https://vimeo.com/myzemedia" target="_blank" rel="noopener noreferrer" className="text-link work-view-all">VIEW ALL WORK <span style={{color:'var(--red)'}}>→</span></a>
+          <p className="work-lede">
+            Three short studies in raising the floor on how a brand looks, reads and converts —
+            without rebuilding what already works.
+          </p>
         </motion.div>
-        <div className="work-scroll-wrap">
 
-          {/* ── MOBILE: вертикальный аккордеон ── */}
-          <div className="work-mobile">
-            <div className="wm-acc">
-              {PROJECTS.map((p, i) => (
-                <button
-                  key={p.id}
-                  className={`wm-panel${activeWork === i ? ' active' : ''}`}
-                  style={thumbnails[p.id] ? { backgroundImage: `url(${thumbnails[p.id]})` } : {}}
-                  onClick={() => activeWork === i ? setLightbox(p.id) : setActiveWork(i)}
-                  aria-label={activeWork === i ? `Play ${p.title}` : `Open ${p.title}`}
-                >
-                  <div className="wm-overlay" />
-                  {activeWork === i && (
-                    <div className="wm-play">
-                      <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
-                        <polygon points="5,3 19,12 5,21" />
-                      </svg>
-                    </div>
-                  )}
-                  <div className="wm-info">
-                    <span className="wm-tag">{p.tag}</span>
-                    <span className="wm-title">{p.title}</span>
+        <div className="cases">
+          {CASES.map((c, idx) => (
+            <motion.article
+              key={c.id}
+              className="case"
+              variants={activeRv}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportOnce}
+              transition={{ ...revealTransition, delay: 0.05 }}
+            >
+              <div className="case-media">
+                {c.before ? (
+                  <div className="case-compare">
+                    <figure className="case-frame">
+                      <span className="case-frame-label">BEFORE</span>
+                      <img src={c.before} alt={`${c.client} before`} loading="lazy" />
+                    </figure>
+                    <figure className="case-frame case-frame--after">
+                      <span className="case-frame-label">AFTER</span>
+                      <img src={c.after} alt={`${c.client} after`} loading="lazy" />
+                    </figure>
                   </div>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* ── DESKTOP: горизонтальный аккордеон ── */}
-          <div className="work-desktop">
-            {PROJECTS.map((p, i) => (
-              <div
-                key={p.id}
-                className={`wa-panel${activeWork === i ? ' active' : ''}`}
-                onMouseEnter={() => setActiveWork(i)}
-                onClick={() => activeWork === i ? setLightbox(p.id) : setActiveWork(i)}
-                role="button"
-                tabIndex={0}
-                aria-label={`Play ${p.title}`}
-              >
-                {thumbnails[p.id]
-                  ? <img src={thumbnails[p.id]} alt={p.title} className="wa-bg" loading="lazy" />
-                  : <div className="wa-bg-placeholder" />
-                }
-                <div className="wa-overlay" />
-                <div className="wa-play">
-                  <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
-                    <polygon points="5,3 19,12 5,21" />
-                  </svg>
-                </div>
-                <div className="wa-info">
-                  <span className="wa-tag">{p.tag}</span>
-                  <span className="wa-title-text">{p.title}</span>
-                </div>
-                <span className="wa-title-vert">{p.title}</span>
+                ) : (
+                  <figure className="case-frame case-frame--solo">
+                    <span className="case-frame-label">PROPOSED DIRECTION</span>
+                    <img src={c.after} alt={c.client} loading="lazy" />
+                  </figure>
+                )}
               </div>
-            ))}
-          </div>
+              <div className="case-text">
+                <span className="case-num">{String(idx + 1).padStart(2, '0')}</span>
+                <span className="case-tag">{c.tag}</span>
+                <h3 className="case-client">{c.client}</h3>
+                <p className="case-title">{c.title.split('\n').map((l, i) => (
+                  <span key={i}>{l}<br /></span>
+                ))}</p>
+                <p className="case-summary">{c.summary}</p>
+                <ul className="case-moves">
+                  {c.moves.map(m => <li key={m}>{m}</li>)}
+                </ul>
+              </div>
+            </motion.article>
+          ))}
+        </div>
 
+        <div className="work-footnote">
+          <p>
+            Selected film &amp; brand-content reel —
+            <a href="https://vimeo.com/myzemedia" target="_blank" rel="noopener noreferrer" className="text-link"> view on Vimeo <span style={{color:'var(--red)'}}>→</span></a>
+          </p>
         </div>
       </section>
 

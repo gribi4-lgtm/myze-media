@@ -1494,3 +1494,260 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
     object-position: center;
   }
 }
+
+/* ─────────────────────────────────────────────────────────────
+   TRANSFORMATIONS  ·  Selected case studies (Work redesign)
+   Overrides legacy .work-section grid for this variant.
+───────────────────────────────────────────────────────────── */
+.work-section.transformations {
+  display: block;
+  grid-template-columns: none;
+  min-height: 0;
+  padding: clamp(80px, 9vw, 140px) clamp(28px, 6vw, 96px) clamp(96px, 10vw, 160px);
+  background: var(--bg);
+  color: var(--white);
+  border-top: 1px solid rgba(220, 228, 210, 0.08);
+}
+
+.transformations .work-intro {
+  max-width: 880px;
+  margin: 0 auto clamp(60px, 7vw, 110px);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.transformations .work-eyebrow {
+  font-family: 'Oswald', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(220, 228, 210, 0.55);
+  font-weight: 400;
+}
+
+.transformations .work-headline {
+  margin-bottom: 0;
+  font-size: clamp(40px, 5.4vw, 84px);
+  letter-spacing: 0.02em;
+}
+
+.transformations .work-lede {
+  font-size: clamp(0.98rem, 1.2vw, 1.12rem);
+  line-height: 1.65;
+  font-weight: 300;
+  color: rgba(220, 228, 210, 0.72);
+  max-width: 60ch;
+  margin: 0;
+}
+
+/* ── Cases stack ─────────────────────────── */
+.transformations .cases {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(80px, 9vw, 140px);
+  max-width: 1380px;
+  margin: 0 auto;
+}
+
+.transformations .case {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: clamp(40px, 5vw, 80px);
+  align-items: center;
+}
+
+/* alternate sides: 2nd case media on right */
+.transformations .case:nth-child(even) .case-media { order: 2; }
+.transformations .case:nth-child(even) .case-text  { order: 1; }
+
+/* ── Media frames ────────────────────────── */
+.transformations .case-media { min-width: 0; }
+
+.transformations .case-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.transformations .case-frame {
+  position: relative;
+  margin: 0;
+  overflow: hidden;
+  background: #1a1a1a;
+  border: 1px solid rgba(220, 228, 210, 0.08);
+  aspect-ratio: 4 / 5;
+}
+
+.transformations .case-frame--solo {
+  aspect-ratio: 16 / 10;
+}
+
+.transformations .case-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 1.2s ease;
+}
+
+.transformations .case-frame:hover img {
+  transform: scale(1.02);
+}
+
+.transformations .case-frame-label {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(245, 240, 230, 0.92);
+  background: rgba(20, 20, 20, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 6px 10px;
+  z-index: 2;
+  font-weight: 400;
+}
+
+.transformations .case-frame--after .case-frame-label {
+  color: var(--red);
+  background: rgba(245, 240, 230, 0.96);
+}
+
+/* ── Case text column ───────────────────── */
+.transformations .case-text {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 8px 0;
+}
+
+.transformations .case-num {
+  font-family: 'Oswald', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.24em;
+  color: var(--red);
+  font-weight: 400;
+}
+
+.transformations .case-tag {
+  font-family: 'Oswald', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: rgba(220, 228, 210, 0.5);
+  font-weight: 400;
+}
+
+.transformations .case-client {
+  font-family: var(--f-head);
+  font-weight: 400;
+  font-size: clamp(20px, 1.8vw, 26px);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin: 0;
+  color: var(--white);
+}
+
+.transformations .case-title {
+  font-family: var(--f-head);
+  font-weight: 300;
+  font-size: clamp(26px, 2.6vw, 38px);
+  line-height: 1.15;
+  letter-spacing: 0.01em;
+  margin: 4px 0 8px;
+  color: var(--white);
+  max-width: 22ch;
+}
+
+.transformations .case-summary {
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+  line-height: 1.65;
+  font-weight: 300;
+  color: rgba(220, 228, 210, 0.75);
+  margin: 0;
+  max-width: 52ch;
+}
+
+.transformations .case-moves {
+  list-style: none;
+  padding: 0;
+  margin: 14px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.transformations .case-moves li {
+  position: relative;
+  padding-left: 22px;
+  font-size: clamp(0.88rem, 1vw, 0.95rem);
+  font-weight: 300;
+  letter-spacing: 0.02em;
+  line-height: 1.55;
+  color: rgba(220, 228, 210, 0.65);
+}
+
+.transformations .case-moves li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 12px;
+  height: 1px;
+  background: var(--red);
+}
+
+/* ── Footnote ────────────────────────────── */
+.transformations .work-footnote {
+  max-width: 1380px;
+  margin: clamp(70px, 8vw, 120px) auto 0;
+  padding-top: clamp(32px, 4vw, 56px);
+  border-top: 1px solid rgba(220, 228, 210, 0.08);
+  text-align: center;
+}
+
+.transformations .work-footnote p {
+  font-size: clamp(0.88rem, 1vw, 0.98rem);
+  letter-spacing: 0.04em;
+  font-weight: 300;
+  color: rgba(220, 228, 210, 0.6);
+  margin: 0;
+}
+
+/* ── Mobile ──────────────────────────────── */
+@media (max-width: 900px) {
+  .work-section.transformations {
+    padding: 72px 20px 88px;
+  }
+  .transformations .cases { gap: 72px; }
+  .transformations .case {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  /* keep media on top regardless of alternation on mobile */
+  .transformations .case:nth-child(even) .case-media { order: 0; }
+  .transformations .case:nth-child(even) .case-text  { order: 1; }
+
+  .transformations .case-compare {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .transformations .case-frame { aspect-ratio: 3 / 4; }
+  .transformations .case-frame--solo { aspect-ratio: auto; }
+  .transformations .case-frame--solo img { height: auto; aspect-ratio: auto; }
+  .transformations .case-frame-label {
+    font-size: 9px;
+    padding: 5px 8px;
+    top: 10px;
+    left: 10px;
+    letter-spacing: 0.2em;
+  }
+
+  .transformations .case-text { gap: 14px; padding: 4px 0 0; }
+  .transformations .case-title { font-size: 26px; max-width: none; }
+}
