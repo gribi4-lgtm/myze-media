@@ -490,6 +490,83 @@ export default function App() {
       </section>
 
       {/* ── BUILT ON CONTROL ───────────────────── */}
+      {/* MANIFESTO -- brutalist statement section */}
+      <section className="manifesto-section" id="manifesto" aria-label="Manifesto">
+        <div className="manifesto-marquee manifesto-marquee--top" aria-hidden="true">
+          <motion.div
+            className="manifesto-marquee-track"
+            animate={shouldReduceMotion ? undefined : { x: ['0%', '-50%'] }}
+            transition={{ duration: 38, ease: 'linear', repeat: Infinity, repeatType: 'loop' }}
+          >
+            {[0, 1].map(n => (
+              <span key={n} className="manifesto-marquee-set">
+                {['STRATEGY','POSITIONING','PERCEPTION','ART DIRECTION','CONTENT SYSTEMS','WEB TRANSFORMATION','BRAND FILMS','REPOSITIONING'].map(item => (
+                  <span key={item} className="manifesto-marquee-item">
+                    {item}<span className="manifesto-marquee-dot">·</span>
+                  </span>
+                ))}
+              </span>
+            ))}
+          </motion.div>
+        </div>
+
+        <div className="manifesto-body">
+          <motion.div
+            className="manifesto-block manifesto-not"
+            variants={activeRv}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            transition={revealTransition}
+          >
+            <span className="manifesto-eyebrow">WE ARE NOT</span>
+            <ul className="manifesto-list">
+              <li><span className="strike">a video agency.</span></li>
+              <li><span className="strike">a web shop.</span></li>
+              <li><span className="strike">a graphic studio.</span></li>
+            </ul>
+          </motion.div>
+
+          <motion.div
+            className="manifesto-block manifesto-are"
+            variants={activeRv}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            transition={{ ...revealTransition, delay: 0.15 }}
+          >
+            <span className="manifesto-eyebrow">WE ARE</span>
+            <h2 className="manifesto-headline">
+              A CREATIVE<br /><span style={{color:'var(--red)'}}>HOUSE.</span>
+            </h2>
+            <p className="manifesto-body-copy">
+              Strategy. Positioning. Art direction.<br />
+              Content systems. Web transformation.<br />
+              The machinery behind how a brand reads —<br />
+              before, during and after the sale.
+            </p>
+          </motion.div>
+        </div>
+
+        <div className="manifesto-marquee manifesto-marquee--bottom" aria-hidden="true">
+          <motion.div
+            className="manifesto-marquee-track manifesto-marquee-track--reverse"
+            animate={shouldReduceMotion ? undefined : { x: ['-50%', '0%'] }}
+            transition={{ duration: 44, ease: 'linear', repeat: Infinity, repeatType: 'loop' }}
+          >
+            {[0, 1].map(n => (
+              <span key={n} className="manifesto-marquee-set">
+                {Array.from({ length: 12 }).map((_, i) => (
+                  <span key={i} className="manifesto-marquee-item manifesto-marquee-item--red">
+                    PERCEPTION<span className="manifesto-marquee-dot">·</span>
+                  </span>
+                ))}
+              </span>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
       <section className="about-blurb">
         <div className="split-text">
           <motion.h2

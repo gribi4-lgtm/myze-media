@@ -2039,3 +2039,173 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
   margin-top: 2px;
   width: fit-content;
 }
+
+/* ─────────────────────────────────────────────────────────────
+   MANIFESTO SECTION
+   The one section that breaks the rhythm — oversized type,
+   brutalist spacing, marquee bands top & bottom, struck-out
+   "we are not" list, oversized "WE ARE A CREATIVE HOUSE."
+───────────────────────────────────────────────────────────── */
+.manifesto-section {
+  position: relative;
+  background: #0a0a0a;
+  color: var(--white);
+  border-top: 1px solid rgba(220, 228, 210, 0.08);
+  border-bottom: 1px solid rgba(220, 228, 210, 0.08);
+  overflow: hidden;
+}
+
+.manifesto-marquee {
+  position: relative;
+  overflow: hidden;
+  padding: 18px 0;
+  border-block: 1px solid rgba(220, 228, 210, 0.1);
+  background: #0a0a0a;
+}
+
+.manifesto-marquee--top {
+  border-top: none;
+}
+
+.manifesto-marquee--bottom {
+  border-bottom: none;
+  background: #0a0a0a;
+}
+
+.manifesto-marquee-track {
+  display: inline-flex;
+  white-space: nowrap;
+  will-change: transform;
+}
+
+.manifesto-marquee-set {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+.manifesto-marquee-item {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 400;
+  font-size: clamp(22px, 2.6vw, 38px);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(220, 228, 210, 0.85);
+  padding: 0 clamp(20px, 2.4vw, 36px);
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(20px, 2.4vw, 36px);
+}
+
+.manifesto-marquee-item--red {
+  color: var(--red);
+  font-weight: 500;
+  letter-spacing: 0.22em;
+}
+
+.manifesto-marquee-dot {
+  color: var(--red);
+  font-weight: 500;
+}
+
+.manifesto-marquee-item--red .manifesto-marquee-dot {
+  color: rgba(220, 228, 210, 0.5);
+}
+
+/* ── Body — two stacked blocks, oversized typography ───────── */
+.manifesto-body {
+  position: relative;
+  padding: clamp(80px, 11vw, 180px) clamp(28px, 6vw, 120px);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(48px, 7vw, 120px);
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.manifesto-block {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 2.2vw, 32px);
+}
+
+.manifesto-eyebrow {
+  font-family: 'Oswald', sans-serif;
+  font-size: clamp(12px, 1.1vw, 14px);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(220, 228, 210, 0.55);
+  font-weight: 400;
+}
+
+.manifesto-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(8px, 1vw, 14px);
+}
+
+.manifesto-list li {
+  font-family: var(--f-head);
+  font-weight: 300;
+  font-size: clamp(40px, 6.5vw, 96px);
+  line-height: 1.02;
+  letter-spacing: 0.01em;
+  color: rgba(220, 228, 210, 0.45);
+  text-transform: lowercase;
+}
+
+.manifesto-list .strike {
+  position: relative;
+  display: inline-block;
+  padding: 0 0.05em;
+}
+
+.manifesto-list .strike::after {
+  content: '';
+  position: absolute;
+  left: -2%;
+  right: -2%;
+  top: 53%;
+  height: clamp(4px, 0.6vw, 9px);
+  background: var(--red);
+  transform: rotate(-2deg);
+  border-radius: 1px;
+}
+
+.manifesto-headline {
+  font-family: var(--f-head);
+  font-weight: 400;
+  font-size: clamp(64px, 13vw, 220px);
+  line-height: 0.92;
+  letter-spacing: -0.005em;
+  text-transform: uppercase;
+  margin: 0;
+  color: var(--white);
+}
+
+.manifesto-body-copy {
+  font-family: var(--f-head);
+  font-weight: 300;
+  font-size: clamp(1rem, 1.4vw, 1.35rem);
+  line-height: 1.55;
+  color: rgba(220, 228, 210, 0.78);
+  margin: clamp(18px, 2vw, 32px) 0 0;
+  max-width: 56ch;
+}
+
+@media (max-width: 900px) {
+  .manifesto-body {
+    padding: 72px 20px;
+    gap: 56px;
+  }
+  .manifesto-block { gap: 16px; }
+  .manifesto-eyebrow { font-size: 11px; letter-spacing: 0.28em; }
+  .manifesto-list li { font-size: 38px; line-height: 1.05; }
+  .manifesto-list .strike::after { height: 4px; top: 55%; }
+  .manifesto-headline { font-size: 56px; line-height: 0.95; letter-spacing: 0; }
+  .manifesto-body-copy { font-size: 1rem; }
+  .manifesto-marquee { padding: 14px 0; }
+  .manifesto-marquee-item { font-size: 18px; letter-spacing: 0.14em; padding: 0 16px; gap: 16px; }
+}
