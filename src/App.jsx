@@ -31,9 +31,28 @@ const PROJECTS = [
   { id: '1180499080', tag: 'BRIDAL / FASHION',     title: 'JOSEPH SAYADI BRIDAL' },
 ];
 
+const DISCIPLINES = [
+  {
+    num: '01',
+    title: 'FILM',
+    desc: 'Brand films, product motion, music videos, fashion film. Directed, shot, edited and graded in-house.',
+  },
+  {
+    num: '02',
+    title: 'REBRAND',
+    desc: 'Identity, art direction, visual system, typography and photography direction. The look before the surface.',
+  },
+  {
+    num: '03',
+    title: 'BUILD',
+    desc: 'Website, social grid, packaging surface. Where the brand finally lands — fast, calm, easy to buy from.',
+  },
+];
+
 const CASES = [
   {
     id: 'medspa-spec',
+    discipline: 'WEB',
     tag: 'WEBSITE UPGRADE · SPEC STUDY',
     client: 'MEDSPA · NEW YORK',
     title: 'From discount flyer\nto editorial skin studio.',
@@ -45,6 +64,7 @@ const CASES = [
   },
   {
     id: 'lawyer-spec',
+    discipline: 'REBRAND + WEB',
     tag: 'WEBSITE UPGRADE · SPEC STUDY',
     client: 'TRIAL LAW FIRM · NEW YORK',
     title: 'From billboard lawyer\nto serious counsel.',
@@ -56,6 +76,7 @@ const CASES = [
   },
   {
     id: 'dental-spec',
+    discipline: 'WEB',
     tag: 'WEBSITE UPGRADE · SPEC STUDY',
     client: 'COSMETIC DENTISTRY · NEW YORK',
     title: 'From clinical template\nto considered practice.',
@@ -67,6 +88,7 @@ const CASES = [
   },
   {
     id: 'judaica',
+    discipline: 'FILM + REBRAND + WEB',
     tag: 'WEBSITE UPGRADE · E-COMMERCE',
     client: 'JUDAICA CREATIONS',
     title: 'From craft-shop catalog\nto editorial atelier.',
@@ -290,7 +312,7 @@ export default function App() {
         </video>
         <div className="hero-overlay" />
         <div className="hero-content">
-          <h1 className="sr-only">Cinematic Brand Films &amp; Commercial Production — NJ &amp; NY</h1>
+          <h1 className="sr-only">Brand Films, Rebrands &amp; Editorial Websites — NJ &amp; NY</h1>
           <h2 className="hero-headline">
             <span className="hero-line">PERCEPTION</span>
             <span className="hero-line">IS</span>
@@ -303,9 +325,9 @@ export default function App() {
             animate="visible"
             transition={{ ...revealTransition, delay: 0.75 }}
           >
-            We make brands look more expensive,<br />
-            cleaner, and easier to buy from —<br />
-            on their website and across social.
+            We film, rebrand and build —<br />
+            for businesses that have outgrown<br />
+            how they look.
           </motion.p>
           <motion.div
             className="hero-btns"
@@ -320,7 +342,7 @@ export default function App() {
         </div>
         <div className="hero-side-label">
           <div className="hero-side-line" />
-          <span className="hero-side-text">VISUAL UPGRADE STUDIO — WEB · SOCIAL</span>
+          <span className="hero-side-text">VISUAL UPGRADE STUDIO — FILM · BRAND · WEB</span>
           <div className="hero-side-dot" />
         </div>
         <div className="hero-scroll">
@@ -342,7 +364,7 @@ export default function App() {
         >
           {[0, 1].map(n => (
             <span key={n} className="ticker-set">
-              {['LOOK MORE EXPENSIVE','WEBSITE UPGRADE','SOCIAL DIRECTION','VISUAL SYSTEMS','EDITORIAL ART DIRECTION','E-COMMERCE POLISH','PREMIUM POSITIONING','BRAND CLARITY'].map(item => (
+              {['LOOK MORE EXPENSIVE','BRAND FILMS','REBRAND','WEBSITE UPGRADE','EDITORIAL ART DIRECTION','VISUAL SYSTEMS','PREMIUM POSITIONING','BRAND CLARITY'].map(item => (
 
                 <span key={item} className="ticker-item">
                   {item}<span className="ticker-dot">·</span>
@@ -352,6 +374,45 @@ export default function App() {
           ))}
         </motion.div>
       </div>
+
+      {/* ── THREE DISCIPLINES ────────────────────── */}
+      <section className="disciplines-section" id="disciplines">
+        <motion.div
+          className="disciplines-intro"
+          variants={activeRv}
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewportOnce}
+          transition={revealTransition}
+        >
+          <span className="work-eyebrow">WHAT THE STUDIO DOES</span>
+          <h2 className="work-headline">
+            THREE DISCIPLINES.<br /><span style={{color:'var(--red)'}}>ONE DIRECTION.</span>
+          </h2>
+          <p className="work-lede">
+            Most studios pick one. We run all three under one roof — film, identity and surface —
+            so the brand reads as one thing across every touchpoint.
+          </p>
+        </motion.div>
+
+        <div className="disciplines-grid">
+          {DISCIPLINES.map((d, i) => (
+            <motion.div
+              key={d.title}
+              className="discipline-card"
+              variants={activeRv}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportOnce}
+              transition={{ ...revealTransition, delay: i * 0.08 }}
+            >
+              <span className="discipline-num">{d.num}</span>
+              <h3 className="discipline-title">{d.title}</h3>
+              <p className="discipline-desc">{d.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
 
       {/* ── WORK / TRANSFORMATIONS ────────────────── */}
       <section className="work-section transformations" id="work">
@@ -368,8 +429,8 @@ export default function App() {
             SAME BRAND.<br />HIGHER <span style={{color:'var(--red)'}}>SHELF.</span>
           </h2>
           <p className="work-lede">
-            Three short studies in raising the floor on how a brand looks, reads and converts —
-            without rebuilding what already works.
+            Short studies in raising the floor on how a brand looks, reads and converts —
+            across film, identity and surface.
           </p>
         </motion.div>
 
@@ -406,6 +467,7 @@ export default function App() {
               <div className="case-text">
                 <span className="case-num">{String(idx + 1).padStart(2, '0')}</span>
                 <span className="case-tag">{c.tag}</span>
+                {c.discipline && <span className="case-discipline">{c.discipline}</span>}
                 <h3 className="case-client">{c.client}</h3>
                 <p className="case-title">{c.title.split('\n').map((l, i) => (
                   <span key={i}>{l}<br /></span>
@@ -500,8 +562,8 @@ export default function App() {
             viewport={viewportOnce}
             transition={{ ...revealTransition, delay: 0.1 }}
           >
-            <p>You probably already have a website.<br />You probably already post on social.</p>
-            <p>We don't replace what works.<br />We raise the floor on how it looks,<br />reads, and converts.</p>
+            <p>You probably already have a website,<br />a logo, maybe a reel.</p>
+            <p>We don't replace what works.<br />We raise the floor on how the whole brand<br />looks on film, on screen and in print.</p>
             <p>The same brand — just on a higher shelf.</p>
           </motion.div>
         </div>
@@ -518,7 +580,7 @@ export default function App() {
             viewport={viewportOnce}
             transition={revealTransition}
           >
-            WHAT <span style={{color:'var(--red)'}}>WE DO</span>
+            WHAT'S IN<br />THE <span style={{color:'var(--red)'}}>STUDIO</span>
           </motion.h2>
           <div className="services-simple">
             <motion.div
@@ -532,22 +594,22 @@ export default function App() {
               <div className="service-row">
                 <span className="service-num">01</span>
                 <div>
-                  <h3 className="service-title">WEBSITE UPGRADE</h3>
-                  <p className="service-desc">We rebuild your website to read premium — typography, layout, imagery, flow. Faster, calmer, easier to buy from. Works with what you already have.</p>
+                  <h3 className="service-title">FILM</h3>
+                  <p className="service-desc">Brand films and documentaries, product and commercial motion, music videos, fashion film. Direction, shoot, edit and color — all in-house.</p>
                 </div>
               </div>
               <div className="service-row">
                 <span className="service-num">02</span>
                 <div>
-                  <h3 className="service-title">SOCIAL DIRECTION</h3>
-                  <p className="service-desc">We rebuild your Instagram surface — grid, post system, art direction. Less noise. More signal. So your feed actually matches the brand you sell.</p>
+                  <h3 className="service-title">REBRAND</h3>
+                  <p className="service-desc">Identity and logotype, art direction, visual system, typography and photography direction, packaging and print surface. The look before the surface.</p>
                 </div>
               </div>
               <div className="service-row">
                 <span className="service-num">03</span>
                 <div>
-                  <h3 className="service-title">VISUAL SYSTEM</h3>
-                  <p className="service-desc">One coherent look across every touchpoint — type, palette, photography, tone. So nothing about your brand says 'cheap' when you mean 'premium'.</p>
+                  <h3 className="service-title">BUILD</h3>
+                  <p className="service-desc">Website (Next.js, Shopify, Webflow), social grid and post system, editorial photography direction. Launch and handoff so it stays clean after we leave.</p>
                 </div>
               </div>
             </motion.div>
@@ -579,11 +641,11 @@ export default function App() {
         >
           <span className="film-eyebrow">FILM &amp; MOTION</span>
           <h2 className="film-headline">
-            WE ALSO MAKE<br /><span style={{color:'var(--red)'}}>FILMS.</span>
+            WE SHOOT<br />WHAT WE <span style={{color:'var(--red)'}}>DESIGN.</span>
           </h2>
           <p className="film-lede">
             Brand films, product motion, music videos, fashion film. Shot, edited and graded in-house —
-            same editorial restraint we bring to a website, applied to moving image.
+            by the same team that designs the brand.
           </p>
         </motion.div>
 
@@ -670,7 +732,7 @@ export default function App() {
           <h2 className="contact-headline">
             Ready to look like<br />the brand you actually are?
           </h2>
-          <p className="contact-tagline">Visual upgrade for web · social · brand surface.</p>
+          <p className="contact-tagline">Visual upgrade studio — film · brand · web.</p>
           <button className="btn-cta" onClick={() => { setFormOpen(true); setFormSent(false); }}>
             START A PROJECT
           </button>
