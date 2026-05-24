@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@300;400;500&family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap');
 
 /* ── RESET ───────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -11,6 +11,7 @@
   --line:     rgba(26,26,22,0.13);
   --f-head:   'Oswald', sans-serif;
   --f-body:   'Inter', -apple-system, sans-serif;
+  --f-mono:   'IBM Plex Mono', monospace;
 }
 
 html { scroll-behavior: smooth; }
@@ -27,6 +28,23 @@ body {
 
 a { text-decoration: none; color: inherit; }
 button { cursor: pointer; background: none; border: none; color: inherit; font: inherit; padding: 0; }
+
+.nav-links a,
+.ticker-item,
+.work-eyebrow,
+.film-eyebrow,
+.discipline-num,
+.service-num,
+.process-num,
+.case-num,
+.case-tag,
+.case-discipline,
+.case-frame-label,
+.work-card-tag,
+.contact-social a,
+.footer-copy {
+  font-family: var(--f-mono);
+}
 
 /* ── SECTION Z-INDEX ─────────────────────── */
 .work-section, .approach-section,
@@ -426,6 +444,22 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
   opacity: 0.82;
 }
 
+.perception-panel {
+  width: 100%;
+  min-height: 230px;
+  display: flex;
+  align-items: center;
+  border-top: 1px solid rgba(238, 239, 229, 0.22);
+  border-bottom: 1px solid rgba(238, 239, 229, 0.16);
+}
+
+.perception-panel p {
+  max-width: 420px;
+  font-size: clamp(1.15rem, 2vw, 1.7rem);
+  line-height: 1.45;
+  opacity: 0.82;
+}
+
 /* ── SPLIT SECTIONS (desktop two-column) ─── */
 .about-blurb,
 .approach-section,
@@ -459,6 +493,10 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
   .services-list {
     font-size: clamp(1rem, 2.5vw, 1.3rem);
     line-height: 1.4;
+  }
+
+  .perception-panel {
+    margin-top: 8px;
   }
 }
 
@@ -500,6 +538,52 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
   object-position: center;
   display: block;
   filter: contrast(0.9) brightness(0.95);
+}
+
+/* ── APPROACH COLLAGE ───────────────────── */
+.approach-collage {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 138px;
+  gap: 10px;
+  min-height: 434px;
+}
+
+.approach-collage-item {
+  position: relative;
+  overflow: hidden;
+  background: rgba(220, 228, 210, 0.05);
+}
+
+.approach-collage-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, rgba(28, 30, 24, 0.72), rgba(28, 30, 24, 0.1) 52%, rgba(28, 30, 24, 0.28)),
+    rgba(28, 30, 24, 0.08);
+  pointer-events: none;
+}
+
+.approach-collage-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(0.12) contrast(0.88) brightness(0.82);
+  transform: scale(1.02);
+}
+
+.approach-collage-item figcaption {
+  position: absolute;
+  left: 14px;
+  bottom: 12px;
+  z-index: 1;
+  font-family: var(--f-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(220, 228, 210, 0.78);
 }
 
 /* ── APPROACH TEXT ───────────────────────── */
@@ -1313,12 +1397,35 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
   }
 
   /* Approach: image is first in DOM but goes below text on mobile */
-  .approach-section .split-image  { order: 2; }
-  .approach-section .approach-text { order: 1; gap: 0; }
+  .approach-section .split-image,
+  .approach-section .approach-collage { order: 2; }
+  .approach-section .approach-text    { order: 1; gap: 0; }
 
   /* Images on mobile */
   .split-image { min-height: 0; }
   .split-img   { aspect-ratio: 4 / 3; height: auto; min-height: 0; }
+
+  .approach-collage {
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 118px;
+    min-height: 0;
+    gap: 8px;
+  }
+
+  .approach-collage-item figcaption {
+    left: 10px;
+    bottom: 9px;
+    font-size: 0.52rem;
+  }
+
+  .perception-panel {
+    min-height: 0;
+    padding: 24px 0;
+  }
+
+  .perception-panel p {
+    max-width: none;
+  }
 
   /* ── TICKER (mobile) ── */
   .ticker { height: 72px; }
@@ -1542,6 +1649,16 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
   margin: 0;
 }
 
+.work-service-line {
+  font-size: 0.72rem;
+  line-height: 1.9;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(220, 228, 210, 0.52);
+  max-width: 78ch;
+  margin: 2px 0 0;
+}
+
 /* ── Cases stack ─────────────────────────── */
 .transformations .cases {
   display: flex;
@@ -1592,7 +1709,7 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
   gap: 18px;
 }
 .transformations .case--landscape .case-frame {
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 16 / 9;
 }
 
 .transformations .case-frame img {
@@ -1749,6 +1866,13 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
     gap: 8px;
   }
   .transformations .case-frame { aspect-ratio: 3 / 4; }
+  .transformations .case--landscape .case-compare {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .transformations .case--landscape .case-frame {
+    aspect-ratio: 16 / 9;
+  }
   .transformations .case-frame--solo { aspect-ratio: auto; }
   .transformations .case-frame--solo img { height: auto; aspect-ratio: auto; }
   .transformations .case-frame-label {
