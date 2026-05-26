@@ -554,6 +554,103 @@ export default function App() {
         </section>
   
   
+        {/* ── PERSPECTIVE ─────────────────────────── */}
+        <section className="perspective-section" id="perspective">
+
+          {/* Block 1: Manifesto */}
+          <motion.div
+            className="perspective-block"
+            variants={activeRv}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            transition={revealTransition}
+          >
+            <span className="perspective-label">WHAT WE SEE</span>
+            <h2 className="perspective-headline">
+              Most brands don't have a budget problem.<br />
+              They have a <span style={{color:'var(--red)'}}>vision problem.</span>
+            </h2>
+            <p className="perspective-body">
+              They've been given a template, and they're happy with it — because no one showed them
+              what else is possible. They look around their industry and see everyone in the same box.
+              Same layouts. Same stock footage. Same voice. They don't stand out because they don't
+              know what standing out looks like.
+            </p>
+            <div className="perspective-points">
+              <div className="perspective-point">
+                <strong>The Yellow Page trap</strong>
+                <p>Everyone in the same grid. Nobody's bad — but nobody's different either.</p>
+              </div>
+              <div className="perspective-point">
+                <strong>Cliché blindness</strong>
+                <p>Drone shots, handshakes, whiteboards. They feel safe because everyone uses them.</p>
+              </div>
+              <div className="perspective-point">
+                <strong>We widen the lens</strong>
+                <p>You don't need a bigger budget. You need to see what your brand could look like.</p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Block 2: Diagnosis */}
+          <motion.div
+            className="perspective-block"
+            variants={activeRv}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            transition={{ ...revealTransition, delay: 0.1 }}
+          >
+            <span className="perspective-label">DOES THIS SOUND FAMILIAR?</span>
+            <h3 className="perspective-subhead">
+              You're successful. But your brand still looks like everyone else's.
+            </h3>
+            <div className="perspective-checks">
+              <div className="perspective-check">
+                <strong>You're proud of your work</strong> — but your website doesn't show it
+              </div>
+              <div className="perspective-check">
+                <strong>You can deliver</strong> — but clients pick the cheaper option because they don't see the difference
+              </div>
+              <div className="perspective-check">
+                <strong>You've been given content</strong> — and you liked it, because you haven't seen what better looks like
+              </div>
+              <div className="perspective-check">
+                <strong>You explain what you do</strong> — instead of making people feel it
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Block 3: How We Work */}
+          <motion.div
+            className="perspective-block"
+            variants={activeRv}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            transition={{ ...revealTransition, delay: 0.2 }}
+          >
+            <span className="perspective-label">HOW WE WORK</span>
+            <h3 className="perspective-subhead">
+              We're looking for businesses that want to look different.
+            </h3>
+            <p className="perspective-body">
+              We work with any business — big, small, luxury, humble. Doesn't matter what you do
+              or where you are. The only thing that matters is that <em>you</em> feel it's time for
+              a change. That you look at your brand and think: this could be more.
+            </p>
+            <p className="perspective-body">
+              If that's you — you'll hear from us, or you'll find us first. Either way, we should talk.
+            </p>
+            <div className="perspective-cta">
+              <strong>You'll know when it's time.</strong>
+              <span>When you do — we're here.</span>
+            </div>
+          </motion.div>
+
+        </section>
+
         {/* ── WHAT WE DO ─────────────────────────── */}
         <section className="services-section" id="services">
           <div className="split-text">
