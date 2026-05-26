@@ -15,6 +15,7 @@
 }
 
 html { scroll-behavior: smooth; }
+html, body { max-width: 100%; overflow-x: clip; }
 
 body {
   background: var(--black);
@@ -23,7 +24,6 @@ body {
   font-weight: 300;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
 }
 
 a { text-decoration: none; color: inherit; }
@@ -1632,6 +1632,7 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
   min-height: 100vh;
   background: #1C1E18;
   color: var(--white);
+  overflow-x: hidden;
 }
 
 .insights-hero {
@@ -2352,6 +2353,7 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
   background: var(--bg);
   color: var(--white);
   border-top: 1px solid rgba(220, 228, 210, 0.08);
+  overflow-x: clip;
 }
 
 .film-intro {
@@ -2543,6 +2545,39 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
 .accordion-play:hover {
   background: var(--red);
   border-color: var(--red);
+}
+
+/* ── Mobile accordion ─────────────────── */
+@media (max-width: 767px) {
+  .accordion-portfolio {
+    width: 100%;
+    max-width: 100%;
+    height: min(75vh, 400px);
+    gap: 6px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+  .accordion-portfolio::-webkit-scrollbar { display: none; }
+  .accordion-panel {
+    flex: 0 0 44px;
+    min-width: 0;
+    border-radius: 3px;
+  }
+  .accordion-panel.active {
+    flex: 0 0 clamp(180px, 56vw, 260px);
+    scroll-snap-align: start;
+  }
+  .accordion-title-vertical {
+    font-size: 11px;
+    top: 20px;
+  }
+  .accordion-info {
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+  }
 }
 
 .film-cta {

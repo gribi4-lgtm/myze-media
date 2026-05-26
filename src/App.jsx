@@ -448,12 +448,8 @@ export default function App() {
           >
             <span className="film-eyebrow">FILM &amp; MOTION</span>
             <h2 className="film-headline">
-              THE ORIGINAL<br /><span style={{color:'var(--red)'}}>STRENGTH.</span>
+              FILM &amp; MOTION<br /><span style={{color:'var(--red)'}}>VISUALS THAT<br />POSITION.</span>
             </h2>
-            <p className="film-lede">
-              Commercials, brand films, product motion, interviews, fashion film and social content.
-              Shot, edited and graded in-house.
-            </p>
           </motion.div>
   
           <div className="accordion-portfolio">
