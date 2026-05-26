@@ -1,5 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  return null;
+}
 import { motion, useReducedMotion } from 'framer-motion';
 import { gsap } from 'gsap';
 import AnimatedBackground from './AnimatedBackground';
@@ -308,6 +314,7 @@ export default function App() {
   return (
     <>
       <Nav menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+      <ScrollToTop />
 
       <Routes>
         <Route path="/" element={
@@ -398,7 +405,7 @@ export default function App() {
           >
             <span className="work-eyebrow">WHAT WE DO</span>
             <h2 className="work-headline">
-              WE CREATE THE CONTENT,<br /><span style={{color:'var(--red)'}}>THEN SHAPE THE BRAND AROUND IT.</span>
+              WE CREATE CONTENT THAT SHAPES<br />HOW THE <span style={{color:'var(--red)'}}>BRAND IS SEEN.</span>
             </h2>
             <p className="work-lede">
               We create the visual side of your marketing: the videos, campaigns, website, and brand
@@ -664,6 +671,16 @@ export default function App() {
             >
               WHAT YOU CAN<br />HIRE US <span style={{color:'var(--red)'}}>FOR</span>
             </motion.h2>
+            <motion.p
+              className="services-mantra"
+              variants={activeRv}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportOnce}
+              transition={{ ...revealTransition, delay: 0.05 }}
+            >
+              We create content that shapes how the brand is seen.
+            </motion.p>
             <div className="services-simple">
               <motion.div
                 className="services-list"
