@@ -313,9 +313,14 @@ export default function App() {
     if (canonical) canonical.setAttribute('href', page.url);
   }, [pathname]);
 
-  /* Accordion scroll into view on mobile */
+  /* Accordion scroll into view on mobile — skip initial mount */
+  const accordionMounted = useRef(false);
   useEffect(() => {
     if (!accordionRef.current || activeAccordion < 0) return;
+    if (!accordionMounted.current) {
+      accordionMounted.current = true;
+      return;
+    }
     const container = accordionRef.current;
     const panels = container.children;
     const panel = panels[activeAccordion];

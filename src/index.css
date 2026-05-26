@@ -14,8 +14,15 @@
   --f-mono:   'IBM Plex Mono', monospace;
 }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 96px; }
 html, body { max-width: 100%; overflow-x: clip; }
+
+section[id] { scroll-margin-top: 96px; }
+
+@media (max-width: 900px) {
+  html { scroll-padding-top: 76px; }
+  section[id] { scroll-margin-top: 76px; }
+}
 
 body {
   background: var(--black);
