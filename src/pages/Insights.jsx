@@ -83,32 +83,44 @@ export default function Insights() {
           ))}
         </div>
 
-        <div className="insight-grid">
-          {filtered.map((article, index) => (
-            <motion.article
-              className="insight-card"
-              key={article.slug}
-              variants={activeRv}
-              initial="hidden"
-              whileInView="visible"
-              viewport={viewportOnce}
-              transition={{ ...revealTransition, delay: (index % 3) * 0.06 }}
-            >
-              <Link to={`/insights/${article.slug}`} className="insight-card-image">
-                <img src={article.image} alt="" loading="lazy" />
-              </Link>
-              <div className="insight-card-copy">
-                <div className="insight-meta">
-                  <span>{article.category}</span>
-                  <span>{article.readTime}</span>
+        {filtered.length > 0 ? (
+          <div className="insight-grid">
+            {filtered.map((article, index) => (
+              <motion.article
+                className="insight-card"
+                key={article.slug}
+                variants={activeRv}
+                initial="hidden"
+                whileInView="visible"
+                viewport={viewportOnce}
+                transition={{ ...revealTransition, delay: (index % 3) * 0.06 }}
+              >
+                <Link to={`/insights/${article.slug}`} className="insight-card-image">
+                  <img src={article.image} alt="" loading="lazy" />
+                </Link>
+                <div className="insight-card-copy">
+                  <div className="insight-meta">
+                    <span>{article.category}</span>
+                    <span>{article.readTime}</span>
+                  </div>
+                  <h2><Link to={`/insights/${article.slug}`}>{article.title}</Link></h2>
+                  <p>{article.dek}</p>
+                  <Link to={`/insights/${article.slug}`} className="insight-link">READ INSIGHT</Link>
                 </div>
-                <h2><Link to={`/insights/${article.slug}`}>{article.title}</Link></h2>
-                <p>{article.dek}</p>
-                <Link to={`/insights/${article.slug}`} className="insight-link">READ INSIGHT</Link>
-              </div>
-            </motion.article>
-          ))}
-        </div>
+              </motion.article>
+            ))}
+          </div>
+        ) : (
+          <motion.div
+            className="insight-empty"
+            variants={activeRv}
+            initial="hidden"
+            animate="visible"
+            transition={revealTransition}
+          >
+            <p>Articles on this topic are coming soon.</p>
+          </motion.div>
+        )}
       </section>
     </main>
   );

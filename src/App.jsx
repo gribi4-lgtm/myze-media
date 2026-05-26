@@ -150,6 +150,7 @@ export default function App() {
   const activeRi  = shouldReduceMotion ? { hidden: { opacity: 1 }, visible: { opacity: 1 } } : imageVariants;
 
   const [lightbox, setLightbox]     = useState(null);
+  const [activeAccordion, setActiveAccordion] = useState(0);
   const [thumbnails, setThumbnails] = useState({});
   const [menuOpen, setMenuOpen]     = useState(false);
   const [formOpen, setFormOpen]     = useState(false);
@@ -455,33 +456,46 @@ export default function App() {
             </p>
           </motion.div>
   
-          <div className="film-grid">
-            {PROJECTS.map((p, i) => (
-              <motion.button
-                key={p.id}
-                type="button"
-                className="film-tile"
-                onClick={() => setLightbox(p.id)}
-                variants={activeRi}
-                initial="hidden"
-                whileInView="visible"
-                viewport={viewportOnce}
-                transition={{ ...imageTransition, delay: (i % 3) * 0.05 }}
-              >
-                <div className="film-tile-media">
-                  {thumbnails[p.id] ? (
-                    <img src={thumbnails[p.id]} alt={p.title} loading="lazy" />
-                  ) : (
-                    <div className="film-tile-placeholder" />
+          <div className="accordion-portfolio">
+            {PROJECTS.map((p, i) => {
+              const isActive = activeAccordion === i;
+              return (
+                <motion.button
+                  key={p.id}
+                  type="button"
+                  className={`accordion-panel${isActive ? ' active' : ''}`}
+                  onClick={() => setActiveAccordion(isActive ? -1 : i)}
+                  variants={activeRi}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={viewportOnce}
+                  transition={{ ...imageTransition, delay: i * 0.04 }}
+                >
+                  <div className="accordion-overlay" />
+                  <div className="accordion-media">
+                    {thumbnails[p.id] ? (
+                      <img src={thumbnails[p.id]} alt={p.title} loading="lazy" />
+                    ) : (
+                      <div className="accordion-placeholder" />
+                    )}
+                  </div>
+                  <span className="accordion-title-vertical">{p.title}</span>
+                  <div className="accordion-info">
+                    <span className="accordion-tag">{p.tag}</span>
+                    <span className="accordion-title-text">{p.title}</span>
+                  </div>
+                  {isActive && (
+                    <span
+                      className="accordion-play"
+                      aria-label={`Play ${p.title}`}
+                      onClick={(e) => { e.stopPropagation(); setLightbox(p.id); }}
+                    >
+                      ▶
+                    </span>
                   )}
-                  <span className="film-tile-play" aria-hidden="true">▶</span>
-                </div>
-                <div className="film-tile-text">
-                  <span className="film-tile-tag">{p.tag}</span>
-                  <span className="film-tile-title">{p.title}</span>
-                </div>
-              </motion.button>
-            ))}
+                </motion.button>
+              );
+            })}
           </div>
   
         </section>
