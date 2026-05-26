@@ -1,23 +1,15 @@
 import { useEffect, useState } from 'react';
-import { motion, useReducedMotion, useAnimationControls } from 'framer-motion';
+import { Routes, Route, Link, useLocation } from 'react-router-dom';
+import { motion, useReducedMotion } from 'framer-motion';
 import { gsap } from 'gsap';
 import AnimatedBackground from './AnimatedBackground';
+import Insights from './pages/Insights';
+import ArticlePage from './pages/ArticlePage';
+import NotFound from './pages/NotFound';
+import { revealVariants, imageVariants, revealTransition, imageTransition, viewportOnce } from './utils/animation';
+import { siteUrl, setMetaTag } from './utils/meta';
 import './index.css';
 
-/* ── FRAMER MOTION VARIANTS ──────────────────── */
-const revealVariants = {
-  hidden:  { opacity: 0, y: 18, filter: 'blur(5px)' },
-  visible: { opacity: 1, y: 0,  filter: 'none' },
-};
-const revealTransition = { duration: 1.2, ease: [0.22, 1, 0.36, 1] };
-
-const imageVariants = {
-  hidden:  { opacity: 0, scale: 1.04, filter: 'blur(8px)' },
-  visible: { opacity: 1, scale: 1,    filter: 'none' },
-};
-const imageTransition = { duration: 1.8, ease: [0.22, 1, 0.36, 1] };
-
-const viewportOnce = { once: true, amount: 0.2 };
 
 const PROJECTS = [
   { id: '1186076334', tag: 'COMMERCIAL / PRODUCT', title: 'ELECTRONIKA WATCH' },
@@ -96,9 +88,56 @@ const STEPS = [
 ];
 
 
+function Nav({ menuOpen, setMenuOpen }) {
+  const { pathname } = useLocation();
+  const isHome = pathname === '/';
+  const sectionHref = id => isHome ? `#${id}` : `/#${id}`;
+
+  return (
+    <>
+      <nav className="nav">
+        <Link to="/" className="nav-logo">
+          <img src="/logo.png" alt="MYZE Media" className="nav-logo-img" />
+        </Link>
+        <div className="nav-links">
+          <a href={sectionHref('work')}>WORK</a>
+          <a href={sectionHref('services')}>SERVICES</a>
+          <a href={sectionHref('perspective')}>PERSPECTIVE</a>
+          <Link to="/insights">INSIGHTS</Link>
+          <a href={sectionHref('contact')}>CONTACT</a>
+        </div>
+        <div
+          className={`nav-hamburger${menuOpen ? ' open' : ''}`}
+          onClick={() => setMenuOpen(v => !v)}
+        >
+          <span /><span />
+        </div>
+      </nav>
+
+      {menuOpen && (
+        <div className="mobile-menu" onClick={() => setMenuOpen(false)}>
+          <a href={sectionHref('work')}     onClick={() => setMenuOpen(false)}>WORK</a>
+          <a href={sectionHref('services')} onClick={() => setMenuOpen(false)}>SERVICES</a>
+          <a href={sectionHref('perspective')}    onClick={() => setMenuOpen(false)}>PERSPECTIVE</a>
+          <Link to="/insights"              onClick={() => setMenuOpen(false)}>INSIGHTS</Link>
+          <a href={sectionHref('contact')}  onClick={() => setMenuOpen(false)}>CONTACT</a>
+        </div>
+      )}
+    </>
+  );
+}
+
+function SiteFooter() {
+  return (
+    <footer className="footer">
+      <span className="footer-copy">© 2026 MYZE Media. All rights reserved.</span>
+    </footer>
+  );
+}
+
+
 export default function App() {
   const shouldReduceMotion = useReducedMotion();
-  const tickerControls     = useAnimationControls();
 
   /* active variants — no animation when user prefers reduced motion */
   const activeRv  = shouldReduceMotion ? { hidden: { opacity: 1 }, visible: { opacity: 1 } } : revealVariants;
@@ -110,17 +149,8 @@ export default function App() {
   const [formOpen, setFormOpen]     = useState(false);
   const [formSent, setFormSent]     = useState(false);
   const [formData, setFormData]     = useState({ name: '', email: '', details: '' });
-  const [activeWork, setActiveWork] = useState(0);
+  const { pathname } = useLocation();
 
-  /* ticker animation — start on mount, pause on hover */
-  useEffect(() => {
-    if (!shouldReduceMotion) {
-      tickerControls.start({
-        x: ['0%', '-50%'],
-        transition: { duration: 38, ease: 'linear', repeat: Infinity, repeatType: 'loop' },
-      });
-    }
-  }, [shouldReduceMotion]);
 
   /* fetch Vimeo thumbnails */
   useEffect(() => {
@@ -209,6 +239,7 @@ export default function App() {
     return () => window.removeEventListener('scroll', fn);
   }, []);
 
+
   /* HOW IT WORKS — scroll animation (mobile only) */
   useEffect(() => {
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -250,521 +281,560 @@ export default function App() {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (pathname !== '/') return;
+    const page = {
+      title: 'MYZE Media — Brand Films, Campaigns, Rebrands & Websites. NJ & NY',
+      ogTitle: 'MYZE Media — Brand Films, Rebrands & Editorial Websites',
+      description: 'MYZE Media creates brand films, commercials, social content, rebrands and editorial websites for businesses in New Jersey and New York that need a clearer, more premium first impression.',
+      url: siteUrl,
+      image: `${siteUrl}/OG_image.png`,
+    };
+    document.title = page.title;
+    setMetaTag('meta[name="description"]', 'content', page.description);
+    setMetaTag('meta[property="og:title"]', 'content', page.ogTitle);
+    setMetaTag('meta[property="og:description"]', 'content', page.description);
+    setMetaTag('meta[property="og:url"]', 'content', page.url);
+    setMetaTag('meta[property="og:type"]', 'content', 'website');
+    setMetaTag('meta[property="og:image"]', 'content', page.image);
+    setMetaTag('meta[name="twitter:title"]', 'content', page.ogTitle);
+    setMetaTag('meta[name="twitter:description"]', 'content', page.description);
+    setMetaTag('meta[name="twitter:image"]', 'content', page.image);
+
+    const canonical = document.head.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.setAttribute('href', page.url);
+  }, [pathname]);
+
   return (
     <>
-      {/* ── GLOBAL ANIMATED BACKGROUND ─────────── */}
-      <div className="global-anim"><AnimatedBackground /></div>
+      <Nav menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 
-      {/* ── NAV ────────────────────────────────── */}
-      <nav className="nav">
-        <a href="#" className="nav-logo">
-          <img src="/logo.png" alt="MYZE Media" className="nav-logo-img" />
-        </a>
-        <div className="nav-links">
-          <a href="#work">WORK</a>
-          <a href="#services">SERVICES</a>
-          <a href="#about">ABOUT</a>
-          <a href="#contact">CONTACT</a>
-        </div>
-        <div
-          className={`nav-hamburger${menuOpen ? ' open' : ''}`}
-          onClick={() => setMenuOpen(v => !v)}
-        >
-          <span /><span />
-        </div>
-      </nav>
-
-      {/* ── MOBILE MENU ────────────────────────── */}
-      {menuOpen && (
-        <div className="mobile-menu" onClick={() => setMenuOpen(false)}>
-          <a href="#work"    onClick={() => setMenuOpen(false)}>WORK</a>
-          <a href="#services" onClick={() => setMenuOpen(false)}>SERVICES</a>
-          <a href="#about"   onClick={() => setMenuOpen(false)}>ABOUT</a>
-          <a href="#contact" onClick={() => setMenuOpen(false)}>CONTACT</a>
-        </div>
-      )}
-
-      {/* ── HERO ───────────────────────────────── */}
-      <section className="hero">
-        <video
-          className="hero-video"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          poster="/hero-bg.jpg"
-          aria-hidden="true"
-        >
-          <source src="/myze-hero-loop-mobile.mp4" type="video/mp4" media="(max-width: 900px)" />
-          <source src="/myze-hero-loop.mp4" type="video/mp4" />
-        </video>
-        <div className="hero-overlay" />
-        <div className="hero-content">
-          <h1 className="sr-only">Brand Films, Commercial Content, Rebrands and Editorial Websites — NJ &amp; NY</h1>
-          <h2 className="hero-headline">
-            <span className="hero-line">PERCEPTION</span>
-            <span className="hero-line">IS</span>
-            <span className="hero-line">EVERYTHING</span>
-          </h2>
-          <motion.p
-            className="hero-sub"
-            variants={activeRv}
-            initial="hidden"
-            animate="visible"
-            transition={{ ...revealTransition, delay: 0.75 }}
+      <Routes>
+        <Route path="/" element={
+          <>
+        {/* ── GLOBAL ANIMATED BACKGROUND ─────────── */}
+        <div className="global-anim"><AnimatedBackground /></div>
+  
+        {/* ── HERO ───────────────────────────────── */}
+        <section className="hero">
+          <video
+            className="hero-video"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            poster="/hero-bg.jpg"
+            aria-hidden="true"
           >
-            We create brand films, campaigns and content —<br />
-            then shape the website and visual identity<br />
-            around the same direction.
-          </motion.p>
-          <motion.div
-            className="hero-btns"
-            variants={activeRv}
-            initial="hidden"
-            animate="visible"
-            transition={{ ...revealTransition, delay: 0.95 }}
-          >
-            <a href="#film" className="btn-primary">VIEW VIDEO WORK</a>
-            <button className="btn-outline" onClick={() => { setFormOpen(true); setFormSent(false); }}>START A PROJECT</button>
-          </motion.div>
-        </div>
-        <div className="hero-side-label">
-          <div className="hero-side-line" />
-          <span className="hero-side-text">CREATIVE MEDIA HOUSE — MOVING BRANDS FORWARD</span>
-          <div className="hero-side-dot" />
-        </div>
-        <div className="hero-scroll">
-          <span>SCROLL</span>
-          <div className="scroll-line" />
-        </div>
-      </section>
-
-      {/* ── TICKER ─────────────────────────────── */}
-      <div
-        className="ticker"
-        aria-hidden="true"
-        onMouseEnter={() => tickerControls.stop()}
-        onMouseLeave={() => { if (!shouldReduceMotion) tickerControls.start({ x: ['0%', '-50%'], transition: { duration: 38, ease: 'linear', repeat: Infinity, repeatType: 'loop' } }); }}
-      >
-        <motion.div
-          className="ticker-track"
-          animate={tickerControls}
-        >
-          {[0, 1].map(n => (
-            <span key={n} className="ticker-set">
-              {['BRAND FILMS','COMMERCIALS','SOCIAL CONTENT','INTERVIEWS','REBRAND','WEBSITE UPGRADE','VISUAL DIRECTION','BRAND CLARITY'].map(item => (
-
-                <span key={item} className="ticker-item">
-                  {item}<span className="ticker-dot">·</span>
-                </span>
-              ))}
-            </span>
-          ))}
-        </motion.div>
-      </div>
-
-      {/* ── THREE DISCIPLINES ────────────────────── */}
-      <section className="disciplines-section" id="disciplines">
-        <motion.div
-          className="disciplines-intro"
-          variants={activeRv}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportOnce}
-          transition={revealTransition}
-        >
-          <span className="work-eyebrow">WHAT WE DO</span>
-          <h2 className="work-headline">
-            WE CREATE THE CONTENT,<br /><span style={{color:'var(--red)'}}>THEN SHAPE THE BRAND AROUND IT.</span>
-          </h2>
-          <p className="work-lede">
-            We create the visual side of your marketing: the videos, campaigns, website, and brand
-            content that make people take the business seriously.
-          </p>
-          <p className="work-service-line">
-            Campaign Creative · Social Content System · Ad Creative Production · Brand Launch Package · Visual Content Library
-          </p>
-        </motion.div>
-
-        <div className="disciplines-grid">
-          {DISCIPLINES.map((d, i) => (
-            <motion.div
-              key={d.title}
-              className="discipline-card"
+            <source src="/myze-hero-loop-mobile.mp4" type="video/mp4" media="(max-width: 900px)" />
+            <source src="/myze-hero-loop.mp4" type="video/mp4" />
+          </video>
+          <div className="hero-overlay" />
+          <div className="hero-content">
+            <h1 className="sr-only">Brand Films, Commercial Content, Rebrands and Editorial Websites — NJ &amp; NY</h1>
+            <h2 className="hero-headline">
+              <span className="hero-line">PERCEPTION</span>
+              <span className="hero-line">IS</span>
+              <span className="hero-line">EVERYTHING</span>
+            </h2>
+            <motion.p
+              className="hero-sub"
               variants={activeRv}
               initial="hidden"
-              whileInView="visible"
-              viewport={viewportOnce}
-              transition={{ ...revealTransition, delay: i * 0.08 }}
+              animate="visible"
+              transition={{ ...revealTransition, delay: 0.75 }}
             >
-              <span className="discipline-num">{d.num}</span>
-              <h3 className="discipline-title">{d.title}</h3>
-              <p className="discipline-desc">{d.desc}</p>
+              We create brand films, campaigns and content —<br />
+              then build the website and visual identity<br />
+              your business actually deserves.
+            </motion.p>
+            <motion.div
+              className="hero-btns"
+              variants={activeRv}
+              initial="hidden"
+              animate="visible"
+              transition={{ ...revealTransition, delay: 0.95 }}
+            >
+              <a href="#film" className="btn-primary">VIEW VIDEO WORK</a>
+              <button className="btn-outline" onClick={() => { setFormOpen(true); setFormSent(false); }}>START A PROJECT</button>
             </motion.div>
-          ))}
+          </div>
+          <div className="hero-side-label">
+            <div className="hero-side-line" />
+            <span className="hero-side-text">CREATIVE MEDIA HOUSE — MOVING BRANDS FORWARD</span>
+            <div className="hero-side-dot" />
+          </div>
+          <div className="hero-scroll">
+            <span>SCROLL</span>
+            <div className="scroll-line" />
+          </div>
+        </section>
+  
+        {/* ── TICKER ─────────────────────────────── */}
+        <div className="ticker" aria-hidden="true">
+          <div className="ticker-track">
+            {[0, 1].map(n => (
+              <span key={n} className="ticker-set">
+                {['BRAND FILMS','COMMERCIALS','SOCIAL CONTENT','INTERVIEWS','REBRAND','WEBSITE UPGRADE','VISUAL DIRECTION','BRAND CLARITY'].map(item => (
+                  <span key={item} className="ticker-item">
+                    {item}<span className="ticker-dot">·</span>
+                  </span>
+                ))}
+              </span>
+            ))}
+          </div>
         </div>
-      </section>
-
-      {/* ── FILM WORK ──────────────────────────── */}
-      <section className="film-section" id="film">
-        <motion.div
-          className="film-intro"
-          variants={activeRv}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportOnce}
-          transition={revealTransition}
-        >
-          <span className="film-eyebrow">FILM &amp; MOTION</span>
-          <h2 className="film-headline">
-            THE ORIGINAL<br /><span style={{color:'var(--red)'}}>STRENGTH.</span>
-          </h2>
-          <p className="film-lede">
-            Commercials, brand films, product motion, interviews, fashion film and social content.
-            Shot, edited and graded in-house.
-          </p>
-        </motion.div>
-
-        <div className="film-grid">
-          {PROJECTS.map((p, i) => (
-            <motion.button
-              key={p.id}
-              type="button"
-              className="film-tile"
-              onClick={() => setLightbox(p.id)}
-              variants={activeRi}
-              initial="hidden"
-              whileInView="visible"
-              viewport={viewportOnce}
-              transition={{ ...imageTransition, delay: (i % 3) * 0.05 }}
-            >
-              <div className="film-tile-media">
-                {thumbnails[p.id] ? (
-                  <img src={thumbnails[p.id]} alt={p.title} loading="lazy" />
-                ) : (
-                  <div className="film-tile-placeholder" />
-                )}
-                <span className="film-tile-play" aria-hidden="true">▶</span>
-              </div>
-              <div className="film-tile-text">
-                <span className="film-tile-tag">{p.tag}</span>
-                <span className="film-tile-title">{p.title}</span>
-              </div>
-            </motion.button>
-          ))}
-        </div>
-
-      </section>
-
-      {/* ── WORK / TRANSFORMATIONS ────────────────── */}
-      <section className="work-section transformations" id="work">
-        <motion.div
-          className="work-intro"
-          variants={activeRv}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportOnce}
-          transition={revealTransition}
-        >
-          <span className="work-eyebrow">BRAND &amp; WEBSITE UPGRADES</span>
-          <h2 className="work-headline">
-            WHEN THE BRAND<br />NEEDS MORE THAN <span style={{color:'var(--red)'}}>VIDEO.</span>
-          </h2>
-          <p className="work-lede">
-            Some projects stay focused on film. Others need the website, identity and content system
-            to catch up. These studies show how we raise the whole surface of a brand.
-          </p>
-        </motion.div>
-
-        <div className="cases">
-          {CASES.map((c, idx) => (
-            <motion.article
-              key={c.id}
-              className={`case${c.landscape ? ' case--landscape' : ''}`}
+  
+        {/* ── THREE DISCIPLINES ────────────────────── */}
+        <section className="disciplines-section" id="disciplines">
+          <motion.div
+            className="disciplines-intro"
+            variants={activeRv}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            transition={revealTransition}
+          >
+            <span className="work-eyebrow">WHAT WE DO</span>
+            <h2 className="work-headline">
+              WE CREATE THE CONTENT,<br /><span style={{color:'var(--red)'}}>THEN SHAPE THE BRAND AROUND IT.</span>
+            </h2>
+            <p className="work-lede">
+              We create the visual side of your marketing: the videos, campaigns, website, and brand
+              content that make people take the business seriously.
+            </p>
+            <p className="work-service-line">
+              Campaign Creative · Social Content System · Ad Creative Production · Brand Launch Package · Visual Content Library
+            </p>
+          </motion.div>
+  
+          <div className="disciplines-grid">
+            {DISCIPLINES.map((d, i) => (
+              <motion.div
+                key={d.title}
+                className="discipline-card"
+                variants={activeRv}
+                initial="hidden"
+                whileInView="visible"
+                viewport={viewportOnce}
+                transition={{ ...revealTransition, delay: i * 0.08 }}
+              >
+                <span className="discipline-num">{d.num}</span>
+                <h3 className="discipline-title">{d.title}</h3>
+                <p className="discipline-desc">{d.desc}</p>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+  
+        {/* ── FILM WORK ──────────────────────────── */}
+        <section className="film-section" id="film">
+          <motion.div
+            className="film-intro"
+            variants={activeRv}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            transition={revealTransition}
+          >
+            <span className="film-eyebrow">FILM &amp; MOTION</span>
+            <h2 className="film-headline">
+              THE ORIGINAL<br /><span style={{color:'var(--red)'}}>STRENGTH.</span>
+            </h2>
+            <p className="film-lede">
+              Commercials, brand films, product motion, interviews, fashion film and social content.
+              Shot, edited and graded in-house.
+            </p>
+          </motion.div>
+  
+          <div className="film-grid">
+            {PROJECTS.map((p, i) => (
+              <motion.button
+                key={p.id}
+                type="button"
+                className="film-tile"
+                onClick={() => setLightbox(p.id)}
+                variants={activeRi}
+                initial="hidden"
+                whileInView="visible"
+                viewport={viewportOnce}
+                transition={{ ...imageTransition, delay: (i % 3) * 0.05 }}
+              >
+                <div className="film-tile-media">
+                  {thumbnails[p.id] ? (
+                    <img src={thumbnails[p.id]} alt={p.title} loading="lazy" />
+                  ) : (
+                    <div className="film-tile-placeholder" />
+                  )}
+                  <span className="film-tile-play" aria-hidden="true">▶</span>
+                </div>
+                <div className="film-tile-text">
+                  <span className="film-tile-tag">{p.tag}</span>
+                  <span className="film-tile-title">{p.title}</span>
+                </div>
+              </motion.button>
+            ))}
+          </div>
+  
+        </section>
+  
+        {/* ── WORK / TRANSFORMATIONS ────────────────── */}
+        <section className="work-section transformations" id="work">
+          <motion.div
+            className="work-intro"
+            variants={activeRv}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            transition={revealTransition}
+          >
+            <span className="work-eyebrow">BRAND &amp; WEBSITE UPGRADES</span>
+            <h2 className="work-headline">
+              WHEN THE BRAND<br />NEEDS MORE THAN <span style={{color:'var(--red)'}}>VIDEO.</span>
+            </h2>
+            <p className="work-lede">
+              Some projects stay focused on film. Others need the website, identity and content system
+              to catch up. These studies show how we raise the whole surface of a brand.
+            </p>
+          </motion.div>
+  
+          <div className="cases">
+            {CASES.map((c, idx) => (
+              <motion.article
+                key={c.id}
+                className={`case${c.landscape ? ' case--landscape' : ''}`}
+                variants={activeRv}
+                initial="hidden"
+                whileInView="visible"
+                viewport={viewportOnce}
+                transition={{ ...revealTransition, delay: 0.05 }}
+              >
+                <div className="case-media">
+                  {c.before ? (
+                    <div className="case-compare">
+                      <figure className="case-frame">
+                        <span className="case-frame-label">BEFORE</span>
+                        <img src={c.before} alt={`${c.client} before`} loading="lazy" />
+                      </figure>
+                      <figure className="case-frame case-frame--after">
+                        <span className="case-frame-label">AFTER</span>
+                        <img src={c.after} alt={`${c.client} after`} loading="lazy" />
+                      </figure>
+                    </div>
+                  ) : (
+                    <figure className="case-frame case-frame--solo">
+                      <span className="case-frame-label">PROPOSED DIRECTION</span>
+                      <img src={c.after} alt={c.client} loading="lazy" />
+                    </figure>
+                  )}
+                </div>
+                <div className="case-text">
+                  <span className="case-num">{String(idx + 1).padStart(2, '0')}</span>
+                  <span className="case-tag">{c.tag}</span>
+                  {c.discipline && <span className="case-discipline">{c.discipline}</span>}
+                  <h3 className="case-client">{c.client}</h3>
+                  <p className="case-title">{c.title.split('\n').map((l, i) => (
+                    <span key={i}>{l}<br /></span>
+                  ))}</p>
+                  <p className="case-summary">{c.summary}</p>
+                  <ul className="case-moves">
+                    {c.moves.map(m => <li key={m}>{m}</li>)}
+                  </ul>
+                </div>
+              </motion.article>
+            ))}
+          </div>
+  
+          <div className="work-footnote">
+            <p>
+              Video remains the core of the house
+            </p>
+          </div>
+        </section>
+  
+        {/* ── BUILT ON CONTROL ───────────────────── */}
+        <section className="about-blurb">
+          <div className="split-text">
+            <motion.h2
+              className="about-blurb-headline"
               variants={activeRv}
               initial="hidden"
               whileInView="visible"
               viewport={viewportOnce}
-              transition={{ ...revealTransition, delay: 0.05 }}
+              transition={revealTransition}
             >
-              <div className="case-media">
-                {c.before ? (
-                  <div className="case-compare">
-                    <figure className="case-frame">
-                      <span className="case-frame-label">BEFORE</span>
-                      <img src={c.before} alt={`${c.client} before`} loading="lazy" />
-                    </figure>
-                    <figure className="case-frame case-frame--after">
-                      <span className="case-frame-label">AFTER</span>
-                      <img src={c.after} alt={`${c.client} after`} loading="lazy" />
-                    </figure>
-                  </div>
-                ) : (
-                  <figure className="case-frame case-frame--solo">
-                    <span className="case-frame-label">PROPOSED DIRECTION</span>
-                    <img src={c.after} alt={c.client} loading="lazy" />
-                  </figure>
-                )}
-              </div>
-              <div className="case-text">
-                <span className="case-num">{String(idx + 1).padStart(2, '0')}</span>
-                <span className="case-tag">{c.tag}</span>
-                {c.discipline && <span className="case-discipline">{c.discipline}</span>}
-                <h3 className="case-client">{c.client}</h3>
-                <p className="case-title">{c.title.split('\n').map((l, i) => (
-                  <span key={i}>{l}<br /></span>
-                ))}</p>
-                <p className="case-summary">{c.summary}</p>
-                <ul className="case-moves">
-                  {c.moves.map(m => <li key={m}>{m}</li>)}
-                </ul>
-              </div>
-            </motion.article>
-          ))}
-        </div>
-
-        <div className="work-footnote">
-          <p>
-            Video remains the core of the house
-          </p>
-        </div>
-      </section>
-
-      {/* ── BUILT ON CONTROL ───────────────────── */}
-      <section className="about-blurb">
-        <div className="split-text">
-          <motion.h2
-            className="about-blurb-headline"
-            variants={activeRv}
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportOnce}
-            transition={revealTransition}
-          >
-            THE BUSINESS<br />OUTGREW THE <span style={{color:'var(--red)'}}>SURFACE.</span>
-          </motion.h2>
-          <motion.p
-            className="about-blurb-body"
-            variants={activeRv}
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportOnce}
-            transition={{ ...revealTransition, delay: 0.1 }}
-          >
-            The service may be strong.<br />
-            The work may be premium.<br />
-            But if the first impression feels average,<br />
-            the market reads it that way.
-          </motion.p>
-        </div>
-        <motion.div
-          className="perception-panel"
-          variants={activeRi}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportOnce}
-          transition={imageTransition}
-        >
-          <p>
-            We close the gap between what the business is worth
-            and how it appears online.
-          </p>
-        </motion.div>
-      </section>
-
-      {/* ── OUR APPROACH ───────────────────────── */}
-      <section className="approach-section" id="about">
-        <motion.div
-          className="approach-collage"
-          variants={activeRi}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportOnce}
-          transition={imageTransition}
-        >
-          <figure className="approach-collage-item">
-            <img src="/fashion.png" alt="" loading="lazy" />
-            <figcaption>Fashion</figcaption>
-          </figure>
-          <figure className="approach-collage-item">
-            <img src="/work/medspa_after_mockup.png" alt="" loading="lazy" />
-            <figcaption>Wellness</figcaption>
-          </figure>
-          <figure className="approach-collage-item">
-            <img src="/work/lawyer_after_mockup.png" alt="" loading="lazy" />
-            <figcaption>Law</figcaption>
-          </figure>
-          <figure className="approach-collage-item">
-            <img src="/business.png" alt="" loading="lazy" />
-            <figcaption>Agencies</figcaption>
-          </figure>
-          <figure className="approach-collage-item">
-            <img src="/work/dental_after_mockup.png" alt="" loading="lazy" />
-            <figcaption>Local Business</figcaption>
-          </figure>
-          <figure className="approach-collage-item">
-            <img src={thumbnails['1183970428'] || '/hero-bg.jpg'} alt="" loading="lazy" />
-            <figcaption>Music Videos</figcaption>
-          </figure>
-          <figure className="approach-collage-item">
-            <img src="/work/defabio_after.jpg" alt="" loading="lazy" />
-            <figcaption>Private Practice</figcaption>
-          </figure>
-          <figure className="approach-collage-item">
-            <img src="/approach-fitness.png" alt="" loading="lazy" />
-            <figcaption>Fitness</figcaption>
-          </figure>
-          <figure className="approach-collage-item">
-            <img src={thumbnails['1179772667'] || '/hero-bg.jpg'} alt="" loading="lazy" />
-            <figcaption>Product Campaigns</figcaption>
-          </figure>
-        </motion.div>
-        <div className="approach-text">
-          <motion.h2
-            className="about-blurb-headline"
-            variants={activeRv}
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportOnce}
-            transition={revealTransition}
-          >
-            OUR <span style={{color:'var(--red)'}}>APPROACH</span>
-          </motion.h2>
-          <motion.div
-            className="approach-statement"
-            variants={activeRv}
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportOnce}
-            transition={{ ...revealTransition, delay: 0.1 }}
-          >
-            <p>We work across industries<br />where perception matters.</p>
-            <p>Fashion. Fitness. Wellness. Law.<br />Hospitality. Products.<br />Local businesses. Agencies.</p>
-            <p>The category changes.<br />The job stays the same:<br />make the brand look more valuable,<br />more trusted and more considered.</p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ── WHAT WE DO ─────────────────────────── */}
-      <section className="services-section" id="services">
-        <div className="split-text">
-          <motion.h2
-            className="about-blurb-headline"
-            variants={activeRv}
-            initial="hidden"
-            whileInView="visible"
-            viewport={viewportOnce}
-            transition={revealTransition}
-          >
-            WHAT YOU CAN<br />HIRE US <span style={{color:'var(--red)'}}>FOR</span>
-          </motion.h2>
-          <div className="services-simple">
-            <motion.div
-              className="services-list"
+              THE BUSINESS<br />OUTGREW THE <span style={{color:'var(--red)'}}>SURFACE.</span>
+            </motion.h2>
+            <motion.p
+              className="about-blurb-body"
               variants={activeRv}
               initial="hidden"
               whileInView="visible"
               viewport={viewportOnce}
               transition={{ ...revealTransition, delay: 0.1 }}
             >
-              <div className="service-row">
-                <span className="service-num">01</span>
-                <div>
-                  <h3 className="service-title">FILM &amp; CONTENT</h3>
-                  <p className="service-desc">Commercials, brand films, product videos, interviews, campaign assets and social content. Direction, shoot, edit and color in-house.</p>
-                </div>
-              </div>
-              <div className="service-row">
-                <span className="service-num">02</span>
-                <div>
-                  <h3 className="service-title">BRAND UPGRADE</h3>
-                  <p className="service-desc">Visual direction, identity refinement, typography, image style, tone and content system. For brands that need to look more established.</p>
-                </div>
-              </div>
-              <div className="service-row">
-                <span className="service-num">03</span>
-                <div>
-                  <h3 className="service-title">WEBSITE UPGRADE</h3>
-                  <p className="service-desc">Editorial websites and landing pages that make the business easier to trust, understand and buy from.</p>
-                </div>
-              </div>
-            </motion.div>
+              The service may be strong.<br />
+              The work may be premium.<br />
+              But if the first impression feels average,<br />
+              the market reads it that way.
+            </motion.p>
           </div>
-        </div>
-        <div className="split-image">
-          <motion.img
-            src="/whatwedo.png"
-            alt=""
-            className="split-img"
+          <motion.div
+            className="perception-panel"
             variants={activeRi}
             initial="hidden"
             whileInView="visible"
             viewport={viewportOnce}
             transition={imageTransition}
-          />
-        </div>
-      </section>
-
-      {/* ── HOW IT WORKS ───────────────────────── */}
-      <section className="process-section">
-        <motion.h2
-          className="about-blurb-headline"
-          variants={activeRv}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportOnce}
-          transition={revealTransition}
-        >
-          HOW IT <span style={{color:'var(--red)'}}>WORKS</span>
-        </motion.h2>
-        <div className="process-steps">
-          {STEPS.map(s => (
-            <div className="process-card" key={s.num}>
-              <span className="process-num">{s.num}</span>
-              <h3 className="process-title">{s.title}</h3>
-              <p className="process-desc">{s.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── CONTACT ────────────────────────────── */}
-      <section className="contact-section" id="contact">
-        <div className="contact-side-label">LET'S TALK</div>
-        <motion.div
-          className="contact-text"
-          variants={activeRv}
-          initial="hidden"
-          whileInView="visible"
-          viewport={viewportOnce}
-          transition={revealTransition}
-        >
-          <div className="contact-social">
-            <a href="https://www.instagram.com/myze.media" target="_blank" rel="noopener noreferrer">INSTAGRAM</a>
-            <a href="https://vimeo.com/myzemedia" target="_blank" rel="noopener noreferrer">VIMEO</a>
-            <a href="mailto:mike@myzemedia.com">EMAIL</a>
+          >
+            <p>
+              We close the gap between what the business is worth
+              and how it appears online.
+            </p>
+          </motion.div>
+        </section>
+  
+        {/* ── OUR APPROACH ───────────────────────── */}
+        <section className="approach-section" id="about">
+          <motion.div
+            className="approach-collage"
+            variants={activeRi}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            transition={imageTransition}
+          >
+            <figure className="approach-collage-item">
+              <img src="/fashion.png" alt="" loading="lazy" />
+              <figcaption>Fashion</figcaption>
+            </figure>
+            <figure className="approach-collage-item">
+              <img src="/work/medspa_after_mockup.png" alt="" loading="lazy" />
+              <figcaption>Wellness</figcaption>
+            </figure>
+            <figure className="approach-collage-item">
+              <img src="/work/lawyer_after_mockup.png" alt="" loading="lazy" />
+              <figcaption>Law</figcaption>
+            </figure>
+            <figure className="approach-collage-item">
+              <img src="/business.png" alt="" loading="lazy" />
+              <figcaption>Agencies</figcaption>
+            </figure>
+            <figure className="approach-collage-item">
+              <img src="/work/dental_after_mockup.png" alt="" loading="lazy" />
+              <figcaption>Local Business</figcaption>
+            </figure>
+            <figure className="approach-collage-item">
+              <img src={thumbnails['1183970428'] || '/hero-bg.jpg'} alt="" loading="lazy" />
+              <figcaption>Music Videos</figcaption>
+            </figure>
+            <figure className="approach-collage-item">
+              <img src="/work/defabio_after.jpg" alt="" loading="lazy" />
+              <figcaption>Private Practice</figcaption>
+            </figure>
+            <figure className="approach-collage-item">
+              <img src="/approach-fitness.png" alt="" loading="lazy" />
+              <figcaption>Fitness</figcaption>
+            </figure>
+            <figure className="approach-collage-item">
+              <img src={thumbnails['1179772667'] || '/hero-bg.jpg'} alt="" loading="lazy" />
+              <figcaption>Product Campaigns</figcaption>
+            </figure>
+          </motion.div>
+          <div className="approach-text">
+            <motion.h2
+              className="about-blurb-headline"
+              variants={activeRv}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportOnce}
+              transition={revealTransition}
+            >
+              OUR <span style={{color:'var(--red)'}}>APPROACH</span>
+            </motion.h2>
+            <motion.div
+              className="approach-statement"
+              variants={activeRv}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportOnce}
+              transition={{ ...revealTransition, delay: 0.1 }}
+            >
+              <p>We work across industries<br />where perception matters.</p>
+              <p>Fashion. Fitness. Wellness. Law.<br />Hospitality. Products.<br />Local businesses. Agencies.</p>
+              <p>The category changes.<br />The job stays the same:<br />make the brand look more valuable,<br />more trusted and more considered.</p>
+            </motion.div>
           </div>
-          <h2 className="contact-headline">
-            Ready to look like<br />the brand you actually are?
-          </h2>
-          <p className="contact-tagline">Creative media house for brand video, campaigns and websites.</p>
-          <button className="btn-cta" onClick={() => { setFormOpen(true); setFormSent(false); }}>
-            START A PROJECT
-          </button>
-          <p className="contact-location">
-            Prefer email for all inquiries<br />
-            New Jersey / New York
-          </p>
-        </motion.div>
-      </section>
+        </section>
+  
+        {/* ── WHAT WE DO ─────────────────────────── */}
+        <section className="services-section" id="services">
+          <div className="split-text">
+            <motion.h2
+              className="about-blurb-headline"
+              variants={activeRv}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportOnce}
+              transition={revealTransition}
+            >
+              WHAT YOU CAN<br />HIRE US <span style={{color:'var(--red)'}}>FOR</span>
+            </motion.h2>
+            <div className="services-simple">
+              <motion.div
+                className="services-list"
+                variants={activeRv}
+                initial="hidden"
+                whileInView="visible"
+                viewport={viewportOnce}
+                transition={{ ...revealTransition, delay: 0.1 }}
+              >
+                <div className="service-row">
+                  <span className="service-num">01</span>
+                  <div>
+                    <h3 className="service-title">FILM &amp; CONTENT</h3>
+                    <p className="service-desc">Commercials, brand films, product videos, interviews, campaign assets and social content. Direction, shoot, edit and color in-house.</p>
+                  </div>
+                </div>
+                <div className="service-row">
+                  <span className="service-num">02</span>
+                  <div>
+                    <h3 className="service-title">BRAND UPGRADE</h3>
+                    <p className="service-desc">Visual direction, identity refinement, typography, image style, tone and content system. For brands that need to look more established.</p>
+                  </div>
+                </div>
+                <div className="service-row">
+                  <span className="service-num">03</span>
+                  <div>
+                    <h3 className="service-title">WEBSITE UPGRADE</h3>
+                    <p className="service-desc">Editorial websites and landing pages that make the business easier to trust, understand and buy from.</p>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+          <div className="split-image">
+            <motion.img
+              src="/whatwedo.png"
+              alt=""
+              className="split-img"
+              variants={activeRi}
+              initial="hidden"
+              whileInView="visible"
+              viewport={viewportOnce}
+              transition={imageTransition}
+            />
+          </div>
+        </section>
+  
+        {/* ── WHO THIS IS FOR ────────────────────── */}
+        <section className="for-section">
+          <motion.div
+            className="for-intro"
+            variants={activeRv}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            transition={revealTransition}
+          >
+            <span className="work-eyebrow">WHO THIS IS FOR</span>
+          </motion.div>
+          <motion.div
+            className="for-grid"
+            variants={activeRv}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            transition={{ ...revealTransition, delay: 0.1 }}
+          >
+            {['MedSpas & Wellness','Law Firms','Cosmetic & Dental','Fashion & Retail','Fitness & Lifestyle','Hospitality','Local Businesses','Agencies'].map(item => (
+              <div className="for-item" key={item}>{item}</div>
+            ))}
+          </motion.div>
+          <motion.p
+            className="for-closing"
+            variants={activeRv}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            transition={{ ...revealTransition, delay: 0.2 }}
+          >
+            The category changes. The standard doesn't.
+          </motion.p>
+        </section>
+  
+        {/* ── HOW IT WORKS ───────────────────────── */}
+        <section className="process-section">
+          <motion.h2
+            className="about-blurb-headline"
+            variants={activeRv}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            transition={revealTransition}
+          >
+            HOW IT <span style={{color:'var(--red)'}}>WORKS</span>
+          </motion.h2>
+          <div className="process-steps">
+            {STEPS.map(s => (
+              <div className="process-card" key={s.num}>
+                <span className="process-num">{s.num}</span>
+                <h3 className="process-title">{s.title}</h3>
+                <p className="process-desc">{s.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+  
+        {/* ── CONTACT ────────────────────────────── */}
+        <section className="contact-section" id="contact">
+          <div className="contact-side-label">LET'S TALK</div>
+          <motion.div
+            className="contact-text"
+            variants={activeRv}
+            initial="hidden"
+            whileInView="visible"
+            viewport={viewportOnce}
+            transition={revealTransition}
+          >
+            <div className="contact-social">
+              <a href="https://www.instagram.com/myze.media" target="_blank" rel="noopener noreferrer">INSTAGRAM</a>
+              <a href="https://vimeo.com/myzemedia" target="_blank" rel="noopener noreferrer">VIMEO</a>
+              <a href="mailto:mike@myzemedia.com">EMAIL</a>
+            </div>
+            <h2 className="contact-headline">
+              Ready to look like<br />the brand you actually are?
+            </h2>
+            <p className="contact-tagline">Creative media house for brand video, campaigns and websites.</p>
+            <button className="btn-cta" onClick={() => { setFormOpen(true); setFormSent(false); }}>
+              START A PROJECT
+            </button>
+            <p className="contact-location">
+              Prefer email for all inquiries<br />
+              New Jersey / New York
+            </p>
+          </motion.div>
+        </section>
+  
+        {/* ── FOOTER ─────────────────────────────── */}
+        <SiteFooter />
+          </>
+        } />
 
-      {/* ── FOOTER ─────────────────────────────── */}
-      <footer className="footer">
-        <span className="footer-copy">© 2026 MYZE Media. All rights reserved.</span>
-      </footer>
+        <Route path="/insights" element={
+          <><div className="global-anim"><AnimatedBackground /></div><Insights /></>
+        } />
 
-      {/* ── LIGHTBOX ───────────────────────────── */}
+        <Route path="/insights/:slug" element={
+          <><div className="global-anim"><AnimatedBackground /></div><ArticlePage /></>
+        } />
+
+        <Route path="*" element={
+          <><div className="global-anim"><AnimatedBackground /></div><NotFound /></>
+        } />
+      </Routes>
+
       {lightbox && (
         <div className="lightbox" onClick={() => setLightbox(null)}>
           <div className="lightbox-inner" onClick={e => e.stopPropagation()}>
@@ -779,7 +849,6 @@ export default function App() {
         </div>
       )}
 
-      {/* ── CONTACT FORM ───────────────────────── */}
       {formOpen && (
         <div className="form-overlay" onClick={() => setFormOpen(false)}>
           <div className="form-modal" onClick={e => e.stopPropagation()}>
