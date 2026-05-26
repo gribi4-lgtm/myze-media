@@ -576,15 +576,10 @@ export default function App() {
               </motion.article>
             ))}
           </div>
-  
-          <div className="work-footnote">
-            <p>
-              Video remains the core of the house
-            </p>
-          </div>
         </section>
-  
-  
+
+
+
         {/* ── PERSPECTIVE ─────────────────────────── */}
         <section className="perspective-section" id="perspective">
 
