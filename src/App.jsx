@@ -102,15 +102,18 @@ function Nav({ menuOpen, setMenuOpen }) {
   return (
     <>
       <nav className="nav">
-        <Link to="/" className="nav-logo">
+        <Link to="/" className="nav-logo" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
           <img src="/logo.png" alt="MYZE Media" className="nav-logo-img" />
         </Link>
         <div className="nav-links">
-          <a href={sectionHref('work')}>WORK</a>
-          <a href={sectionHref('services')}>SERVICES</a>
+          <a href={sectionHref('disciplines')}>WHAT WE DO</a>
+          <a href={sectionHref('film')}>FILM &amp; MOTION</a>
+          <a href={sectionHref('work')}>BRAND &amp; WEBSITE</a>
           <a href={sectionHref('perspective')}>PERSPECTIVE</a>
+          <a href={sectionHref('services')}>SPECIALIZE</a>
+          <a href={sectionHref('how-it-works')}>HOW IT WORKS</a>
           <Link to="/insights">INSIGHTS</Link>
-          <a href={sectionHref('contact')}>CONTACT</a>
+          <a href={sectionHref('contact')}>CONTACT US</a>
         </div>
         <div
           className={`nav-hamburger${menuOpen ? ' open' : ''}`}
@@ -122,11 +125,14 @@ function Nav({ menuOpen, setMenuOpen }) {
 
       {menuOpen && (
         <div className="mobile-menu" onClick={() => setMenuOpen(false)}>
-          <a href={sectionHref('work')}     onClick={() => setMenuOpen(false)}>WORK</a>
-          <a href={sectionHref('services')} onClick={() => setMenuOpen(false)}>SERVICES</a>
+          <a href={sectionHref('disciplines')} onClick={() => setMenuOpen(false)}>WHAT WE DO</a>
+          <a href={sectionHref('film')}     onClick={() => setMenuOpen(false)}>FILM &amp; MOTION</a>
+          <a href={sectionHref('work')}     onClick={() => setMenuOpen(false)}>BRAND &amp; WEBSITE</a>
           <a href={sectionHref('perspective')}    onClick={() => setMenuOpen(false)}>PERSPECTIVE</a>
+          <a href={sectionHref('services')}     onClick={() => setMenuOpen(false)}>SPECIALIZE</a>
+          <a href={sectionHref('how-it-works')}    onClick={() => setMenuOpen(false)}>HOW IT WORKS</a>
           <Link to="/insights"              onClick={() => setMenuOpen(false)}>INSIGHTS</Link>
-          <a href={sectionHref('contact')}  onClick={() => setMenuOpen(false)}>CONTACT</a>
+          <a href={sectionHref('contact')}  onClick={() => setMenuOpen(false)}>CONTACT US</a>
         </div>
       )}
     </>
@@ -525,7 +531,7 @@ export default function App() {
             viewport={viewportOnce}
             transition={revealTransition}
           >
-            <span className="work-eyebrow">BRAND &amp; WEBSITE UPGRADES</span>
+            <span className="work-eyebrow">BRAND &amp; WEBSITE</span>
             <h2 className="work-headline">
               WHEN THE BRAND<br />NEEDS MORE THAN <span style={{color:'var(--red)'}}>VIDEO.</span>
             </h2>
@@ -597,7 +603,7 @@ export default function App() {
             viewport={viewportOnce}
             transition={revealTransition}
           >
-            <span className="perspective-label">WHAT WE SEE</span>
+            <span className="perspective-label">PERSPECTIVE</span>
             <h2 className="perspective-headline">
               Most brands don't have a budget problem.<br />
               They have a <span style={{color:'var(--red)'}}>vision problem.</span>
@@ -693,7 +699,7 @@ export default function App() {
               viewport={viewportOnce}
               transition={revealTransition}
             >
-              WHAT YOU CAN<br />HIRE US <span style={{color:'var(--red)'}}>FOR</span>
+              SPECIALIZE
             </motion.h2>
             <motion.p
               className="services-mantra"
@@ -789,7 +795,7 @@ export default function App() {
         </section>
   
         {/* ── HOW IT WORKS ───────────────────────── */}
-        <section className="process-section">
+        <section className="process-section" id="how-it-works">
           <motion.h2
             className="about-blurb-headline"
             variants={activeRv}
@@ -813,7 +819,7 @@ export default function App() {
   
         {/* ── CONTACT ────────────────────────────── */}
         <section className="contact-section" id="contact">
-          <div className="contact-side-label">LET'S TALK</div>
+          <div className="contact-side-label">CONTACT US</div>
           <motion.div
             className="contact-text"
             variants={activeRv}
