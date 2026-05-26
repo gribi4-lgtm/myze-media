@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
 
 function ScrollToTop() {
@@ -151,6 +151,7 @@ export default function App() {
 
   const [lightbox, setLightbox]     = useState(null);
   const [activeAccordion, setActiveAccordion] = useState(0);
+  const accordionRef = useRef(null);
   const [thumbnails, setThumbnails] = useState({});
   const [menuOpen, setMenuOpen]     = useState(false);
   const [formOpen, setFormOpen]     = useState(false);
@@ -312,6 +313,17 @@ export default function App() {
     if (canonical) canonical.setAttribute('href', page.url);
   }, [pathname]);
 
+  /* Accordion scroll into view on mobile */
+  useEffect(() => {
+    if (!accordionRef.current || activeAccordion < 0) return;
+    const container = accordionRef.current;
+    const panels = container.children;
+    const panel = panels[activeAccordion];
+    if (panel) {
+      panel.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+  }, [activeAccordion]);
+
   return (
     <>
       <Nav menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
@@ -454,7 +466,7 @@ export default function App() {
             </h2>
           </motion.div>
   
-          <div className="accordion-portfolio">
+          <div className="accordion-portfolio" ref={accordionRef}>
             {PROJECTS.map((p, i) => {
               const isActive = activeAccordion === i;
               return (
