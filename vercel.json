@@ -1,7 +1,7 @@
 {
   "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }],
   "redirects": [
-    { "source": "/:path*", "has": { "type": "host", "value": "www.myzemedia.com" }, "destination": "https://myzemedia.com/:path*", "permanent": true }
+    { "source": "/:path*", "has": [{ "type": "host", "value": "www.myzemedia.com" }], "destination": "https://myzemedia.com/:path*", "permanent": true }
   ],
   "headers": [
     {
