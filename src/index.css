@@ -257,6 +257,12 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
   align-items: center;
 }
 
+.hero-cta-group {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+}
+
 /* SCROLL indicator */
 .hero-scroll {
   position: absolute;
@@ -974,15 +980,13 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
 /* ── VERTICAL LABELS ─────────────────────── */
 .hero-side-label {
   position: absolute;
-  left: 28px;
-  top: 50%;
-  transform: translateY(-50%);
+  left: -82px;
+  bottom: 0;
   z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  height: 280px;
 }
 
 .hero-side-line {
@@ -1059,6 +1063,7 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
   display: flex;
   width: max-content;
   animation: ticker-scroll 38s linear infinite;
+  will-change: transform;
 }
 
 .ticker:hover .ticker-track {
@@ -1283,13 +1288,10 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
     margin: 0 0 48px;
   }
 
-  /* Лейбл — точка (низ) на y=698 (низ кнопки CONTACT) */
+  /* Лейбл — привязан к низу CTA-группы */
   .hero-side-label {
-    display: flex;
-    left: 16px;
-    top: auto;
-    bottom: 146px;
-    transform: none;
+    left: -24px;
+    bottom: 0;
   }
   .hero-side-line { background: #7B3030; }
   .hero-side-text { color: rgba(220,228,210,0.7); }
@@ -1466,6 +1468,7 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
   /* ── TICKER (mobile) ── */
   .ticker { height: 72px; }
   .ticker-item { font-size: 12px; padding: 0 14px; gap: 14px; }
+  .ticker-track { animation: ticker-scroll 38s linear infinite; }
 
   /* ── HOW IT WORKS (mobile) ── */
   .process-section {

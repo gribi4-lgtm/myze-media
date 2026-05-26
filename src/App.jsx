@@ -353,25 +353,27 @@ export default function App() {
               animate="visible"
               transition={{ ...revealTransition, delay: 0.75 }}
             >
-              We create brand films, campaigns and content —<br />
+              We create brand films, campaigns and <span style={{whiteSpace:'nowrap'}}>content —</span><br />
               then build the website and visual identity<br />
               your business actually deserves.
             </motion.p>
-            <motion.div
-              className="hero-btns"
-              variants={activeRv}
-              initial="hidden"
-              animate="visible"
-              transition={{ ...revealTransition, delay: 0.95 }}
-            >
-              <a href="#film" className="btn-primary">VIEW VIDEO WORK</a>
-              <button className="btn-outline" onClick={() => { setFormOpen(true); setFormSent(false); }}>START A PROJECT</button>
-            </motion.div>
-          </div>
-          <div className="hero-side-label">
-            <div className="hero-side-line" />
-            <span className="hero-side-text">CREATIVE MEDIA HOUSE — MOVING BRANDS FORWARD</span>
-            <div className="hero-side-dot" />
+            <div className="hero-cta-group">
+              <div className="hero-side-label">
+                <div className="hero-side-line" />
+                <span className="hero-side-text">CREATIVE MEDIA HOUSE — MOVING BRANDS FORWARD</span>
+                <div className="hero-side-dot" />
+              </div>
+              <motion.div
+                className="hero-btns"
+                variants={activeRv}
+                initial="hidden"
+                animate="visible"
+                transition={{ ...revealTransition, delay: 0.95 }}
+              >
+                <a href="#film" className="btn-primary">VIEW VIDEO WORK</a>
+                <button className="btn-outline" onClick={() => { setFormOpen(true); setFormSent(false); }}>START A PROJECT</button>
+              </motion.div>
+            </div>
           </div>
           <div className="hero-scroll">
             <span>SCROLL</span>
