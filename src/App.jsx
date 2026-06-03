@@ -475,6 +475,12 @@ export default function App() {
             <h2 className="film-headline">
               FILM &amp; MOTION<br /><span style={{color:'var(--red)'}}>VISUALS THAT<br />POSITION.</span>
             </h2>
+            <p className="film-motion-note">
+              For more film &amp; motion work, visit{' '}
+              <a href="https://heet.nyc" target="_blank" rel="noopener noreferrer">
+                HEET MEDIA
+              </a>.
+            </p>
           </motion.div>
   
           <div className="accordion-portfolio" ref={accordionRef}>

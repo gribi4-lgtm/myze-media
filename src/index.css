@@ -2401,6 +2401,25 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
   margin: 0;
 }
 
+.film-motion-note {
+  max-width: 52ch;
+  margin: 0;
+  font-size: clamp(0.9rem, 1.1vw, 1rem);
+  line-height: 1.7;
+  color: rgba(220, 228, 210, 0.62);
+}
+
+.film-motion-note a {
+  color: var(--red);
+  border-bottom: 1px solid rgba(123, 48, 48, 0.8);
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+.film-motion-note a:hover {
+  color: var(--red-h);
+  border-bottom-color: var(--red-h);
+}
+
 /* ── accordion portfolio ─────────────────── */
 .accordion-portfolio {
   max-width: 1380px;
