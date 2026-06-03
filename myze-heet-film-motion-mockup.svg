@@ -1,0 +1,81 @@
+<svg width="1440" height="900" viewBox="0 0 1440 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1440" height="900" fill="#1C1E18"/>
+  <rect x="0" y="0" width="1440" height="900" fill="url(#grain)" opacity="0.08"/>
+
+  <g opacity="0.28">
+    <line x1="56" y1="106" x2="1384" y2="106" stroke="#DCE4D2" stroke-opacity="0.14"/>
+    <line x1="56" y1="804" x2="1384" y2="804" stroke="#DCE4D2" stroke-opacity="0.12"/>
+  </g>
+
+  <g font-family="IBM Plex Mono, Menlo, monospace" font-size="11" letter-spacing="2.2">
+    <text x="56" y="70" fill="#DCE4D2" opacity="0.78">MYZE</text>
+    <text x="905" y="70" fill="#DCE4D2" opacity="0.46">WHAT WE DO</text>
+    <text x="1058" y="70" fill="#DCE4D2" opacity="0.78">FILM &amp; MOTION</text>
+    <text x="1244" y="70" fill="#DCE4D2" opacity="0.46">CONTACT US</text>
+  </g>
+
+  <g transform="translate(96 175)">
+    <text x="0" y="0" fill="#DCE4D2" opacity="0.62" font-family="IBM Plex Mono, Menlo, monospace" font-size="13" letter-spacing="2.6">FILM &amp; MOTION</text>
+    <text x="0" y="74" fill="#DCE4D2" font-family="Oswald, Arial Narrow, sans-serif" font-size="68" font-weight="400" letter-spacing="2">FILM &amp; MOTION</text>
+    <text x="0" y="146" fill="#7B3030" font-family="Oswald, Arial Narrow, sans-serif" font-size="68" font-weight="400" letter-spacing="2">VISUALS THAT</text>
+    <text x="0" y="218" fill="#7B3030" font-family="Oswald, Arial Narrow, sans-serif" font-size="68" font-weight="400" letter-spacing="2">POSITION.</text>
+
+    <g transform="translate(0 306)">
+      <rect x="0" y="0" width="418" height="154" fill="#DCE4D2" fill-opacity="0.025"/>
+      <line x1="0" y1="0" x2="418" y2="0" stroke="#DCE4D2" stroke-opacity="0.16"/>
+      <line x1="0" y1="154" x2="418" y2="154" stroke="#DCE4D2" stroke-opacity="0.09"/>
+      <text x="0" y="35" fill="#DCE4D2" opacity="0.58" font-family="IBM Plex Mono, Menlo, monospace" font-size="11" letter-spacing="2.2">VIDEO DEPARTMENT</text>
+      <text x="0" y="75" fill="#DCE4D2" font-family="Oswald, Arial Narrow, sans-serif" font-size="30" letter-spacing="1.4">HEET MEDIA</text>
+      <text x="0" y="106" fill="#DCE4D2" opacity="0.62" font-family="Inter, Arial, sans-serif" font-size="15" letter-spacing="0.8">More film and motion work lives at our</text>
+      <text x="0" y="130" fill="#DCE4D2" opacity="0.62" font-family="Inter, Arial, sans-serif" font-size="15" letter-spacing="0.8">video department.</text>
+      <text x="292" y="128" fill="#DCE4D2" opacity="0.92" font-family="IBM Plex Mono, Menlo, monospace" font-size="11" letter-spacing="2">VISIT HEET.NYC</text>
+      <path d="M405 124H418M418 124L413 119M418 124L413 129" stroke="#7B3030" stroke-width="1.4"/>
+    </g>
+  </g>
+
+  <g transform="translate(535 184)">
+    <rect x="0" y="0" width="112" height="504" fill="#151711"/>
+    <rect x="0" y="0" width="112" height="504" fill="#DCE4D2" fill-opacity="0.03"/>
+    <text transform="translate(54 438) rotate(-90)" fill="#DCE4D2" opacity="0.82" font-family="Oswald, Arial Narrow, sans-serif" font-size="18" letter-spacing="1.5">ELECTRONIKA WATCH</text>
+  </g>
+  <g transform="translate(665 184)">
+    <rect x="0" y="0" width="334" height="504" fill="#24251F"/>
+    <rect x="0" y="0" width="334" height="504" fill="url(#panelActive)" opacity="0.72"/>
+    <rect x="0" y="0" width="334" height="504" fill="#000000" opacity="0.18"/>
+    <text x="28" y="430" fill="#DCE4D2" opacity="0.62" font-family="IBM Plex Mono, Menlo, monospace" font-size="10" letter-spacing="2">MUSIC VIDEO</text>
+    <text x="28" y="466" fill="#DCE4D2" font-family="Oswald, Arial Narrow, sans-serif" font-size="30" letter-spacing="1.6">VALKYRIE</text>
+    <circle cx="286" cy="78" r="31" fill="#7B3030"/>
+    <path d="M279 64L299 78L279 92V64Z" fill="#DCE4D2"/>
+  </g>
+  <g transform="translate(1017 184)">
+    <rect x="0" y="0" width="112" height="504" fill="#151711"/>
+    <rect x="0" y="0" width="112" height="504" fill="#DCE4D2" fill-opacity="0.035"/>
+    <text transform="translate(54 430) rotate(-90)" fill="#DCE4D2" opacity="0.82" font-family="Oswald, Arial Narrow, sans-serif" font-size="18" letter-spacing="1.5">JUDAICA CREATIONS</text>
+  </g>
+  <g transform="translate(1147 184)">
+    <rect x="0" y="0" width="112" height="504" fill="#151711"/>
+    <rect x="0" y="0" width="112" height="504" fill="#7B3030" fill-opacity="0.14"/>
+    <text transform="translate(54 408) rotate(-90)" fill="#DCE4D2" opacity="0.78" font-family="Oswald, Arial Narrow, sans-serif" font-size="18" letter-spacing="1.5">BRIDAL CONCEPT</text>
+  </g>
+  <g transform="translate(1277 184)">
+    <rect x="0" y="0" width="112" height="504" fill="#151711"/>
+    <rect x="0" y="0" width="112" height="504" fill="#DCE4D2" fill-opacity="0.03"/>
+    <text transform="translate(54 390) rotate(-90)" fill="#DCE4D2" opacity="0.78" font-family="Oswald, Arial Narrow, sans-serif" font-size="18" letter-spacing="1.5">ISMAELINA</text>
+  </g>
+
+  <text x="96" y="840" fill="#DCE4D2" opacity="0.34" font-family="IBM Plex Mono, Menlo, monospace" font-size="10" letter-spacing="2">PLACEMENT CONCEPT ONLY · NO SITE FILES CHANGED</text>
+
+  <defs>
+    <linearGradient id="panelActive" x1="0" y1="0" x2="334" y2="504" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#5E6255"/>
+      <stop offset="0.45" stop-color="#2B2D25"/>
+      <stop offset="1" stop-color="#10110D"/>
+    </linearGradient>
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="2" stitchTiles="stitch"/>
+    </filter>
+    <pattern id="grain" width="160" height="160" patternUnits="userSpaceOnUse">
+      <rect width="160" height="160" filter="url(#noise)" opacity="0.35"/>
+    </pattern>
+  </defs>
+</svg>

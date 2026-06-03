@@ -476,7 +476,7 @@ export default function App() {
               FILM &amp; MOTION<br /><span style={{color:'var(--red)'}}>VISUALS THAT<br />POSITION.</span>
             </h2>
             <p className="film-motion-note">
-              For more film &amp; motion work, visit{' '}
+              This is our art. Our commercial film work lives at{' '}
               <a href="https://heet.nyc" target="_blank" rel="noopener noreferrer">
                 HEET MEDIA
               </a>.
