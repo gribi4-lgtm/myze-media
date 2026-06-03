@@ -212,29 +212,26 @@ export default function App() {
     return () => window.removeEventListener('keydown', fn);
   }, []);
 
-  /* form submit → mailto fallback (reliable, no third-party).
-     Swap to Formspree by setting FORM_ENDPOINT to your form id. */
-  const FORM_ENDPOINT = ''; // e.g. 'https://formspree.io/f/abcd1234'
+  /* form submit → Resend via Vercel Function */
+  const FORM_ENDPOINT = '/api/contact';
   const handleSubmit = async e => {
     e.preventDefault();
-    if (FORM_ENDPOINT) {
-      try {
-        const res = await fetch(FORM_ENDPOINT, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-          body: JSON.stringify({
-            name:    formData.name,
-            email:   formData.email,
-            message: formData.details,
-          }),
-        });
-        if (res.ok) {
-          setFormSent(true);
-          setFormData({ name: '', email: '', details: '' });
-          return;
-        }
-      } catch (_) { /* fall through to mailto */ }
-    }
+    try {
+      const res = await fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name:    formData.name,
+          email:   formData.email,
+          message: formData.details,
+        }),
+      });
+      if (res.ok) {
+        setFormSent(true);
+        setFormData({ name: '', email: '', details: '' });
+        return;
+      }
+    } catch (_) { /* fall through to mailto */ }
     /* fallback — open user's mail client with a prefilled message */
     const subject = encodeURIComponent(`New project inquiry — ${formData.name || 'MYZE Media'}`);
     const body = encodeURIComponent(
