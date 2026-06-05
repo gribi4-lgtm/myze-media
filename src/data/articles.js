@@ -224,6 +224,115 @@ export const INSIGHTS = [
       },
     ],
   },
+  {
+    slug: 'commercial-promo-interview-brand-film-what-video-do-you-need',
+    category: 'VIDEO PRODUCTION',
+    date: 'June 5, 2026',
+    isoDate: '2026-06-05',
+    readTime: '5 MIN READ',
+    title: 'Interviews, Promos, and Brand Films — What Kind of Video Your Business Actually Needs',
+    dek: 'Not every business needs the same type of video. The format should follow the goal, not the trend.',
+    image: '/insights/video-types.jpg',
+    meta: 'How to choose between commercial video production, promo videos, interviews, brand films and advertisements for your business — a practical guide to video formats.',
+    body: [
+      {
+        heading: 'Different goals need different formats.',
+        text: [
+          'Businesses often start the video conversation the same way: "We need a video." But the kind of video that launches a product is not the same as the kind that explains a service. The format that works for a TV commercial rarely works for a website hero. And the video that builds trust over time looks nothing like a quick social ad.',
+          'Before choosing a format, it helps to name the actual job the video is supposed to do. Is it supposed to introduce the business to someone who has never heard of it? Close a sale? Reassure someone who is already interested? Recruit talent? Explain a complicated offer?',
+        ],
+      },
+      {
+        heading: 'Promo videos — quick clarity, fast impression.',
+        text: [
+          'A promo video is built to communicate one clear idea in a short amount of time — typically 30 to 90 seconds. It works best when the goal is to introduce a service, announce something new, or give the market a quick reason to pay attention.',
+          'Promos are often cut to music, driven by strong visuals, and designed to be watched without sound in a social feed. They do not need to explain everything. They need to provoke enough interest to make someone click, scroll further, or start a conversation.',
+          'Good for: service launches, event announcements, social ads, homepage hero, trade show loops.',
+        ],
+      },
+      {
+        heading: 'Commercials — broadcast confidence.',
+        text: [
+          'A commercial is built to a higher production standard and designed for paid placement: TV, connected TV, YouTube pre-roll, cinema, or high-budget digital campaigns. The audience did not choose to watch it, so the first three seconds have to earn attention.',
+          'Commercial video production typically involves larger crews, precise lighting, art direction, professional audio, and a tighter edit. The visual language has to signal that the business belongs in a premium advertising environment — next to other serious brands.',
+          'Good for: TV and CTV campaigns, national or regional advertising, brand awareness at scale.',
+        ],
+      },
+      {
+        heading: 'Interviews and documentary-style — depth that builds trust.',
+        text: [
+          'Some of the most effective brand content is not trying to sell at all. An interview with the founder, a documentary-style look at the business, a conversation with the team, or a customer story can all build belief more effectively than a direct pitch.',
+          'This format works because it shows the business the way a person would actually experience it: through real people, real spaces, real voice. It signals confidence — the business is not afraid to slow down and let the viewer decide.',
+          'Good for: about pages, brand films, recruiting, investor presentations, client trust-building, service explanations.',
+        ],
+      },
+      {
+        heading: 'Brand films — the long game.',
+        text: [
+          'A brand film is a longer piece — often 2 to 5 minutes — designed to define how the business should be perceived. It is not about any one product or offer. It is about the standard, the philosophy, the people, and the feeling of what it is like to work with the business.',
+          'Brand films are strategic assets. They sit on the homepage, get shown in sales meetings, and get referenced by new customers who say "I watched your film and understood exactly what you do." They are not built for today. They are built to define the next two to three years.',
+          'Good for: homepage hero, about page, sales conversations, pitch decks, brand repositioning.',
+        ],
+      },
+      {
+        heading: 'Most businesses need more than one.',
+        text: [
+          'A single video format rarely covers every goal. A law firm might need a brand film for the website and a series of short promos for social. A medspa might need interviews with real patients and quick treatment commercials for ad campaigns. A manufacturing company might need a documentary-style brand film and product-specific promos for trade shows.',
+          'The best approach is not to ask "what video should we make?" but "what perception are we trying to build, and for whom?" The format follows the answer.',
+        ],
+      },
+    ],
+  },
+  {
+    slug: 'rebrand-vs-refresh-how-to-know-what-your-brand-needs',
+    category: 'BRAND PERCEPTION',
+    date: 'June 5, 2026',
+    isoDate: '2026-06-05',
+    readTime: '5 MIN READ',
+    title: 'Rebrand vs Refresh — How to Know What Your Brand Actually Needs',
+    dek: 'Not every brand that feels off needs a full rebrand. Sometimes the foundation is solid — it just needs a clearer surface.',
+    image: '/insights/rebrand-refresh.jpg',
+    meta: 'When to do a full rebrand versus a visual refresh: how to assess your brand, understand what needs to change, and avoid overcomplicating a positioning that mostly works.',
+    body: [
+      {
+        heading: 'Most brands do not need to start over.',
+        text: [
+          'A business can feel "off-brand" without needing a full rebrand. The name is fine. The reputation is real. The service is strong. But the visual surface — the website, the photography, the logo, the typography, the color system, the video — makes the business feel smaller or less intentional than it actually is.',
+          'Before deciding what kind of change to make, it is useful to separate two very different things: a rebrand that redefines who the business is, and a refresh that upgrades how the business is seen.',
+        ],
+      },
+      {
+        heading: 'Rebrand: when the story has to change.',
+        text: [
+          'A full rebrand is appropriate when the business has outgrown its identity. The name no longer fits the offer. The positioning is unclear or wrong for the current market. The audience has shifted significantly. Or the existing brand carries baggage that cannot be repaired with better visuals.',
+          'A rebrand touches strategy first — positioning, messaging, audience definition — and visuals second. It is a bigger investment. It takes longer. And it is worth doing when the foundation has shifted.',
+          'Signs you might need a rebrand: the name confuses people, the offer has changed completely, the market position is wrong, the brand was never intentionally designed in the first place.',
+        ],
+      },
+      {
+        heading: 'Refresh: when the foundation is solid but the surface is behind.',
+        text: [
+          'A visual refresh keeps the core identity intact — name, positioning, reputation — and upgrades the surface. Better photography. A clearer website. Stronger typography. A video that actually represents the business. Colors and imagery that feel current and intentional rather than borrowed from a template.',
+          'This is the right move when the business works but the visual presence does not reflect it. The brand has substance. The substance just is not visible yet.',
+          'Signs a refresh is enough: clients are happy once they experience the service, the business is successful but visually looks smaller than competitors, the brand feels dated or template-driven, the work speaks for itself but the website and content do not.',
+        ],
+      },
+      {
+        heading: 'The cost of guessing wrong.',
+        text: [
+          'Overdoing it — launching a full rebrand when the business just needs a better website, a strong film and clearer imagery — wastes time, creates internal confusion, and can alienate existing customers who already trust the business.',
+          'Underdoing it — refreshing the logo when the positioning is broken — spends money on visuals that will not fix the real problem. The business looks nicer but still feels unclear.',
+        ],
+      },
+      {
+        heading: 'How to decide.',
+        text: [
+          'Start with a simple audit. If you changed nothing except the video, the website and the photography, would the business feel different enough? If yes, you probably need a refresh, not a rebrand.',
+          'If the answer is no — if the problem is deeper than the surface — then a rebrand may be worth the investment. But most businesses overestimate how much needs to change. A strong visual upgrade, done with taste and restraint, often does more for the business than a full repositioning.',
+        ],
+      },
+    ],
+  },
 ];
 
 export const insightBySlug = Object.fromEntries(INSIGHTS.map(a => [a.slug, a]));
