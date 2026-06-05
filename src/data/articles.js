@@ -477,6 +477,102 @@ export const INSIGHTS = [
       },
     ],
   },
+  {
+    slug: 'why-testimonial-videos-convert-better-than-any-website-for-plastic-surgeons',
+    category: 'WEBSITE',
+    date: 'June 6, 2026',
+    isoDate: '2026-06-06',
+    readTime: '5 MIN READ',
+    title: 'Why Testimonial Videos Convert Better Than Any Website for Plastic Surgeons',
+    dek: 'A prospective patient can read a hundred reviews. But watching a real patient tell their story on camera does what text never can — it makes the result feel real.',
+    image: '/insights/testimonial-plastic-surgery.jpg',
+    meta: 'Why testimonial videos are the most effective way for plastic surgeons and cosmetic surgery practices to convert prospective patients into booked consultations.',
+    body: [
+      {
+        heading: 'Text reviews are not enough anymore.',
+        text: [
+          'Every plastic surgery practice has before-and-after photos. Every practice has Google reviews. Every practice can list their credentials and their years of experience. This is the baseline. It is no longer what makes a practice stand out.',
+          'A prospective patient considering an elective cosmetic procedure — a facelift, a rhinoplasty, a body contouring treatment — is making an emotional decision with real stakes. They are not just buying a service. They are trusting someone to change how they look. That level of trust is not built by a five-star text review.',
+        ],
+      },
+      {
+        heading: 'A testimonial video makes the result real.',
+        text: [
+          'When a real patient sits in front of a camera and tells their story — why they chose this surgeon, what the experience was like, how they feel now — the impact is fundamentally different from reading the same words on a screen. The viewer sees the emotion. They hear the voice. They watch the confidence. They see the actual result, not a staged photo.',
+          'This kind of content does what a website gallery cannot: it makes the outcome feel real, human, and attainable. A prospective patient watching a testimonial film is not evaluating the practice. They are imagining their own result.',
+        ],
+      },
+      {
+        heading: 'Video builds trust before the consultation.',
+        text: [
+          'By the time a patient books a consultation with a plastic surgeon, they have usually spent weeks researching. They have looked at multiple practices. They have compared results. They have read reviews. The consultation is the final step, not the first one.',
+          'A strong testimonial film — or better yet, a series of them — shortens that research phase. It answers the unspoken questions: Is this surgeon as good as their photos suggest? Will I feel comfortable? Will the result look natural? What is the actual patient experience like?',
+        ],
+      },
+      {
+        heading: 'How-it-works films reduce anxiety.',
+        text: [
+          'A cosmetic procedure is intimidating. Patients are nervous. A short how-it-works film — the surgeon explaining the process calmly, walking through the timeline, showing the actual facility — reduces that anxiety before the first appointment. The patient arrives more informed, more relaxed, and more ready to move forward.',
+          'Practices that invest in these films see shorter sales cycles. The patient has already done the emotional work of deciding. The consultation becomes about confirming the decision rather than making it from scratch.',
+        ],
+      },
+      {
+        heading: 'The practice that shows real people wins.',
+        text: [
+          'In a market where every plastic surgery practice has a website and every website has a gallery, the practice that shows real patients telling real stories on camera is the one that stands out. It looks more established. It feels more trustworthy. It commands higher prices.',
+          'Testimonial and how-it-works videos are not marketing expenses. They are the most effective conversion tool a cosmetic surgery practice can invest in.',
+        ],
+      },
+    ],
+  },
+  {
+    slug: 'how-a-brand-film-helps-wellness-anti-aging-clinics-attract-premium-clients',
+    category: 'VISUAL STRATEGY',
+    date: 'June 6, 2026',
+    isoDate: '2026-06-06',
+    readTime: '5 MIN READ',
+    title: 'How a Brand Film Helps Wellness and Anti-Aging Clinics Attract Premium Clients',
+    dek: 'Wellness and anti-aging clinics sell results that take time. A brand film shows prospective clients what the experience actually feels like — before they commit.',
+    image: '/insights/wellness-brand-film.jpg',
+    meta: 'How brand films and testimonial videos help wellness and anti-aging clinics build trust, attract premium clients, and stand out in a fast-growing market.',
+    body: [
+      {
+        heading: 'Results take time. Trust has to come first.',
+        text: [
+          'A wellness or anti-aging clinic does not sell a quick fix. Clients invest in treatments, memberships, and regimens that take weeks or months to show results — IV therapy, hormone optimization, regenerative medicine, longevity programs, medical weight loss, aesthetic injections. The outcome is not immediate, so the client has to trust the clinic before they see any change.',
+          'A website with a list of services and stock photos of serene spa rooms does not build that trust. It looks like every other clinic in the market.',
+        ],
+      },
+      {
+        heading: 'A brand film shows what a website cannot.',
+        text: [
+          'A brand film does something no website page can do. It shows the actual space. It introduces the actual medical team — the doctor, the nurse practitioner, the wellness coach — speaking in their own voices. It walks the viewer through a treatment experience. It communicates the philosophy and the standard of care.',
+          'For a prospective client considering a $5,000 annual membership or a multi-session treatment plan, seeing the real clinic and hearing the real team is often the difference between booking and continuing to browse.',
+        ],
+      },
+      {
+        heading: 'Testimonials from real clients close the gap.',
+        text: [
+          'Results in wellness and anti-aging are personal. A testimonial video where a real client describes how they felt before treatment, what the experience was like, and how they feel now — with more energy, better skin, improved confidence — is far more convincing than a text quote on a website.',
+          'These films give prospective clients permission to believe the results are real. They show transformation as a human experience, not a marketing claim.',
+        ],
+      },
+      {
+        heading: 'The clinic that looks premium gets premium clients.',
+        text: [
+          'The anti-aging and wellness market is growing fast. New clinics open every month. The patients who can afford premium memberships and multi-session treatment plans are comparing options. The clinic with a film that looks intentional, calm, and professional will win those comparisons.',
+          'A strong visual presence — a brand film, testimonial videos, content that shows the real people and real results — filters the client base. It attracts patients who value quality and are willing to pay for it.',
+        ],
+      },
+      {
+        heading: 'One film can work across every surface.',
+        text: [
+          'A well-produced brand film is not just for the website. It can be used in social media ads, in the consultation room, at events, in email campaigns, and in paid digital advertising. It becomes the centerpiece of the entire marketing system.',
+          'For a wellness or anti-aging clinic that wants to attract a higher tier of client, a brand film is not an expense. It is the fastest way to show the market what kind of clinic this is.',
+        ],
+      },
+    ],
+  },
 ];
 
 export const insightBySlug = Object.fromEntries(INSIGHTS.map(a => [a.slug, a]));
