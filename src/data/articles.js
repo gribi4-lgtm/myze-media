@@ -333,6 +333,54 @@ export const INSIGHTS = [
       },
     ],
   },
+  {
+    slug: 'why-medical-practices-need-better-visual-content',
+    category: 'INDUSTRY',
+    date: 'June 5, 2026',
+    isoDate: '2026-06-05',
+    readTime: '5 MIN READ',
+    title: 'Why Medical Practices Need Better Visual Content',
+    dek: 'Patients judge a medical practice before they walk through the door. The website and video often decide whether they book the appointment.',
+    image: '/insights/medical-practices.jpg',
+    meta: 'Why medical practices, medspas, dental and cosmetic clinics need stronger visual content — video, photography and website — to build patient trust and command premium pricing.',
+    body: [
+      {
+        heading: 'The waiting room starts online.',
+        text: [
+          'A patient looking for a medspa, cosmetic dentist, dermatologist or wellness clinic does not start with a phone call anymore. They start with a search. They click the website. They scroll the social feed. They look for proof that this practice is clean, professional, and worth the price they are about to pay.',
+          'If the website looks like a template and the only videos are grainy phone clips, the practice is already losing patients to competitors who invested in looking more established.',
+        ],
+      },
+      {
+        heading: 'Medical decisions are trust decisions.',
+        text: [
+          'Choosing a doctor or a clinic is not like buying a product. It is personal. It involves health, appearance, and vulnerability. The patient needs to feel safe before they feel anything else.',
+          'Strong visual content — a clean, editorial website, a short brand film that shows the actual practice and the real team, real patient photography (not stock), clear before-and-after documentation — all of this reduces uncertainty. It makes the practice feel real, established, and worth trusting with something important.',
+        ],
+      },
+      {
+        heading: 'The market is getting more competitive.',
+        text: [
+          'Medspas, cosmetic dental practices, dermatology clinics and wellness centers are opening faster than ever. In most markets, patients have dozens of options within a 20-minute drive. The practices that win are not always the ones with the best clinical outcomes. They are the ones that look the most trustworthy online.',
+          'A practice with a strong visual presence — a film that shows the space and the team, a website that feels editorial rather than templated, photography that looks intentional — signals a level of care that patients associate with better outcomes.',
+        ],
+      },
+      {
+        heading: 'Video does what a website alone cannot.',
+        text: [
+          'A website can tell a patient the practice is professional. A film can make them feel it. Seeing the actual treatment room, hearing the doctor speak, watching a procedure explained calmly and clearly — video builds a kind of confidence that text and photos cannot match.',
+          'For practices offering cosmetic or elective procedures, this is especially important. The patient is choosing to spend money on something they want, not something they urgently need. The decision is emotional. Video is the fastest way to earn emotional trust.',
+        ],
+      },
+      {
+        heading: 'Looking premium attracts premium patients.',
+        text: [
+          'Practices that invest in better visual content tend to attract a different kind of patient — one who is less price-sensitive, more loyal, and more likely to refer. The visual surface of the practice acts as a filter. It tells the market what kind of experience to expect.',
+          'This does not mean every medical practice needs a Hollywood production. It means the website, the photography, the video and the brand should feel as considered as the clinical work. When they do, the practice stops competing on price and starts competing on perceived value.',
+        ],
+      },
+    ],
+  },
 ];
 
 export const insightBySlug = Object.fromEntries(INSIGHTS.map(a => [a.slug, a]));
