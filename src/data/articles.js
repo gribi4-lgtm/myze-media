@@ -381,6 +381,102 @@ export const INSIGHTS = [
       },
     ],
   },
+  {
+    slug: 'why-cosmetic-dentists-need-a-website-that-feels-as-premium-as-their-work',
+    category: 'CONTENT',
+    date: 'June 6, 2026',
+    isoDate: '2026-06-06',
+    readTime: '5 MIN READ',
+    title: 'Why Cosmetic Dentists Need a Website That Feels as Premium as Their Work',
+    dek: 'A cosmetic dentist charges premium prices. If the website looks like a generic dental template, patients will question the value before they ever sit in the chair.',
+    image: '/insights/cosmetic-dentist-website.jpg',
+    meta: 'Why cosmetic dentists need a premium website and brand film to attract high-value patients, build trust before the consultation, and stop competing on price.',
+    body: [
+      {
+        heading: 'The chair is not where the decision happens.',
+        text: [
+          'A patient considering veneers, full-mouth restoration, or a smile makeover does not start by booking a consultation. They start by looking at the practice online. They visit the website. They check the Instagram. They look for proof that this dentist can deliver the result they are imagining.',
+          'If the website looks like it was built from a dental template — clip-art smiles, clinical blue headers, six services crammed into a grid — the practice is already losing patients to competitors whose online presence matches the price of the work.',
+        ],
+      },
+      {
+        heading: 'Cosmetic dentistry is a visual decision.',
+        text: [
+          'A patient choosing a cosmetic dentist is not making a medical decision. They are making an aesthetic one. They are choosing someone to change how they look. That decision is driven by trust, taste, and perceived skill — all of which are communicated visually before a single word is spoken.',
+          'A strong website with real before-and-after photography, an editorial layout, a short brand film showing the practice and the dentist, and a tone that feels calm and confident — this combination does more to build trust than any list of credentials.',
+        ],
+      },
+      {
+        heading: 'The template is costing you patients.',
+        text: [
+          'Most cosmetic dentists use the same website templates as general family practices. The same layouts. The same stock photos. The same blue and white color scheme. The same language about "gentle care" and "state-of-the-art technology."',
+          'This creates a perception problem. The dentist is offering a $15,000 smile makeover, but the website looks like a $99 cleaning special. The visual disconnect makes patients question the value. They may not say it out loud, but they feel it.',
+        ],
+      },
+      {
+        heading: 'A brand film changes the consultation.',
+        text: [
+          'By the time a patient walks into a cosmetic dental practice, they should already feel like they know the dentist. A short brand film — the actual practice, the actual dentist, the actual treatment rooms, a calm walk-through of a procedure — builds familiarity before the first handshake.',
+          'Patients who arrive having watched a film ask better questions. They are less defensive about price. They have already decided the practice is worth serious consideration. The consultation becomes about confirming the decision, not making it from scratch.',
+        ],
+      },
+      {
+        heading: 'Looking premium attracts premium patients.',
+        text: [
+          'Practices that invest in better visual content attract patients who care about quality over price. These patients are more loyal, more likely to accept full treatment plans, and more likely to refer. The website and video do not just describe the practice. They filter the patient base.',
+          'For a cosmetic dentist, the visual presence is not an expense. It is the front door to every high-value patient relationship.',
+        ],
+      },
+    ],
+  },
+  {
+    slug: 'how-ai-is-changing-the-way-law-firms-build-trust-online',
+    category: 'AI SYSTEMS',
+    date: 'June 6, 2026',
+    isoDate: '2026-06-06',
+    readTime: '5 MIN READ',
+    title: 'How AI Is Changing the Way Law Firms Build Trust Online',
+    dek: 'A law firm that looks indistinguishable from its competitors online is already losing. AI-assisted content and visual systems are changing what it means to look established.',
+    image: '/insights/law-firm-ai-trust.jpg',
+    meta: 'How AI-assisted visual and content systems help trial law firms build a stronger, more trustworthy online presence and attract higher-value clients.',
+    body: [
+      {
+        heading: 'Law firms compete on trust. Trust is visual.',
+        text: [
+          'A potential client searching for a trial lawyer or personal injury attorney is not comparing credentials first. They are comparing impressions. Which firm looks more established? Which one feels more serious? Which website makes them think "these lawyers win"?',
+          'The visual presence of a law firm — the website, the photography, the video, the tone — answers those questions before the client reads a single case result. Firms that look the part get the call. Firms that look like everyone else get compared on price.',
+        ],
+      },
+      {
+        heading: 'Most law firm websites look the same.',
+        text: [
+          'The typical law firm website follows a formula: a gavel or courthouse photo, a wall of text about practice areas, attorney headshots against a gray backdrop, a contact form. It communicates competence but not confidence. It says "we are lawyers" but not "we are the lawyers you want."',
+          'This sameness is a problem. When every firm in the market uses the same visual language, none of them stand out. The client defaults to whichever name they heard most recently, or whichever one quoted the lowest fee.',
+        ],
+      },
+      {
+        heading: 'AI helps firms look more intentional.',
+        text: [
+          'AI-assisted visual and content systems can help a law firm define a clearer, more consistent brand presence. Not by replacing the lawyer with a chatbot — but by making the firm look more controlled across every surface: the website, the video, the social content, the email updates.',
+          'A firm that uses AI to maintain a consistent tone, a deliberate image style, and a clear visual hierarchy looks more established than a firm that posts whatever the marketing intern had time for. AI does not replace judgment. It protects the standard across touchpoints.',
+        ],
+      },
+      {
+        heading: 'Video builds the trust that text cannot.',
+        text: [
+          'A law firm website can list verdicts and case results. A film can show the lawyer speaking about their work — calm, direct, credible. It can show the actual office, the actual team, the actual presence of the firm. It signals stability.',
+          'For trial lawyers and personal injury attorneys, this matters. Clients are making one of the most stressful decisions of their lives. They need to feel the lawyer is serious, experienced, and in control. Video communicates that faster than any headline.',
+        ],
+      },
+      {
+        heading: 'The firm that looks different gets the call.',
+        text: [
+          'In a crowded legal market, the visual side of the firm is not decoration. It is a competitive advantage. The firm that invests in a better website, a stronger film, and a consistent visual system stops competing on price and starts competing on perceived authority.',
+          'When a potential client opens five law firm websites in five tabs, the one that looks the most serious, the most established, and the most human will get the callback.',
+        ],
+      },
+    ],
+  },
 ];
 
 export const insightBySlug = Object.fromEntries(INSIGHTS.map(a => [a.slug, a]));
