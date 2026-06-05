@@ -1,7 +1,10 @@
 {
   "rewrites": [
-    { "source": "/((?!api/).*)", "destination": "/index.html" }
+    { "source": "/", "destination": "/index.html" },
+    { "source": "/insights", "destination": "/index.html" },
+    { "source": "/insights/(.*)", "destination": "/index.html" }
   ],
+  "cleanUrls": true,
   "redirects": [
     { "source": "/:path*", "has": [{ "type": "host", "value": "www.myzemedia.com" }], "destination": "https://myzemedia.com/:path*", "permanent": true }
   ],
