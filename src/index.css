@@ -1059,19 +1059,29 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
   border-bottom: 1px solid rgba(230,235,221,0.08);
 }
 
+/* Safari needs both standard and -webkit- keyframes */
+@-webkit-keyframes ticker-scroll {
+  from { -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
+  to   { -webkit-transform: translate3d(-50%, 0, 0); transform: translate3d(-50%, 0, 0); }
+}
+
 @keyframes ticker-scroll {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+  from { -webkit-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
+  to   { -webkit-transform: translate3d(-50%, 0, 0); transform: translate3d(-50%, 0, 0); }
 }
 
 .ticker-track {
   display: flex;
   width: max-content;
+  -webkit-animation: ticker-scroll 38s linear infinite;
   animation: ticker-scroll 38s linear infinite;
-  will-change: transform;
+  /* NO will-change — iOS Safari destroys GPU layers unpredictably, freezing the ticker */
+  -webkit-transform: translateZ(0); /* subtle GPU promote without layer isolation */
+  transform: translateZ(0);
 }
 
 .ticker:hover .ticker-track {
+  -webkit-animation-play-state: paused;
   animation-play-state: paused;
 }
 
@@ -1099,7 +1109,10 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ticker-track { animation: none; }
+  .ticker-track {
+    -webkit-animation: none;
+    animation: none;
+  }
 }
 
 /* ── WORK ACCORDION VISIBILITY ──────────── */
@@ -1473,7 +1486,10 @@ button { cursor: pointer; background: none; border: none; color: inherit; font: 
   /* ── TICKER (mobile) ── */
   .ticker { height: 72px; }
   .ticker-item { font-size: 12px; padding: 0 14px; gap: 14px; }
-  .ticker-track { animation: ticker-scroll 38s linear infinite; }
+		.ticker-track {
+			-webkit-animation: ticker-scroll 38s linear infinite;
+			animation: ticker-scroll 38s linear infinite;
+		}
 
   /* ── HOW IT WORKS (mobile) ── */
   .process-section {
