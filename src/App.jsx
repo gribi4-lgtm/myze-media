@@ -6,7 +6,29 @@ function ScrollToTop() {
   useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
   return null;
 }
-import { motion, useReducedMotion } from 'framer-motion';
+
+/* subtle parallax — image shifts slightly on scroll, no jank */
+function ParallaxImage({ src, alt, className, loading = 'lazy' }) {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start end', 'end start'],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], ['-8%', '8%']);
+  const shouldReduceMotion = useReducedMotion();
+
+  return (
+    <motion.img
+      ref={ref}
+      src={src}
+      alt={alt}
+      className={className}
+      loading={loading}
+      style={shouldReduceMotion ? {} : { y }}
+    />
+  );
+}
+import { motion, useReducedMotion, useScroll, useTransform } from 'framer-motion';
 import { gsap } from 'gsap';
 import AnimatedBackground from './AnimatedBackground';
 import Insights from './pages/Insights';
@@ -560,17 +582,17 @@ export default function App() {
                     <div className="case-compare">
                       <figure className="case-frame">
                         <span className="case-frame-label">BEFORE</span>
-                        <img src={c.before} alt={`${c.client} before`} loading="lazy" />
+                        <ParallaxImage src={c.before} alt={`${c.client} before`} />
                       </figure>
                       <figure className="case-frame case-frame--after">
                         <span className="case-frame-label">AFTER</span>
-                        <img src={c.after} alt={`${c.client} after`} loading="lazy" />
+                        <ParallaxImage src={c.after} alt={`${c.client} after`} />
                       </figure>
                     </div>
                   ) : (
                     <figure className="case-frame case-frame--solo">
                       <span className="case-frame-label">PROPOSED DIRECTION</span>
-                      <img src={c.after} alt={c.client} loading="lazy" />
+                      <ParallaxImage src={c.after} alt={c.client} />
                     </figure>
                   )}
                 </div>
